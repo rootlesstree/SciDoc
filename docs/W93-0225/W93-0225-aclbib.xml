@@ -1,0 +1,16 @@
+<div type="bib">
+    <head>References</head>
+    <listBibl>
+        <bibl xml:id="Bl1">Grosz, B., 1978. Focusing in Dialog, Tinlap-2: Theoretical Issues in Natural Language Processing 7: 96-103. New York: Association for Computing Machinery and Association of Computational Linguistics.</bibl>
+        <bibl xml:id="Bl2">Grosz, B. J. and Sidner, C. L., 1986. Attention, intention, and the structure of discourse. Computational Linguistics 12(3):175-204.</bibl>
+        <bibl xml:id="Bl3">Hovy, E. and E. Maier, 1992. Parsimonious or Profligate: How Many and Which Discourse Structure Relations. ms. Submitted for publication.</bibl>
+        <bibl xml:id="Bl4">Mann, W. C. and Thompson, S. A., 1988. Rhetorical Structure Theory: Towards a functional theory of text organization. TEXT 8(3):243-281.</bibl>
+        <bibl xml:id="Bl5">Moore, J. D. and Pollack, M. E., 1992. A problem for RST: The need for multi-level discourse analysis. Computational Linguistics 18(4).</bibl>
+        <bibl xml:id="Bl6">Moore, J. D. and Paris, C. L., 1992. Planning Text For Advisory Dialogues: Capturing Intentional and Rhetorical Information. University of Pittsburgh, Department of Computer Science Technical Report Number 92-22. Submitted for publication.</bibl>
+        <bibl xml:id="Bl7">Moser, M., 1992. Analysis of conversational arguments. Presentation to Washington Linguistics Society, Washington, DC, November 12. Working paper.</bibl>
+        <bibl xml:id="Bl8">Redeker, G., 1992. Coherence and Structure in Text and Discourse. ins. Under review.</bibl>
+        <bibl xml:id="Bl9">Redeker, G., 1990. Ideational and Pragmatic Markers of Discourse Structure. Journal of Pragmatics 14: 367-81.</bibl>
+        <bibl xml:id="Bl10">Sanders, T. J. M., W. P. M. S. Spooren and L. G. M. Noordman, 1992. Towards a Taxonomy of Coherence Relations. Discourse Processes 15: 1-35.</bibl>
+        <bibl xml:id="Bl11">Schiffrin, D., 1987. Discourse Markers. Cambridge: Cambridge .University Press.</bibl>
+    </listBibl>
+</div>

@@ -1,0 +1,43 @@
+<algorithm name="SVM HeaderParse" version="0.2">
+<title>Towards Event Extraction from Full Texts on Infectious Diseases</title>
+<authors>
+<author>
+<name>Sampo Pyysalo</name>
+<affiliation>§National Centre for Text Mining, University of Manchester, Manchester</affiliation>
+<address>UK</address>
+<email>okap@is.s.u-tokyo.ac.jp</email>
+</author>
+<author>
+<name>Tomoko Ohta</name>
+<affiliation>§National Centre for Text Mining, University of Manchester, Manchester</affiliation>
+<address>UK</address>
+<email>tsujii@is.s.u-tokyo.ac.jp</email>
+</author>
+<author>
+<name>Han-cheol Cho</name>
+<affiliation>§National Centre for Text Mining, University of Manchester, Manchester</affiliation>
+<address>UK</address>
+<email>priancho@is.s.u-tokyo.ac.jp</email>
+</author>
+<author>
+<name>Dan Sullivan</name>
+<email>dsulliva@vbi.vt.edu</email>
+</author>
+<author>
+<name>Chunhong Mao</name>
+<email>cmao@vbi.vt.edu</email>
+</author>
+<author>
+<name>Bruno Sobral</name>
+<email>sobral@vbi.vt.edu</email>
+</author>
+<author>
+<name>Sophia Ananiadou</name>
+<affiliation>§National Centre for Text Mining, University of Manchester, Manchester</affiliation>
+<address>UK</address>
+<email>smp@is.s.u-tokyo.ac.jp</email>
+</author>
+</authors>
+<abstract>Event extraction approaches based on ex-pressive structured representations of ex-tracted information have been a significant focus of research in recent biomedical nat-ural language processing studies. How-ever, event extraction efforts have so far been limited to publication abstracts, with most studies further considering only the specific transcription factor-related subdo-main of molecular biology of the GENIA corpus. To establish the broader relevance of the event extraction approach and pro-posed methods, it is necessary to expand on these constraints. In this study, we pro-pose an adaptation of the event extraction approach to a subdomain related to infec-tious diseases and present analysis and ini-tial experiments on the feasibility of event extraction from domain full text publica-tions. 1</abstract>
+<validHeader>1</validHeader>
+</algorithm>

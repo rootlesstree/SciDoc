@@ -1,0 +1,19 @@
+<ROUGE-EVAL version="1.55">
+<EVAL ID="P99-1026">
+
+
+<MODEL-ROOT> /home/pitodogo/Desktop/SciDoc/src/evaluation/models </MODEL-ROOT>
+<PEER-ROOT>  /home/pitodogo/Desktop/SciDoc/src/evaluation/systems </PEER-ROOT>
+<INPUT-FORMAT TYPE="SEE">  </INPUT-FORMAT>
+
+<PEERS> - list of system generated summaries for the same task 
+<P ID="1">P99-1026.html</P> 
+</PEERS>
+
+<MODELS> 
+<M ID="0">0.html</M> --- reference summary 1 for this task is in 0.html
+<M ID="1">1.html</M> --- reference summary 2 for this task is in 1.html
+</MODELS>
+
+</EVAL>
+</ROUGE-EVAL>

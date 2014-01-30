@@ -1,0 +1,18 @@
+<algorithm name="SVM HeaderParse" version="0.2">
+<title>Depa.rtment of (',Omlmter Science, and</title>
+<authors>
+<author>
+<name>Meg~n Moser Johauna</name>
+<affiliation>University of Pittsl)urgh; Learning Research and Development Center</affiliation>
+<address>Pittsburgh, PA 15260</address>
+</author>
+<author>
+<name>D. Moore</name>
+<affiliation>University of Pittsl)urgh; Learning Research and Development Center</affiliation>
+<address>Pittsburgh, PA 15260</address>
+<email>j'moolr'@c.~ ,  pitl . rd'u</email>
+</author>
+</authors>
+<abstract>Ill this paper, we present the theoretica.1 foun(la.tions which underlie our current research. We emphasize a methodologicaJ point: connections among proposed theories of discourse structure must be carefiflly explicated. By making these connections, we ca.n (letermilm whether theories ma.ke equiva.lent claims, consistent 1)ut unrelated cla.ims or differ iu substa.ntive issues. A synthesis of current theories is required, a descriptive fl'a.mework which assumes the common ground and which highlights issues to be resolved. Further, there a.re two distinct:lh.ctors to guide us ill developing such a synthesis. First, the descriptive fl'a.mework nmst facilita.te the fi:)rmula.tion of controversi;d issues in terms of empirical predictions. Then, the synthesis ca.n I)e developed a.nd refined by linguistic studies. Second, the fr~uuework must be a.pplicaJ)le to computer processing of na.tural language, both understa.nding and gener~tion. Our particula.r interest is the computer generation of explanations in a. tutoring system. Idea.lly, the fi'a.mework will provide a. me~ns through which the results of discourse a.nalysis and computatiorml linguistics ca.n inform one another. In its broadest outline, the goaJ is to uu(lersta.ad the precise i~H:era.ction between fea.tures of tbrm, meaning a.nd ffim(:tion ill the crea.tioll of discourse coherem:e. Wha.t kiuld o1 ' tbrm, mea.ning ~tnt(i flmction links occur \])etween uttera.Jlces a.nd how a.re these thre~, ki,l(Is of links recognized? In</abstract>
+<validHeader>1</validHeader>
+</algorithm>

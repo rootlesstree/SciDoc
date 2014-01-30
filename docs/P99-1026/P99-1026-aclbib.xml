@@ -1,0 +1,33 @@
+<div type="bib">
+    <head>References</head>
+    <listBibl>
+        <bibl xml:id="Bl1">Steven Abney. 1996. Partial parsing via finite-state cascades. In Proceedings of the ESSLLI '96 Robust Parsing Workshop, pages 8-15.</bibl>
+        <bibl xml:id="Bl2">James F. Allen, Bradford W. Miller, Eric K. Ringger, and Teresa Sikorski. 1996. A robust system for natural spoken dialogue. In Proceedings of ACL-96, pages 62-70.</bibl>
+        <bibl xml:id="Bl3">Harald Aust, Martin Oerder, Frank Seide, and Volker Steinbiss. 1995. The Philips automatic train timetable information system. Speech Communication, 17:249-262.</bibl>
+        <bibl xml:id="Bl4">Mauro Cettolo and Daniele Falavigna. 1998. Automatic detection of semantic boundaries based on acoustic and lexical knowledge. In Proceedings of ICSLP-98, pages 1551-1554.</bibl>
+        <bibl xml:id="Bl5">Paul R. Cohen. 1995. Empirical Methods for Artificial Intelligence. MIT Press.</bibl>
+        <bibl xml:id="Bl6">Mark G. Core and Lenhart K. Schubert. 1997. Handling speech repairs and other disruptions through parser metarules. In Working Notes of AAAI Spring Symposium on Computational Models for Mixed Initiative Interaction, pages 23-29.</bibl>
+        <bibl xml:id="Bl7">Giinther Gorz, Marcus Kesseler, Thrg Spilker, and Hans Weber. 1996. Research on architectures for integrated speech/language systems in Verbmobil. In Proceedings of COLING-96, pages 484-489.</bibl>
+        <bibl xml:id="Bl8">Kaichiro Hatazaki, Farzad Ehsani, Jun Noguchi, and Takao Watanabe. 1994. Speech dialogue system based on simultaneous understanding. Speech Communication, 15:323-330.</bibl>
+        <bibl xml:id="Bl9">Peter A. Heeman and James F. Allen. 1997. Intonational boundaries, speech repairs, and discourse markers: Modeling spoken dialog. In Proceedings of ACL/EACL-97.</bibl>
+        <bibl xml:id="Bl10">Jun-ichi Hirasawa, Noboru Miyazaki, Mikio Nakano, and Takeshi Kawabata. 1998. Implementation of coordinative nodding behavior on spoken dialogue systems. In Proceedings of ICSLP-98, pages 2347-2350.</bibl>
+        <bibl xml:id="Bl11">Tatsuya Kawahara, Chin-Hui Lee, and Biing-Hwang Juang. 1996. Key-phrase detection and verification for flexible speech understanding. In Proceedings of ICSLP-96, pages 861-864.</bibl>
+        <bibl xml:id="Bl12">Alon Lavie, Donna Gates, Noah Coccaro, and Lori Levin. 1997. Input segmentation of spontaneous speech in JANUS: A speech-to-speech translation system. In Elisabeth Maier, Marion Mast, and Susann LuperFoy, editors, Dialogue Processing in Spoken Language Systems, pages 86-99. Springer-Verlag.</bibl>
+        <bibl xml:id="Bl13">Alon Lavie. 1996. GLR* : A Robust Grammar-Focused Parser for Spontaneously Spoken Language. Ph.D. thesis, School of Computer Science, Carnegie Mellon University.</bibl>
+        <bibl xml:id="Bl14">David D. McDonald. 1992. An efficient chart-based algorithm for partial-parsing of unrestricted texts. In Proceedings of the Third Conference on Applied Natural Language Processing, pages 193-200.</bibl>
+        <bibl xml:id="Bl15">Yoshiaki Noda, Yoshikazu Yamaguchi, Tomokazu Yamada, Akihiro Imamura, Satoshi Takahashi, Tomoko Matsui, and Kiyoaki Aikawa. 1998. The development of speech recognition engine REX. In Proceedings of the 1998 IEICE General Conference D-14-9, page 220. (in Japanese).</bibl>
+        <bibl xml:id="Bl16">Jeremy Peckham. 1993. A new generation of spoken language systems: Results and lessons from the SUNDIAL project. In Proceedings of Eurospeech93, pages 33-40.</bibl>
+        <bibl xml:id="Bl17">Ganesh N. Ramaswamy and Jan Kleindienst. 1998. Automatic identification of command boundaries in a conversational natural language user interface. In Proceedings of ICSLP-98, pages 401-404.</bibl>
+        <bibl xml:id="Bl18">R. C. Rose. 1995. Keyword detection in conversational speech utterances using hidden Markov model based continuous speech recognition. Computer Speech and Language, 9:309-333.</bibl>
+        <bibl xml:id="Bl19">Marc Seligman, Junko Hosaka, and Harald Singer. 1997. &amp;quot;Pause units&amp;quot; and analysis of spontaneous Japanese dialogues: Preliminary studies. In Elisabeth Maier, Marion Mast, and Susann LuperFoy, editors, Dialogue Processing in Spoken Language Systems, pages 100-112. Springer-Verlag.</bibl>
+        <bibl xml:id="Bl20">Shigenobu Seto, Hiroshi Kanazawa, Hideaki Shinchi, and Yoichi Takebayashi. 1994. Spontaneous speech dialogue system TOSBURG-II and its evaluation. Speech Communication, 15:341-353.</bibl>
+        <bibl xml:id="Bl21">Golchan Tur, and Yu Lu. 1998. Automatic detection of sentence boundaries and disfluencies based on recognized words. In Proceedings of ICSLP-98, pages 2247-2250.</bibl>
+        <bibl xml:id="Bl22">Toshiyuki Takezawa and Tsuyoshi Morimoto. 1997. Dialogue speech recognition method using syntactic rules based on subtrees and preterminal bigrams. Systems and Computers in Japan, 28(5):22-32.</bibl>
+        <bibl xml:id="Bl23">David R. Traum and Peter A. Heeman. 1997. Utterance units in spoken dialogue. In Elisabeth Maier, Marion Mast, and Susann LuperFoy, editor's, Dialogue Processing in Spoken Language Systems, pages 125-140. Springer-Verlag.</bibl>
+        <bibl xml:id="Bl24">Marilyn A. Walker, Jeanne C. Fromer, and Shrikanth Narayanan. 1998. Learning optimal dialogue strategies: A case study of a spoken dialogue agent for email. In Proceedings of COLING-ACL'98.</bibl>
+        <bibl xml:id="Bl25">Michelle Q. Wang and Julia Hirschberg. 1992. Automatic classification of intonational phrase boundaries. Computer Speech and Language, 6:175-196.</bibl>
+        <bibl xml:id="Bl26">Karsten L. Worm. 1998. A model for robust processing of spontaneous speech by integrating viable fragments. In Proceedings of COLING-ACL'98, pages 1403-1407.</bibl>
+        <bibl xml:id="Bl27">Klaus Zechner and Alex Waibel. 1998. Using chunk based partial parsing of spontaneous speech in unrestricted domains for reducing word error rate in speech recognition. In Proceedings of COLING-ACL'98, pages 1453-1459.</bibl>
+        <bibl xml:id="Bl28">Victor Zue, Stephanie Seneff, Joseph Polifroni, Michael Phillips, Christine Pao, David Goodine, David Goddeau, and James Glass. 1994. PEGASUS: A spoken dialogue interface for on-line air travel planning. Speech Communication, 15:331-340.</bibl>
+    </listBibl>
+</div>

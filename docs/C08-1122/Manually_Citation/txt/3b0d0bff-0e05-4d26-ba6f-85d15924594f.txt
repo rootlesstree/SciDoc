@@ -1,0 +1,962 @@
+     Informativeness-based Keyword Extraction from Short Documents
+
+
+                  Mika Timonen , Timo Toivanen , Yue Teng , Chao Cheng and Liang He
+                                            1,3                         1                 2                       2        2
+
+                           1 VTT Technical Research Centre of Finland, PO Box 1000, 02044 Espoo, Finland
+   2East China Normal University, Institute of Computer Applications, No.500 Dongchuan Road, 200241 Shanghai, China
+                               3 Department of Computer Science, University of Helsinki, Helsinki, Finland
+
+
+
+
+Keywords:         Keyword Extraction, Machine Learning, Short Documents, Term Weighting, Text Mining.
+
+
+Abstract:         With the rise of user created content on the Internet, the focus of text mining has shifted. Twitter messages
+                  and product descriptions are examples of new corpora available for text mining. Keyword extraction, user
+                  modeling and text categorization are all areas that are focusing on utilizing this new data. However, as the
+                  documents within these corpora are considerably shorter than in the traditional cases, such as news articles,
+                  there are also new challenges. In this paper, we focus on keyword extraction from documents such as event and
+                  product descriptions, and movie plot lines that often hold 30 to 60 words. We propose a novel unsupervised
+                  keyword extraction approach called Informativeness-based Keyword Extraction (IKE) that uses clustering and
+                  three levels of word evaluation to address the challenges of short documents. We evaluate the performance
+                  of our approach by using manually tagged test sets and compare the results against other keyword extrac-
+                  tion methods, such as CollabRank, KeyGraph, Chi-squared, and TF-IDF. We also evaluate the precision and
+                  effectiveness of the extracted keywords for user modeling and recommendation and report the results of all
+                  approaches. In all of the experiments IKE out-performs the competition.
+
+
+
+
+1     INTRODUCTION                                                                 extraction uses the weights to find the most important
+                                                                                   words. Timonen (Timonen et al., 2011a; Timonen,
+As there are more and more user created content on                                 2012) identified differences between categorization of
+the Internet, short documents have become an impor-                                short and long documents. These differences are rele-
+tant corpus in several text mining areas. The most rel-                            vant with keyword extraction also. The most obvious
+evant sources of short documents currently are prod-                               difference comes from the number of words in each
+uct descriptions, Twitter messages, consumer feed-                                 document and in the whole corpus. This results in a
+back and blogs. In most cases, these documents have                                challenge identified by Timonen as TF=1 challenge;
+less than 100 words and contain only a few sentences.                              i.e., each word occurs only once in a document. Be-
+For example, Twitter messages contain at most 140                                  cause of this challenge, approaches that rely on the
+characters (around 20 words).                                                      difference between term frequency and document fre-
+    Keyword extraction, also known as keyphrase ex-                                quency become less effective (Timonen, 2012).
+traction , is an area of text mining that aims to iden-
+         1                                                                               The traditional keyword extraction approaches of-
+tify the most informative and important words and/or                               ten rely heavily on term frequency. For example,
+phrases, also called terms, of the document. It has                                Term Frequency - Inverse Document Frequency (TF-
+uses in several different domains, including text sum-                             IDF), KeyGraph from Ohsawa et al. (1998), and
+marization, text categorization, document tagging and                              a Chi-Squared based approach from Matsuo and
+recommendation systems.                                                            Ishizuka (2003) rely on word co-occurrence and word
+    The challenge with keyword extraction is similar                               frequencies. All of these studies have focused on
+with the challenge of feature weighting in text catego-                            longer documents such as news articles or scientific
+rization as both aim to assess the impact of the words                             articles. For example, the traditional test set of news
+                                                                                                                          2
+in the document. In text categorization the weights                                articles is the Reuters news archive which contains
+are used when training the classifier whereas keyword                              160 words per document on average.
+
+   1In this paper, we use the term keyword extraction to                               2 http://www.daviddlewis.com/resources/testcollections/
+refer both keywords and keyphrases                                                 reuters21578/
+
+
+
+
+                                                                                                                                          411
+      Timonen M., Toivanen T., Teng Y., Chen C. and He L. (2012).
+      Informativeness-based Keyword Extraction from Short Documents.
+      In Proceedings of the International Conference on Knowledge Discovery and Information Retrieval, pages 411-421
+      DOI: 10.5220/0004130704110421
+      Copyright  SciTePressc
+
+KDIR2012-InternationalConferenceonKnowledgeDiscoveryandInformationRetrieval
+
+
+
+
+    Challenge of extracting keywords from short doc-        words. In all of the experiments our approach out-
+uments is not a trivial one. The simplest approach          performed the competition.
+may be to extract all the words, or only all the nouns          This paper makes the following contributions: (1)
+from the document. However, this is rarely benefi-          a novel keyword extraction approach for short docu-
+cial as it results extracting words that are significantly  ments based on three level word analysis, (2) a novel
+less informative than others. In Section 4 of this pa-      approach for corpus level word informativeness as-
+per we show that these irrelevant words reduce sig-         sessment for short documents, and (3) a comprehen-
+nificantly the precision of user models and recom-          sive evaluation of keyword extraction approaches us-
+mendation. In addition, the reduction in time con-          ing short documents as the corpus.
+sumption in applications that use the extracted key-            This paper is organized as follows: in Section 2 we
+words is significant when there are less keywords.          discuss related approaches. In Section 3 we describe
+For example, when using an approach for domain              our approach. In Section 4 we perform experimental
+modeling and query expansion that maps each of the          evaluation and compare the results against other key-
+co-occurring keywords together, each additional key-        word extraction approaches. We conclude the paper
+word will greatly increase the time consumption (Ti-        in Section 5.
+monen et al., 2011b).
+    In this paper, we propose a novel unsupervised ap-
+proach for keyword extraction from short documents.
+                                                           2     RELATED WORK
+The aim of our work is to use the extracted keywords
+in user models and in a recommendation system. We
+                                                            Several authors have presented keyword extraction
+have based our work on CollabRank keyword ex-
+                                                            approaches in recent years. The methods often use
+traction approach by Wan and Xiao (2008), and fea-
+                                                            supervised learning. In these cases the idea is to use
+ture weighting in short documents by Timonen et al.
+                                                            a predefined seed set of documents as a training set
+(2011a). The idea is to assess the importance (infor-
+                                                            and learn the features for keywords. The training set
+mativeness) of each word of a document on three lev-
+                                                            is built by manually tagging the documents for key-
+els: corpus level, cluster level and document level. In
+                                                            words.
+corpus level analysis we want to find words that are
+                                                                One approach that uses supervised learning is
+informative when considering all the documents. To
+                                                            called Kea (Frank et al., 1999; Witten et al., 1999).
+find words that are informative in a smaller set, we
+                                                            It uses Naive Bayes learning with Term Frequency -
+cluster the documents and evaluate the informative-
+                                                            Inverse Document Frequency (TF-IDF) and normal-
+ness inside these clusters. The aim is to group similar
+                                                            ized term positions as the features. The approach
+documents together and find words that are common
+                                                            was further developed by Turney (2003) who included
+within the cluster and uncommon outside the cluster.
+                                                            keyphrase cohesion as a new feature. One of the lat-
+Finally, the informative words within the document
+                                                            est updates to Kea is done by Nguyen and Kan (2007)
+are extracted using the results of the two previous lev-
+                                                            who included linguistic information such as section
+els. We call this approach Informativeness-based Key-
+                                                            information as features.
+word Extraction (IKE).
+                                                                Before developing Kea approach, Turney experi-
+    We evaluate our approach using three different
+                                                            mented two other approaches: decision tree algorithm
+datasets: movie descriptions, event descriptions, and
+                                                            C4.5 and an algorithm called GenEx (Turney, 2000).
+company descriptions. We use data of three different
+                                                            GenEx is an algorithm that has two components: hy-
+languages: English, Finnish and Chinese. We man-
+                                                            brid genetic algorithm Genitor, and Extractor. The
+ually annotated approximately 300 documents from
+                                                            latter is the keyword extractor that needs twelve pa-
+each dataset and compared the precision and recall
+                                                            rameters to be tuned. Genitor is used for finding these
+of the extracted keywords from our approach against
+                                                            optimal parameters from the training data.
+several other keyword extraction methods such as
+CollabRank, KeyGraph, TF-IDF and Matsuo's Chi-                  Hulth et al. (2001) describe a supervised ap-
+
+Squared. The problem with this evaluation was that          proach that utilizes domain knowledge found from
+
+the annotated keywords were subjective to the annota-       Thesaurus, and TF-IDF statistics. Later, Hulth in-
+
+tor, which resulted under 70 % agreement rate among         cluded linguistic knowledge and different models to
+
+annotators. Therefore we conducted another experi-          improve the performance of the extraction process
+
+ment where we used the extracted keywords for user          (Hulth, 2003, 2004). The models use four differ-
+
+modeling and evaluated the recommendation preci-            ent attributes: term frequency, collection frequency,
+
+sion with the models. This evaluation was objective         relative position of the first occurrence, and Part-of-
+
+and demonstrates the utilization of the extracted key-      Speech tags.
+                                                                Ercan and Cicekli (2007) describe a supervised
+
+
+
+
+412
+
+                                                       Informativeness-basedKeywordExtractionfromShortDocuments
+
+
+
+
+learning approach that uses lexical chains for extrac-       ics contain similar keywords. The keywords are ex-
+tion. The idea is to find semantically similar terms,        tracted in two levels. First, the words are evaluated in
+i.e., lexical chains, from text and utilize them for key-    the cluster level using graph-based ranking algorithm
+word extraction.                                             similar to PageRank (Page et al., 1998). After this, the
+    There are also approaches that do not use super-         words are scored on the document level by summing
+vised learning but rely on term statistics instead. Key-     the cluster level saliency scores. In the cluster level
+Graph is an approach described by Ohsawa et al.              evaluation POS-tags are used to identify suitable can-
+(1998) that does not use POS-tags, large corpus,             didate keywords; the POS-tags are also used when as-
+nor supervised learning.      It is based on term co-        sessing if the candidate keyphrases are suitable. Wan
+occurrence, graph segmentation and clustering. The           and Xiao use news articles as their corpus.
+idea is to find important clusters from a document and            Assessing the term informativeness is an impor-
+assume that each cluster holds keywords. Matsuo and          tant part of keyword extraction. Rennie and Jaakkola
+Ishizuka (2003) describe an approach that also uses          (2005) have surveyed term informativeness measures
+a single document as its corpus. The idea is to use          in the context of named entity recognition and con-
+the co-occurrences of frequent terms to evaluate if a        cluded that Residual IDF produced the best results for
+candidate keyword is important for a document. The           their case. Residual IDF is based on the idea of com-
+evaluation is done using Chi-squared (2) measure.            paring the word's observed Inverse Document Fre-
+All of these approaches are designed for longer docu-        quency (IDF) against predicted IDF (IDF) (Clark and
+                                                                                                    d
+ments and they rely on term frequencies.                     Gale, 1995). Predicted IDF is assessed using the term
+                                                             frequency and assuming a random distribution of the
+    There are some approaches developed that ex-
+                                                             term in the documents (Poisson model). If the differ-
+tract keywords from abstracts. These abstracts of-
+                                                             ence between the two IDF measures is large, the word
+ten contain 200-400 words making them considerably
+                                                             is informative.
+longer than documents in our corpus. One approach,
+                                                                  Finally, Timonen et al. (2011a) have studied cate-
+which is presented by HaCohen-Kerner (2003), uses
+                                                             gorization of short documents. They conclude that the
+term frequencies and importance of sentences for ex-
+                                                             existing approaches used for longer documents do not
+tracting the keywords. Later, HaCohen-Kerner et al.
+                                                             perform as well with short documents. They propose
+(2005) continue the work and include other statistics
+                                                             a feature weighting approach that is designed to pro-
+as well. Andrade and Valencia (1998) use Medline
+                                                             duce better results with short documents. We will de-
+abstracts for extracting protein functions and other bi-
+                                                             scribe this approach in Section 3 as we base the cluster
+ological keywords. Previously mentioned work done
+                                                             level word evaluation on their work.
+by Ercan and Cicekli (2007) also uses abstracts as the
+corpus. Finally, SemEval-2010 had a task that aimed
+at extraction of keywords from scientific articles. Kim
+et al. (2010) presents the findings of the task.             3     KEYWORD EXTRACTION
+    Keyphrase extraction is some times used as a syn-              FROM SHORT DOCUMENTS
+onym to keyword extraction but it can also differ from
+it by aiming to extract n-grams, i.e., word groups that      We have based our approach on the previous works
+are in the form of phrases (e.g., "digital camera").         done by Wan and Xiao (2008), and Timonen et al.
+Yih et al. (2006) present a keyphrase extraction ap-         (2011a). From the former we use the idea of multi-
+proach for finding keyphrases from web pages. Their          level word assessment through clustering, and from
+approaches is based on document structure and word           the latter we use the term weighting approach. The
+locations. This approach is directed to keyphrases           term weighting approach described by Timonen et al.
+instead of just words as it aims to identify not just        is designed for short documents which made it rele-
+words but word groups. They use a logistic regres-           vant for this case also.
+sion for training a classifier for the extraction pro-            The extraction process has two steps: (1) prepro-
+cess. Tomokiyo and Hurst (2003) present a language           cessing that includes document clustering, and (2)
+model based approach for keyphrase extraction. They          word informativeness evaluation. The latter is divided
+use pointwise Kullback-Leibler -divergence between           into three levels of evaluation: corpus level, cluster
+language models to assess the informativeness and            level and document level, and it aims to identify and
+"phraseness" of the keyphrases.                              extract the most informative words of each level. The
+    Wan and Xiao (2008) describe an unsupervised             input for the process is the set of documents (corpus).
+approach called CollabRank that clusters the docu-           The process produces a set of keywords for each doc-
+ments and extracts the keywords within each cluster.         ument as its output.
+The assumption is that documents with similar top-
+
+
+
+
+                                                                                                                 413
+
+KDIR2012-InternationalConferenceonKnowledgeDiscoveryandInformationRetrieval
+
+
+
+
+3.1    Problem Description                               3.2      Preprocessing and Clustering
+
+We define a short document as a document that con-        The first task of the extraction is preprocessing. The
+tains no more than 100 words, which is equal to a very    text needs to be cleaned from noise, which usually
+short scientific abstract. Depending on the dataset, the  consists of uninformative characters, and stop words.
+documents are often much shorter: for example, Tim-       For this we use a filter that removes words with less
+onen (2012) use a Twitter dataset that holds 15 words     than 3 characters, and a stop word lists. In addition,
+on average. In our work, we concentrate on event and      we need to identify important noun phrases such as
+movie descriptions that have 30 to 60 words per de-       names. That is, we group the first and last names to-
+scription. These word counts are considerably less        gether to form phrases. It should be noted that there
+than in corpora previously used in keyword extrac-        are freely available named entity recognition software
+tion.                                                     available for English but for Finnish we had to imple-
+    The descriptions contain information about events     ment our own. For this, we use a naive approach:
+or movies in a concise way. In the case of events, the    if two or more consecutive words have a capital let-
+information consists of type of the event, possible per-  ter as its first letter, the words are tagged as a proper
+formers, and other information that may be relevant       noun group (e.g., "Jack White"). In addition, if there
+for the reader. The movie descriptions hold informa-      is a connecting word like 'and' between two words
+tion about the movie such as plot, actors, director and   that start with a capital letter, we also tag them (e.g.,
+genre of the movie.                                       "Rock and Roll"). For Chinese, we do not use noun
+    The aim is to extract the relevant information from   phrase tagging. We do not use other noun phrase iden-
+the description. The following is an example of an        tification.
+actual event description: "International contemporary         The term evaluation approach that we will de-
+art exhibition from the collection of UPM-Kymmene.        scribe in the next section requires clustering of the
+The collection focuses on German art from this cen-       documents. We use Agglomerative (CompleteLink)
+tury. It consists of paintings and drawings from sev-     clustering, which produced the best results for Wan
+eral internationally noted artists such as Markus Lu-     and Xiao (2008). CompleteLink is a bottom-up clus-
+pertz, A.R. Penck and Sigmar." We want to extract         tering approach where at the beginning, each docu-
+the following words to capture the key information of     ment forms its own cluster. The most similar clusters
+this event: "contemporary", "German", "art", "paint-      are joined in each iteration until there are at most k
+ings", "drawings", "Markus Lupertz", "A.R. Penck",        clusters. The similarity between the clusters c and
+                                                                                                             n
+"Sigmar".                                                 c is the minimum similarity between two documents
+                                                           m
+    Due to the large variation in content and the ardu-   d (d  cn) and dm (dm  cm):
+                                                           n    n
+ous task of building a comprehensive training set, we
+focus our efforts on unsupervised approaches. The
+                                                                   sim(cn,cm) =        min     sim(dn,dm),      (1)
+biggest challenge with unsupervised learning is the
+                                                                                    dncn,dmcm
+fact that most words occur only once per document.
+In fact, the more often a word occurs in a document,      where similarity sim(dn,dm) is the cosine similarity
+less informative it usually is. This makes the tradi-     of the documents. We use a similar approach but have
+
+tional approaches that rely on term frequency less ef-    made a small modification: the most similar clusters
+
+fective.                                                  are joined if the minimum similarity between docu-
+
+    During our initial evaluations we noticed that doc-   ments in the two clusters is above a given threshold t .
+                                                                                                                 c
+
+ument frequency alone does not find important words.      That is, we do not use a predefined number of clusters
+
+Some informative words, such as the performer of the      k but let the cluster count vary among datasets. The
+
+event may occur only once in the whole corpus. How-       algorithm stops when there are no more clusters to
+
+ever, some important words such as the event type         be joined, i.e., if there are no clusters with similarity
+
+(e.g., "rock concert") may occur often within the cor-    above t . We found that this approach performs better
+                                                                  c
+
+pus. Both of these are important for the document,        in our case. In addition, we use the Inverse Docu-
+
+and for the reader, but this information cannot be cap-   ment Frequency to measure the weight of the words
+
+tured using only document frequency. In the follow-       before the similarity is calculated as this will make
+
+ing sections we propose an approach that takes these      documents that have matching rare words more sim-
+
+challenges and requirements into consideration when       ilar than documents with matching common words.
+
+extracting keywords from short documents.                 We feel that this does not affect the overall result of
+                                                          the process as this only benefits the clustering by de-
+                                                          creasing the impact of more frequent words.
+
+
+
+
+414
+
+                                                      Informativeness-basedKeywordExtractionfromShortDocuments
+
+
+
+
+3.3    Word Informativeness Evaluation
+                                                                         IDF                                    (2)
+                                                                            FW  (t) = IDF(t)- FW(t),
+
+                                                            where FW(t) is the assumed optimal IDF described
+We consider that short documents contain two differ-
+                                                            below.
+ent types of keywords: ones that are more abstract
+                                                                 The intuition behind FW is to penalize words
+and are therefore more common, and the ones that
+                                                            when the corpus level term frequency does not equal
+are more expressive and therefore more rare. The
+                                                            the estimated optimal frequency n . Equation 3 shows
+more common keywords usually describe the text as                                             o
+                                                            how FW is calculated: the penalty is calculated as
+a whole; for example, terms like 'Rock and Roll' and
+                                                            IDF but we use n as the document count |D| and tf
+'Action Movie' define the content of the document                              o                                  c
+                                                            as df. This affects the IDF so that all the term fre-
+in a more abstract level. Words like 'Aerosmith' and
+                                                            quencies below n will get a positive value, if tf = no
+'Rambo' give a more detailed description. Both of                              o
+                                                            no penalty will be given, and when tf > n the value
+these levels are important as without them important                                                    o
+                                                            will be negative. To give penalty on both cases, we
+information would be missing. This is true especially
+                                                            need to take the absolute value of the penalty.
+when the keywords are used by a computer in an au-
+tomated system instead of presenting them directly to                                           tf
+                                                                                                  c
+                                                                                                                (3)
+humans.                                                                     FW(t) = ×|log          |.
+                                                                                              2
+                                                                                                n
+                                                                                                  o
+    We address this issue by evaluating the words in
+two different levels: corpus level and the cluster level.        Even though FW will be larger with small term
+Document level analysis uses the results from the           frequencies, IDF will be also larger.          In fact,
+other levels. In corpus level, the informative words        when tf = df and tf < no, the result IDFFW(t1) =
+                                                                     c             c
+are the ones that have an optimal frequency, and in         IDF
+                                                                 FW (t2) even if tf < tf for all tf < no. We use 
+                                                                                  t    t          c
+                                                                                   1    2
+the cluster level the ones that appear often in a single    to overcome this issue and give a small penalty when
+cluster and rarely in other clusters.                       tf < n ;  = 1.1 is used in our experiments.
+                                                               c    o
+                                                                 An important part of the equation is the selection
+3.3.1   Corpus Level Word Evaluation                        of n . We use a predefined fraction of the corpus size:
+                                                                 o
+                                                            n = 0.03 × |D|. That is, we consider that a word is
+                                                              o
+The aim of the corpus level evaluation is to find words     optimally important in the corpus level when it oc-
+that define the document in a more abstract level.          curs in 3 % of documents. This number was decided
+These words tend to be more common than the more            after empirical evaluation and experimentation with
+expressive words but they should not be too common          the event dataset, and it has produced good results in
+either. For example, we want to find terms like 'Rock       all of the experiments. It may be beneficial to change
+and Roll' instead of just 'event' or 'music'. Our hy-       this value when using different datasets, however this
+pothesis is that the most informative words in the cor-     number was good in all of our studies.
+pus level are those that are neither too common or too           This approach has two useful features: first, it
+rare in the corpus; however, an informative word will       also considers df in the evaluation. That is, in the
+more likely be rare than common.                            rare occasions when tf < n and df < tf , these words
+                                                                                    c    o           c
+    In order to find these types of words we rely on        are emphasized. Second, the IDF         is considerably
+                                                                                                FW
+word frequency in the corpus level (tf ). As in most        smaller when tf > n than when tf < n , which is
+                                         c                                   c      o              c    o
+cases when using a corpus of short documents, the           preferred as we consider less frequent words more
+term frequency within a document (tf ) for each term        informative than more frequent words. That is, this
+                                        d
+is 1. Therefore, document frequency (df) is df = tf         emphasizes rare words over common words. As this
+                                                       c
+and, for example, with Residual IDF, observed IDF           approach has the functionality we require, and as we
+equals expected IDF. However, even if Residual IDF          did not find any existing approaches that fulfill the
+is not a good option with short documents we use its        given requirements, we consider this approach the
+basic idea: we want to find words that have an IDF          most suitable option for the corpus level assessment.
+close to the assumed optimal value. The greater the
+difference between the observed IDF and the assumed         3.3.2    Cluster Level Word Evaluation
+optimal IDF is, the less informative the word is in the
+corpus level. This is an inverse assumption that is         Next, the word's informativeness is assessed in the
+used in Residual IDF. In addition, we substitute the        cluster level. The idea is to group similar documents
+expected IDF with the expected optimal IDF.                 together and find words that are important for the
+    To get the corpus level score s                         group: if the word w appears often in the cluster
+                                     corpus(t) we use an
+approach we call Frequency Weighted IDF (IDF          ).
+                                                    FW      c and not at all in other clusters (C \ c), the word
+It is based on the idea of updating the observed IDF        is informative in this cluster.   Assessing the clus-
+using Frequency Weight (FW):                                ter level informativeness is done by using similar
+
+
+
+
+                                                                                                               415
+
+KDIR2012-InternationalConferenceonKnowledgeDiscoveryandInformationRetrieval
+
+
+
+
+word informativeness assessment approach as used               The probability for the word within the cluster,
+by Timonen et al. (2011a) where the idea is to as-         shown in Equation 6, takes the distribution of the
+sess word's Term - Corpus Relevance (TCoR) and             word t within the cluster:
+Term-Category Relevance (TCaR) as defined below.
+    In order to assess TCoR and TCaR, each docu-                                       |dt,  Dc|
+                                                                                           c
+                                                                             P(dt|c) =             ,             (6)
+ment is broken into smaller pieces called fragments.                                       |Dc|
+The text fragments are extracted from sentences us-
+ing breaks such as question mark, comma, semicolon         where |dt, | is the number of documents with the word
+                                                                     c
+
+and other similar characters. In addition, words such      t within the cluster c and |Dc| is the total number of
+                                                           documents within c. TCaR(t,c) for the word t in the
+as 'and', 'or', and 'both' are also used as breaks. For
+                                                           cluster c is calculated as follows:
+example, sentence "Photo display and contemporary
+art exhibition at the central museum" consists of two
+                                                                      TCaR(t,c) = (P(c|t)+ P(dt|c)).             (7)
+fragments, "photo display" and "contemporary art ex-
+hibition at the central library".                              The two scores TCoR and TCaR are combined
+    There are two features used for assessing TCoR:        when the cluster level score is calculated:
+inverse average fragment length ( fl) and inverse cat-
+egory count (ic). Average fragment length is based                  s       (t,c) = TCoR(t)× TCaR(t,c).          (8)
+                                                                     cluster
+on the idea that if a word occurs in short text frag-
+ments it is more likely to be informative. The average         The result of the cluster level evaluation is a score
+
+fragment length is calculated simply by taking the av-     for each word and for each of the clusters it appears in.
+
+erage of the word counts within the fragments where        If the word appears only in a single cluster, the weight
+
+the word appears in. Inverse category count is used to     will be considerably higher than if it would appear in
+
+give more emphasis on words that appear in a single        two or more clusters. Even though the cluster level
+
+category. It is calculated by taking the count of the      word evaluation does some corpus level evaluation as
+
+categories (cluster in our case) where the word ap-        well, we found that the results are often better when
+
+pears in. For example, if the word occurs in two clus-     using both TCoR and TCaR instead of only TCaR.
+
+ters, ic is 0.5. Term-Corpus Relevance is the average      This is due to the fact that the approaches used here
+
+of these two values:                                       are complementary. More information and the intu-
+                                                           ition behind the metrics can be found from the paper
+                                1       1
+             TCoR(t) = (             +   ),           (4)  by Timonen et al. (2011a).
+                          avg(lf (t))  c
+                                        t
+
+where avg(lf (t)) is the average length of the text frag-  3.3.3   Document Level Word Evaluation
+ment where the word t appears in, and c is the count
+                                          t
+of clusters where the word t appears in.                   The final step of the process is to extract the keywords
+    Term-Category Relevance, which in this case            from the documents. For finding the most important
+should be called Term-Cluster Relevance, evaluates         words of the document, we use the word scores from
+the word's informativeness among clusters. The idea        the previous analysis. The idea is to extract the words
+is to identify words that occur often within the cluster   that are found informative on either the corpus level
+and rarely in other cluster. More often the word oc-       or the cluster level; or preferably on both.
+curs within the cluster, and the less clusters the word        Before calculating the document level scores, the
+appears in, higher the TCaR score. The score consists      corpus level scores are normalized to vary between
+of two probabilities: P(c|t), probability that the word    [0,1]. This makes them comparable with the cluster
+t occurs within the category c, and P(dt|c), probabil-     level scores. The normalization is done by taking the
+ity for the word t within the category c. Former, pre-     maximum corpus level word score in the document
+sented in Equation 5, takes the distribution of word's     and dividing each score with the maximum value.
+occurrences among all the categories c:                    Equation 9 shows the normalization of s           .
+                                                                                                       corpus
+                            |dt,  Dc|
+                               c
+                  P(c|t) =            .               (5)                                IDF
+                                                                                             FW  (t)
+                                |Dt|                                 s                                    .      (9)
+                                                                       n,corpus(t) =
+                                                                                    max  t d IDF
+                                                                                                  FW (t )
+                                                                                                       d
+                                                                                         d
+    The probability is calculated simply by taking the
+number of documents |dt, | in the cluster's document           After normalization, the word with the highest
+                            c
+set D (D  c) that contain the word t and dividing          IDF    (t) has the score 1.
+      c     c                                                  FW
+it with the total number of documents |Dt| where the           The document level score s       for word t in doc-
+                                                                                             doc
+word t appears in (D is the set of documents contain-      ument d, which belongs to cluster c, is calculated by
+                      t
+ing the word t).                                           taking the weighted average of the cluster level score
+
+
+
+
+416
+
+                                                       Informativeness-basedKeywordExtractionfromShortDocuments
+
+
+
+
+s         (t,c) and the normalized corpus level score        s(t,d) that indicates its informativeness for the docu-
+ n,cluster
+s                                                            ment. The top k most informative words are then as-
+ n,corpus (t). This is shown in Equation 10:
+                                                             signed as keywords for the document. As some times
+                ×scluster(t,c)+(1-)×sn,       corpus
+                                                   (t)       the number of informative words per document varies,
+ s    (t,d) =                                         ,
+  doc
+                                   2                         a threshold t can be used to select n (n  k) informa-
+                                                                           d
+                                                    (10)
+                                                             tive words from the document that have a score above
+where c is the cluster of the document d, and  indi-
+                                                             t . The threshold t is relative to the highest score of
+                                                              d                  d
+cates the weight that is used for giving more empha-
+                                                             the document: t = r × maxs(t,d). For example, if
+                                                                              d
+sis to either cluster or the corpus level score. To give
+                                                             r = 0.5, the keywords that have a score at least 50 %
+more emphasis for the cluster level scores, we should
+                                                             of the highest score are accepted. However, if there
+use  > 0.5, and vice versa. We use weighted aver-
+                                                             are more than k keywords that fulfill this condition,
+age for two reasons: we get scores that vary between
+                                                             the top k are selected. We have used k = 9 and r = 0.5
+[0,1], and the effect of a low cluster level or corpus
+                                                             in our experiments.
+level score is not as drastic as it would be, for exam-
+ple, when the two scores are multiplied. The latter is
+important as we want also words that score highly on
+either level and not just on both levels.                    4     EVALUATION
+    As we noticed that keywords occur often in the
+beginning of the document, we included a distance
+                                                             We evaluate our approach using three different
+factor d(t) that is based on the same idea used in Kea
+                                                             datasets that we describe in Section 4.1. The test sets
+(Frank et al., 1999). The distance indicates the loca-
+                                                             were built by manually selecting the keywords that
+tion of the word from the beginning of the document
+                                                             were considered most relevant. We use the datasets in
+and it is calculated by taking the number of words that
+                                                             two different types of performance comparisons. We
+precede the word's first occurrence in the document
+                                                             compare the results between IKE and the following
+and dividing it with the length of the document.             methods: CollabRank, KeyGraph, Matsuo's 2 mea-
+                                  i(t)                       sure, TF-IDF and Chi-squared feature weighting. In
+                       d(t) = 1 -     ,             (11)     the first experiment we use the manually picked key-
+                                  |d|
+                                                             words to see which approach performs the best. In the
+where |d| is the number of words in the document and         second experiment we use the extracted keywords to
+i(t) is the index of word's first occurrence in the doc-     create user models and see which model can produce
+ument. The index starts from 0.                              the best recommendations. We consider the latter ex-
+
+    As Part-of-Speech tags are often useful in key-          periment the most indicative of performance as it is
+
+word extraction we use them in the document level            the most objective.
+
+scoring as an option.        Due to the fact that POS-
+taggers are not freely available for all the languages       4.1     Data
+we include the POS-tags only as an option, i.e., our
+approach can easily be used without a POS-tagger.
+                                                             To make the experimentation more versatile we use
+We use the POS-tags as another weighting option
+                                                             datasets of three completely different languages:
+for words: different tags get a different POS-weight
+                                                             Finnish, English and Chinese. Finnish is a complex
+(w      ) in the final score calculation.
+   POS
+                                                             language with lots of suffixes, Chinese is a simpler
+    The simplest approach is to give weight 1.0 to all
+                                                             language without prefixes and suffixes but a complex
+tags that are accepted, such as NP and JJ (nouns and
+                                                             language due to its different character set and writing
+adjectives), and 0.0 to all others. To emphasize some
+                                                             system. English is the standard language in most of
+tags over the others, w
+                          POS (tag1) > wPOS(tag2) can be
+                                                             the systems.
+used. If POS-tags are not available, w
+                                           POS = 1.0 is
+                                                                  For Finnish, we use a dataset that consists
+used for all words.
+                                                             of approximately 5,000 events from the Helsinki
+    Finally, all words in the document d are scored by
+                                                             Metropolitan area. The events were collected between
+combining s
+               doc (t,d), wPOS and d(t):
+                                                             2007 and 2010 from several different data sources.
+           s(t,d) = s                                        The descriptions hold information about the type of
+                                                    (12)
+                       doc(t,d)× d(t)× wPOS(t),
+                                                             the event and the performers in a concise form. After
+where w                                                      preprocessing, the documents hold 32 words on av-
+           POS (t) is the POS weight for the word t. If t
+has several POS-tags, the one with the largest weight        erage. The average term frequency per document in
+is used.                                                     this dataset was 1.04, i.e., almost all the words occur
+    Each word t in the document d now has a score            on average only once per document.
+
+
+
+
+                                                                                                                417
+
+KDIR2012-InternationalConferenceonKnowledgeDiscoveryandInformationRetrieval
+
+
+
+
+    For Chinese, we use Velo dataset that contains
+                                  3                       by Wan and Xiao (2008). There were some parts that
+1,000 descriptions of companies and their products        were not clearly described and we therefore made the
+stored in the Velo databases. These descriptions are      following assumptions: first, we used window size
+used in Velo coupon machines in China. The data           of 10, as described in the paper. However, the win-
+was gathered in June 2010. The descriptions hold 80       dow was not extended over sentence breaks such as
+words on average; even though longer than most of         full stops and question marks. The candidate words
+our data this was short enough to be used in our ex-      were selected after getting word co-occurrences. That
+periments. One of the challenges with Chinese is to       is, the words without appropriate POS-tag were re-
+tokenize the text into words; for this, paodingjieniu,    moved after the affinity weights were calculated. This
+a Chinese Word segmentation tool was used to divide       is important as it affects the weights. We used these
+the descriptions into words separated by blank space.     settings as they produced the best results for Col-
+    For English, we use movie abstracts from              labRank.
+Wikipedia . This was selected due to its free and
+            4                                                 We experimented using both clustering ap-
+easy access. We downloaded approximately 7,000            proaches (predefined cluster count and threshold sim-
+Wikipedia pages that contain information about dif-       ilarity) and found that they produced similar re-
+ferent movies. We use MovieLens dataset when se-5         sults for CollabRank. However, when using prede-
+lecting the movies: if a movie is found from Movie-       fined cluster count with IKE, the results were poorer.
+Lens dataset, we download its Wikipedia page. We          Therefore, we use the score threshold clustering in all
+only use the abstracts found at the beginning of the      experiments that require clustering.
+Wikipedia page. If the abstract is longer than 100            For Term Frequency - Inverse Document Fre-
+words, we remove the last full sentences to shorten       quency (TF-IDF) and Chi-Squared we used the stan-
+the document under the given limit. The average word      dard implementation of the approach. For Ohsawa's
+frequency per document in this dataset is 1.07. The       KeyGraph (Ohsawa et al., 1998) and Matsuo's 2
+Wikipedia pages were retrieved in May 2010.               keyword extraction approach (Matsuo and Ishizuka,
+    For the first experiment we created the test set by   2003) we used Knime and its implementation of the
+                                                                                 7
+
+randomly selecting 300 documents and manually tag-        two algorithms. We ran them using the default param-
+ging them for keywords. Event and Wikipedia data          eters that were described in the articles. To improve
+was tagged by two research scientist from VTT Tech-       the results we used stop word lists and N char filter
+nical Research Centre of Finland, and Velo data was       (N = 3) to remove uninformative words and charac-
+tagged by two students from East China Normal Uni-        ters from the documents.
+versity. At most nine keywords were chosen per doc-           After empirical evaluation, we selected the fol-
+ument. The agreement rate among annotators was 69         lowing parameters for IKE:  = 0.3, and POS-tag
+% for the Event data, 64 % for the Wikipedia data,        weights w
+                                                                     POS(N) = 1.0, wPOS(JJ) = 1.0, wPOS(V) =
+and 70 % for the Velo data. The test set was updated      0, w
+                                                               POS(Others) = 0. However, when we use event
+after disagreements were resolved.                        data, we use w
+                                                                           POS(N) = 3.0 and  = 0.6. For all
+    For POS-tagging in English and Chinese we use         the approaches, at most nine keywords per document
+the Stanford's Log-Linear Part-of-Speech tagger .     6   were extracted.
+For POS-tagging in Finnish we use LingSoft's com-
+mercial FinTWOL tagger.                                   4.2.2   Results
+
+
+4.2     Evaluation of Keyword Precision                   The baseline result is the F-score received when all
+                                                          nouns and adjectives are extracted. We included ad-
+                                                          jectives as they are relevant in some domains; for ex-
+We evaluate the feasibility of the extracted keywords
+                                                          ample, adjective explosive can be considered relevant
+using a set of manually annotated keywords. We use
+                                                          in the description "explosive action movie". There-
+all three datasets for evaluation.
+                                                          fore, the words with the following POS-tags are ex-
+4.2.1   Evaluation Setup                                  tracted: N, A, ADJ, AD, AD-A, -, JJ, NN, NNS,
+                                                          NNP, and NNPS. Some of these tags are used in FinT-
+
+We implemented CollabRank algorithm as described          WOL and some in Stanford POS-tagger. The tag "-"
+                                                          means that also words without a tag, which are usu-
+   3 Velo is a company based in Shanghai China that owns  ally names not recognized by the tagger, are also ex-
+and maintains coupon machines.                            tracted. Therefore, the tag "-" is treated as NP in our
+   4 http://www.wikipedia.org/                            experiments. This produced the following baselines:
+   5 http://www.grouplens.org/node/12
+   6 http://nlp.stanford.edu/software/tagger.shtml           7Konstanz Information Miner: http://www.knime.org/
+
+
+
+
+418
+
+                                                       Informativeness-basedKeywordExtractionfromShortDocuments
+
+
+
+
+Table 1: F-scores for each of the method in keyword precision experiment. Chi-squared is the traditional feature weighting
+approach, and 2 KE is the keyword extraction approach presented by Matsuo and Ishizuka (2003). Due to the Chinese
+character set, we were unable to evaluate KeyGraph and Matsuo's 2 keyword extraction approach on Velo data using Knime.
+
+                      IKE      CollabRank     Chi-squared     TF-IDF       KeyGraph         2 KE      Baseline
+        Wikipedia     0.57     0.29           0.35            0.35         0.22             0.21      0.22
+        Events        0.56     0.46           0.49            0.49         0.36             0.35      0.39
+        Velo          0.31     0.18           0.26            0.22         -                -         0.15
+
+
+Event data 0.36, Wikipedia data 0.22, and Velo data            4.3.1    Evaluation Setup
+0.20.
+    Table 1 shows the results of our experiments. The          We use Wikipedia data for keyword extraction and the
+best results for both Event and Wikipedia data were            user ratings from MovieLens data for user modeling
+received using IKE. For the Chinese Velo data the dif-         and recommendation.
+ference between IKE and CollabRank, and the base-                  To test the recommendation precision we created a
+line is great. However, we can see that TF-IDF and             simple user model: first, we randomly selected 10,000
+2 perform almost as good in this case. After care-             users from the MovieLens dataset. Then for each user,
+ful review of the results, we conclude that most of the        all the movies they rated were retrieved. This set was
+keywords extracted by IKE are feasible even though             divided into a training set and a test set with 75 % - 25
+not originally picked by humans. This is true with all         % ratio. However, only movies with a positive rating
+of the datasets. The keywords picked by both 2 and             (rating 4.5 or 5) were added to the test set.
+TF-IDF were in most cases uncommon, such as the
+                                                                   For each of the movies in the training set, the key-
+name of the movie. Keywords extracted by IKE were
+                                                               words were extracted from the Wikipedia page. Each
+both uncommon and common; for example, name of
+                                                               of the keywords were then used as a tag in the user
+the movie, actors, and the genre were all extracted.
+                                                               model. The tags were weighted using the user's rat-
+    KeyGraph did not produce good results which
+                                                               ing for the movie: for example, if the rating was 3, the
+was expected. The F-score with Wikipedia data was
+                                                               tag was assigned a weight of 0, if the rating was 0, the
+only 0.22 with precision 0.19 and recall 0.26. Event
+                                                               weight was -1.0, and if the rating was 5, the weight
+data produced F-score of 0.36 with precision of 0.31
+                                                               was 1.0. If the same keyword is found from several
+and recall of 0.42. The reason for poor performance
+                                                               movies, we use the user's average rating among the
+in both cases is the same as with several other ap-
+                                                               movies.
+proaches: most words occur only once in the docu-
+                                                                   To evaluate the model's precision we take the test
+ment. Due to the fact that KeyGraph uses only a sin-
+                                                               set and add randomly k × 5 movies from the set of all
+gle document, there is not enough information within
+                                                               movies to the test set, where k is the initial size of the
+a short document to make this approach feasible.
+                                                               test set. That is, if we have 5 movies in the test set, we
+    Matsuo's 2 keyword extraction approach also                take randomly 25 movies among all movies the user
+performed poorly. F-score for Wikipedia data was
+                                                               hasn't seen to make the total size of the test set 30
+0.21 with precision of 0.18 and recall of 0.24. For
+                                                               movies. The recommendation is done by scoring each
+Events the F-score was 0.35 with the precision of 0.30
+                                                               of the movies: take the keywords of the movie and
+and recall of 0.41. The reason for poor performance
+                                                               match them to the user's tags. The score of the movie
+is the same as KeyGraph: it is impossible to assess
+                                                               is the summed weights of the matching tags; for each
+the important words from a short document without
+                                                               keyword found from the user model the weight of the
+using the corpus.
+                                                               tag is added to the score. The top n scoring movies are
+                                                               then put into an descending order and selected as the
+4.3    Evaluation of Keyword Utilization
+                                                               top-n list of movies. The precision of the user model
+       for User Modeling                                       is the number of user-rated movies in top-n. That is,
+                                                               if the top-n lists consists solely on movies the user has
+To overcome the subjectivity of the first test set we          seen and rated highly, the precision is 1.
+did a simple experiment where we compare the rec-
+ommendation precision for each approach. The idea              4.3.2    Results
+was to see which approach extracts the most useful
+words from the text, i.e., words that produce the best         The baseline used here is the same as before, i.e., all
+recommendations. The recommendation precision is               nouns and adjectives are selected and used as key-
+assessed by recommending a top-n list of movies and            words.    The user model was created as described
+comparing how many of them the user has liked.                 above. The recommendation precision was calculated
+
+
+
+
+                                                                                                                     419
+
+KDIR2012-InternationalConferenceonKnowledgeDiscoveryandInformationRetrieval
+
+
+
+
+       Table 2: Comparison of user models for recommendation when extracted keywords are used for user modeling.
+
+                        IKE     CollabRank      Chi-squared   TF-IDF       KeyGraph        2 KE        Baseline
+      Precision         0.55    0.41            0.84          0.86         0.30            0.33        0.39
+      Coverage          0.75    0.59            0.27          0.29         0.86            0.85        0.89
+      Total Score       0.41    0.24            0.23          0.25         0.26            0.28        0.30
+
+
+by taking the ratio of correct movies in the top-n list.     others focus only on one of them.
+To assess the precision of the model, we skipped the
+movies that did not have any matching tags in the user
+model. This was done to simulate an actual recom-            5     CONCLUSIONS
+mendation system: when assessing the precision, we
+are only interested in movies that can be linked to the
+                                                             In this paper, we have described the challenge of key-
+user model.
+                                                             word extraction from short documents. We consider
+    In some cases, such as with KeyGraph, there was          a document short when it contains at most 100 words,
+a problem of overspecialization as the approach pro-         which is equal to a short abstract.         We proposed
+duced too specific models. In these cases the model          Informativeness-based Keyword Extraction (IKE) ap-
+was able to do only a very limited number of rec-            proach for extracting keywords from the short docu-
+ommendations. An example of this was James Bond              ments. It is based on word evaluation that is done in
+movies: the model consisted solely of keywords like          three levels: corpus level, cluster level and document
+James Bond. Using this model recommendation pre-             level. In order to do the evaluation on the cluster level,
+cision of James Bond movies was high but it could            text clustering is used.
+not recommend any other movies.         We wanted to             We compared the results against several other key-
+emphasize broader models so in addition to preci-            word extraction approaches. In all of the experiments
+sion we include coverage to the assessment of per-           our approach produced the best results. In addition,
+formance. Coverage in this case measures the per-            we compared effectiveness of the extracted keywords
+centage of users which can receive recommendations.          for user modeling and recommendations. In this ex-
+The score for the approach is then calculated as rec-        periment, the user models created with the keywords
+ommendation precision × recommendation coverage.             using IKE produced considerably better results than
+    Table 2 shows the results of our experiment. When        any other approach. This is encouraging as it shows
+all the nouns and adjectives are used in the user            the feasibility of Informativeness-based Keyword Ex-
+model, the average precision was 0.39, i.e., approx-         traction for user modeling and recommendation.
+imately 2 movies out of 5 were found from the top-5              In the future, more focus should be given on noun
+list. The recommendation coverage for the baseline,          phrase identification as we feel it would benefit sum-
+i.e., the percentage that shows how many users get           marization and user modeling by extracting more de-
+recommendations in the test set, was 89 %. This pro-         tailed entities from the text. Even though our ap-
+duced the score of 0.30. When using IKE, the preci-          proach has performed well we believe that there is
+sion was 0.55 with the recommendation coverage of            still room for improvement. We hope that our work
+75 %, making the score of 0.41. We consider this re-         can benefit the future research in the field of keyword
+sult better as the precision is considerably higher and      extraction and text mining from short documents.
+the coverage is good. Finally, CollabRank produced
+the score of 0.24, TF-IDF 0.25, and 2 0.23.
+    Even though the precision is excellent with Chi-         ACKNOWLEDGEMENTS
+squared and TF-IDF, the poor coverage would make
+them unusable in a real world setting. However, com-
+                                                             Authors wish to thank the Finnish Funding Agency
+bining IKE with Chi-squared and/or TF-IDF could be
+                                                             for Technology and Innovation (TEKES) for funding
+beneficial for user modeling.
+                                                             a part of this research. In addition, the authors wish
+    These results show that by extracting only the in-       to thank Prof. Hannu Toivonen and the anonymous
+formative words instead of all of them, the results are      reviews for their valuable comments.
+notably better. In addition, we can see that IKE can
+extract more useful words for recommendation than
+CollabRank, TF-IDF and 2. The difference in the fi-          REFERENCES
+nal score can be credited to the fact that IKE extracts
+both common and uncommon keywords where as the
+                                                             Andrade, M. and Valencia, A. (1998). Automatic extrac-
+                                                                tion of keywords from scientific text: Application to the
+
+
+
+
+420
+
+                                                            Informativeness-basedKeywordExtractionfromShortDocuments
+
+
+
+
+  knowledge domain of protein families. Bioinformatics,           Timonen, M., Silvonen, P., and Kasari, M. (2011a). Classi-
+  14:600­607.                                                         fication of short documents to categorize consumer opin-
+Clark, K. and Gale, W. (1995). Inverse document frequency             ions. In ADMA'11. Online proceedings.
+  (idf): A measure of deviation from poisson. In Third            Timonen, M., Silvonen, P., and Kasari, M. (2011b). Mod-
+  Workshop on Very Large Corpora, pages 121­130.                      elling a query space using associations. Frontiers in Ar-
+                                                                      tificial Intelligence and Applications, 255:77­96.
+Ercan, G. and Cicekli, I. (2007). Using lexical chains for
+  keyword extraction. Inf. Process. Manage., 43(6):1705­          Tomokiyo, T. and Hurst, M. (2003). A language model ap-
+  1714.                                                               proach to keyphrase extraction. In Proceedings of ACL
+                                                                      Workshop on Multiword Expressions.
+Frank, E., Paynter, G. W., Witten, I. H., Gutwin, C.,
+  and Nevill-Manning, C. G. (1999).         Domain-specific       Turney, P. D. (2000). Learning algorithms for keyphrase
+  keyphrase extraction.     In Dean, T., editor, IJCAI'99,            extraction. Inf. Retr., 2(4):303­336.
+  pages 668­673. Morgan Kaufmann.                                 Turney, P. D. (2003). Coherent keyphrase extraction via
+                                                                      web mining. In Gottlob, G. and Walsh, T., editors, IJ-
+HaCohen-Kerner, Y. (2003). Automatic extraction of key-
+                                                                      CAI'03, pages 434­442. Morgan Kaufmann.
+  words from abstracts. In Palade, V., Howlett, R. J., and
+  Jain, L. C., editors, KES 2003, volume 2773 of Lecture          Wan, X. and Xiao, J. (2008). Collabrank: Towards a collab-
+  Notes in Computer Science, pages 843­849. Springer.                 orative approach to single-document keyphrase extrac-
+                                                                      tion. In Scott, D. and Uszkoreit, H., editors, COLING'08,
+HaCohen-Kerner, Y., Gross, Z., and Masa, A. (2005). Auto-
+                                                                      pages 969­976.
+  matic extraction and learning of keyphrases from scien-
+  tific articles. In Gelbukh, A. F., editor, CICLing 2005,        Witten, I. H., Paynter, G. W., Frank, E., Gutwin, C., and
+  volume 3406 of Lecture Notes in Computer Science,                   Nevill-Manning, C. G. (1999). Kea: Practical automatic
+  pages 657­669. Springer.                                            keyphrase extraction. CoRR, cs.DL/9902007.
+
+Hulth, A. (2003). Improved automatic keyword extraction           Yih, W., Goodman, J., and Carvalho, V. R. (2006). Finding
+  given more linguistic knowledge. In Conference on Em-               advertising keywords on web pages. In Carr, L., Roure,
+  pirical Methods in Natural Language Processing, pages               D. D., Iyengar, A., Goble, C. A., and Dahlin, M., editors,
+  216­223.                                                            WWW'06, pages 213­222. ACM.
+
+Hulth, A. (2004). Enhancing linguistically oriented auto-
+  matic keyword extraction. In North American Human
+  language technology conference.
+Hulth, A., Karlgren, J., Jonsson, A., Bostr¨om, H., and
+  Asker, L. (2001).     Automatic keyword extraction us-
+  ing domain knowledge. In Gelbukh, A. F., editor, CI-
+  CLing'01, volume 2004 of Lecture Notes in Computer
+  Science, pages 472­482. Springer.
+Kim, S., Medelyan, O., Kan, M., and Baldwin, T. (2010).
+  Semeval-2010 task 5: Automatic keyphrase extraction
+  from scientific articles. In Proceedings of the 5th Inter-
+  national Workshop on Semantic Evaluation, ACL 2010,
+  pages 21­26.
+Matsuo, Y. and Ishizuka, M. (2003). Keyword extraction
+  from a single document using word co-occurrence statis-
+  tical information. In Russell, I. and Haller, S. M., editors,
+  FLAIRS Conference, pages 392­396. AAAI Press.
+Nguyen, T. D. and Kan, M.-Y. (2007). Keyphrase extraction
+  in scientific publications. In Goh, D. H.-L., Cao, T. H.,
+  Sølvberg, I., and Rasmussen, E. M., editors, ICADL, vol-
+  ume 4822 of Lecture Notes in Computer Science, pages
+  317­326. Springer.
+Ohsawa, Y., Benson, N. E., and Yachida, M. (1998).
+  Keygraph: Automatic indexing by co-occurrence graph
+  based on building construction metaphor. In ADL'98,
+  pages 12­18. IEEE Computer Society.
+Page, L., Brin, S., Motwani, R., and Winograd, T. (1998).
+  The pagerank citation ranking: Bringing order to the
+  web. Technical report, Stanford.
+Rennie, J. D. M. and Jaakkola, T. (2005). Using term infor-
+  mativeness for named entity detection. In Baeza-Yates,
+  R. A., Ziviani, N., Marchionini, G., Moffat, A., and Tait,
+  J., editors, SIGIR'05, pages 353­360. ACM.
+Timonen, M. (2012). Categorization of very short docu-
+  ments. In In-press KDIR'12. SciTePress Digital Library.
+
+
+
+
+                                                                                                                           421
+

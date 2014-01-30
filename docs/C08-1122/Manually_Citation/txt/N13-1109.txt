@@ -1,0 +1,748 @@
+          A Just-In-Time Keyword Extraction from Meeting Transcripts
+
+
+           Hyun-Je Song                Junho Go           Seong-Bae Park                 Se-Young Park
+                               School of Computer Science and Engineering
+                                         Kyungpook National University
+                                                    Daegu, Korea
+                    {hjsong,jhgo,sbpark,sypark}@sejong.knu.ac.kr
+
+
+
+
+                        Abstract                             for automatic keyword extraction (Frank et al., 1999;
+                                                             Turney, 2000; Mihalcea and Tarau, 2004; Wan et al.,
+     In a meeting, it is often desirable to extract          2007), and they are designed to extract keywords
+     keywords from each utterance as soon as it is           from a written document. However, they are not
+     spoken. Thus, this paper proposes a just-in-
+                                                             suitable for meeting transcripts. In a meeting, it is
+     time keyword extraction from meeting tran-
+                                                             often desirable to extract keywords at the time at
+     scripts. The proposed method considers two
+                                                             which a new utterance is made for just-in-time ser-
+     major factors that make it different from key-
+                                                             vice of additional information. Otherwise, the ex-
+     word extraction from normal texts. The first
+     factor is the temporal history of preceding ut-         tracted keywords become just the important words
+     terances that grants higher importance to re-           at the end of the meeting.
+     cent utterances than old ones, and the sec-
+                                                                Two key factors for just-in-time keyword extrac-
+     ond is topic relevance that forces only the pre-
+                                                             tion from meeting transcripts are time of preceding
+     ceding utterances relevant to the current utter-
+                                                             utterances and topic of current utterance. First, cur-
+     ance to be considered in keyword extraction.
+                                                             rent utterance is affected by temporal history of pre-
+     Our experiments on two data sets in English
+     and Korean show that the consideration of the           ceding utterances. That is, when a new utterance
+     factors results in performance improvement in           is made it is likely to be related more closely with
+     keyword extraction from meeting transcripts.            latest utterances than old ones. Second, the preced-
+                                                             ing utterances which carry similar topics to current
+                                                             utterance are more important than irrelevant utter-
+1 Introduction
+                                                             ances. Since a meeting consists of several topics,
+
+A meeting is generally accomplished by a number              the utterances that have nothing to do with current
+
+of participants and a wide range of subjects are dis-        utterance are inappropriate as a history of the cur-
+
+cussed. Therefore, it would be helpful to meeting            rent utterance.
+
+participants to provide them with some additional               This paper proposes a graph-based keyword ex-
+information related to the current subject. For in-          traction to reflect these factors.      The proposed
+stance, assume that a participant is discussing a spe-       method represents an utterance as a graph of which
+cific topic with other participants at a meeting. The        nodes are candidate keywords. The preceding utter-
+summary of previous meetings on the topic is then            ances are also expressed as a history graph in which
+one of the most important resources for her discus-          the weight of an edge is the temporal importance
+sion.                                                        of the keywords connected by the edge. To reflect
+  In order to provide information on a topic to par-         the temporal history of utterances, forgetting curve
+ticipants, keywords should be first generated for the        (Wozniak, 1999) is adopted in updating the weights
+topic since keywords are often representatives of a          of edges in the history graph. It expresses effectively
+topic. A number of techniques have been proposed             not only the reciprocal relation between memory re-
+
+
+                                                       888
+
+
+                                  Proceedings of NAACL-HLT 2013, pages 888­896,
+                  Atlanta, Georgia, 9­14 June 2013. 2013 Association for Computational Linguisticsc
+
+tention and time, but also active recall that makes      text.
+frequent words more consequential in keyword ex-
+                                                           There have been a few studies focused on key-
+traction. Then, a subgraph that is relevant to the
+                                                         word extraction from spoken genres. Among them,
+current utterance is derived from the history graph,
+                                                         the extraction from meetings has attracted more con-
+and used as an actual history of the current utterance.
+                                                         cern, since the need for grasping important points
+The keywords of the current utterance are extracted
+                                                         of a meeting or an opinion of each participant has
+by TextRank (Mihalcea and Tarau, 2004) from the
+                                                         increased.    The studies on meetings focused on
+merged graph of the current utterance and the his-
+                                                         the exterior features of meeting dialogues such as
+tory graphs.
+                                                         unstructured and ill-formed sentences. Liu et al.
+   The proposed method is evaluated with two kinds
+                                                         (2009) used some knowledge sources such as Part-
+of data sets: the National Assembly transcripts
+                                                         of-Speech (POS) filtering, word clustering, and sen-
+in Korean and the ICSI meeting corpus (Janin et
+                                                         tence salience to reflect dialogue features, and they
+al., 2003) in English.      The experimental results
+                                                         found out that a simple TFIDF-based keyword ex-
+show that it outperforms both the TFIDF frame-
+                                                         traction using these knowledge sources works rea-
+work (Frank et al., 1999; Liu et al., 2009) and the
+                                                         sonably well. They also extended their work by
+PageRank-based graph model (Wan et al., 2007).
+                                                         adopting various features such as decision making
+One thing to note is that the proposed method im-
+                                                         sentence features, speech-related features, and sum-
+proves even the supervised methods that do not re-
+                                                         mary features that reflect meeting transcripts better
+flect utterance time and topic relevance for the ICSI
+                                                         (Liu et al., 2011). Chen et al. (2010) extracted key-
+corpus. This proves that it is critical to consider time
+                                                         words from spoken course lectures. In this study,
+and content of utterances simultaneously in keyword
+                                                         they considered prosodic information from HKT
+extraction from meeting transcripts.
+                                                         forced alignment and topics in a lecture generated
+   The rest of the paper is organized as follows. Sec-
+                                                         by Probabilistic Latent Semantic Analysis (pLSA).
+tion 2 reviews the related studies on keyword extrac-
+                                                         These studies focused on the exterior characteris-
+tion. Section 3 explains the overall process of the
+                                                         tics of spoken genres, since they assumed that entire
+proposed method, and Section 4 addresses its de-
+                                                         scripts are given in advance and then they extracted
+tailed description how to reflect meeting character-
+                                                         keywords that best describe the scripts. However, to
+istics. Experimental results are presented in Section
+                                                         the best of our knowledge, there is no previous study
+5. Finally, Section 6 draws some conclusions.
+                                                         considered time of utterances which is an intrinsic
+                                                         element of spoken genres.
+2 Related Work
+                                                           The relevance between current utterance and pre-
+Keyword extraction has been of interest for a long       ceding utterances is also a critical feature in keyword
+time in various fields such as information retrieval,    extraction from meeting transcripts. The study that
+document clustering, summarization, and so on.           considers this relevance explicitly is CollabRank
+Thus, there have been many studies on automatic          proposed by Wan and Xiao (2008). This is collabo-
+keyword extraction.       The frequency-based key-       rative approach to extract keywords in a document.
+word extraction with TFIDF weighting (Frank et al.,      In this study, it is assumed that a few neighbor doc-
+1999) and the graph-based keyword extraction (Mi-        uments close to a current document can help extract
+halcea and Tarau, 2004) are two base models for this     keywords. Therefore, they applied a clustering al-
+task. Many studies recently tried to extend them by      gorithm to a document set and then extracted words
+incorporating specific information such as linguistic    that are reinforced by the documents within a clus-
+knowledge (Hulth, 2003), web-based resource (Tur-        ter. However, this method also does not consider the
+ney, 2003), and semantic knowledge (Chen et al.,         utterance time, since it is designed to extract key-
+2010). As a result, they show good performance on        words from normal documents. As a result, if it is
+written text. However, it is difficult to use them di-   applied to meeting transcripts, all preceding utter-
+rectly for spoken genres, since spoken genres have       ances would affect the current utterance uniformly,
+significantly different characteristics from written     which leads to a poor performance.
+
+
+                                                      889
+
+            Current                                                                   Merge
+            utterance
+
+                                                                 History
+                                                                 graph (G )
+                                                                         2
+       Filter
+
+                                                            Subgraph
+                                                            extraction
+
+
+                                                                                                     Keyword
+                                                                                                     graph (G )
+                                                                                                             5
+                     Current
+                     utterance                                    Subgraph (G )
+                                                                             3
+                     graph (G )
+                             1
+
+
+
+
+                                                                            Keyword
+                                                                            extraction
+                         Expand
+
+
+
+
+                                                                                            Keywords
+
+                                               Expanded graph (G )
+                                                                 4
+
+
+
+             Figure 1: The overall process of the just-in-time keyword extraction from meeting transcripts.
+
+
+
+3 Just-In-Time Keyword Extraction for a                         and then the keywords of the current utterance is ex-
+    Meeting                                                     tracted from this graph. The keywords are so-called
+                                                                hub nodes of G .
+                                                                                4
+Figure 1 depicts the overall process of extracting                 After keywords are extracted from the current ut-
+keywords from an utterance as soon as it is spo-                terance, the current utterance becomes a part of the
+ken. We represent all the components in a meeting               history graph for the next utterance. For this, the
+as graphs. This is because graphs are effective to ex-          extracted keywords are also represented as a graph
+press the relationship between words, and the graph             (G ), and it is merged into the current history G .
+                                                                    5                                              2
+operations that are required for keyword extraction             This merged graph becomes a new history graph
+are also efficiently performed. That is, whenever an            for the next utterance. In merging two graphs, the
+utterance is spoken, it is represented as a graph (G )
+                                                         1      weight of each edge in G is updated to reflect the
+                                                                                           2
+of which nodes are the potential keywords in the ut-            temporal history. If an edge is connecting two nouns
+terance. This graph is named as current utterance               from an old utterance, its weight becomes small. In
+graph.                                                          the same way, the weights for the edges from recent
+  The summary of all preceding utterances is also               utterances get large. The weights of the edges from
+represented as a history graph (G ). We assume that
+                                     2                          G are 1, the largest possible value.
+                                                                  5
+only the preceding utterances that are directly re-
+lated with the current utterance are important for ex-          4 Graph Representation and Weight
+tracting keywords from the current utterance. There-                 Update
+fore, a subgraph of G that maximally covers the
+                          2
+                                                                4.1 Current Utterance Graph and History
+current utterance graph (G ) is extracted. This sub-
+                               1
+                                                                      Graph
+graph is labeled as G in Figure 1. Then, the current
+                        3
+utterance graph G is expanded by merging it and                 Current utterance graph is a graph-representation of
+                     1
+G . This expanded graph (G ) is a combined rep-                 the current utterance. When current utterance con-
+  3                              4
+resentation of the current and preceding utterances,            sists of m words, we first extract the potential key-
+
+
+                                                        890
+
+words from the current utterance. Since all words
+within the current utterance are not keywords, some
+words are filtered out. For this filtering out, we fol-
+                                                                n
+low the POS filtering approach proposed by Liu et          y o
+                                                           r it
+                                                                 n
+al. (2009). This approach filters out non-keywords         mo et
+                                                           e      e
+                                                            M R
+using a stop-word list and POS tags of the words.
+Assume that n words remain after the filtering out,
+where n  m. These n words become the vertices
+of the current utterance graph.
+                                                                                                        Time
+   Formally, the current utterance graph G          =
+                                                 1
+(V ,E ) is an undirected graph, where |V | = n.
+   1   1                                      1
+                                                             Figure 2: Memory retention according to time.
+E is a set of edges and each edge implies that the
+  1
+nouns connected by the edge co-occur within a win-
+dow sized W. For each e  E that connects nodes
+                         1                              information decreases gradually by the exponential
+                         ij     1
+v and v , its weight is given by
+ 1       1                                              nature of forgetting. However, whenever the infor-
+ i       j
+                                                        mation is repeated, it is recalled longer. This is for-
+       (
+         1    if v &v cooccur within the window,
+                  1  1                                  mulated as
+  1
+w =               i  j                             (1)
+  ij
+         0    otherwise.
+                                                                                   - t
+                                                                              R = e  S,
+
+   In a meeting, preceding utterances affect the cur-
+                                                        where R is memory retention, t is time, and S is the
+rent utterance. We assume that only the keywords
+                                                        relative strength of memory.
+of preceding utterances are effective. Therefore, the
+history graph G = (V ,E ) is an undirected graph          Based on the forgetting curve, the weight of each
+                  2     2   2
+of keywords in the preceding utterances. That is,       edge e  E between keywords v and v is set as
+                                                                   2                           2    2
+                                                                    ij   2                     i    j
+
+all vertices in V are keywords extracted from one
+                  2
+                                                                                     -    t
+                                                                             2
+or more previous utterances, and the edge between                           w = exp    f(v ,v ),           (2)
+                                                                                          i j
+                                                                             ij
+two keywords implies that they co-occurred at least
+once. Every edge in E has a weight that represents      where t is the elapse of utterance time and f(v ,v )
+                        2                                                                                i  j
+its temporal importance.                                is the frequency that v and v co-occur from the
+                                                                                  i       j
+   The history graph is updated whenever keywords       beginning of the meeting to now.        According to
+are extracted from a new utterance. This is because     this equation, the temporal importance between key-
+the current utterance becomes a part of the history     words decreases gradually as time passes by, but the
+graph for the next utterance. As a history, old ut-     keyword relations repeated during the meeting are
+terances are less important than recent ones. Thus,     remembered for a long time in the history graph.
+the temporal importance should decrease gradually
+                                                        4.2 Keyword Extraction by Merging Current
+according to the passage of time. In addition, the
+                                                                   Utterance and History Graphs
+keywords which occur frequently at a meeting are
+more important than those mentioned just once or        All words within the history graph are not equally
+twice. Since the frequently-mentioned keywords are      important in extracting keywords from the current
+normally major topics of the meeting, their influence   utterance. In general, many participants discuss a
+should last for a long time.                            wide range of topics in a meeting. Therefore, some
+   To model these characteristics, the forgetting       preceding utterances that shares topics with the cur-
+curve (Wozniak, 1999) is adopted in updating the        rent utterance are more significant. We assume that
+history graph. It models the decline of memory re-      the preceding utterances that contain the nouns in
+tention in time. Figure 2 shows a typical represen-     the current utterance share topics with the current
+tation of the forgetting curve. The X-axis of this      utterance. Thus, only a subgraph of G that contain
+                                                                                                 2
+figure is time and the Y-axis is memory retention.      words in G is relevant for keyword extraction from
+                                                                       1
+As shown in this figure, memory retention of new        G .
+                                                          1
+
+
+
+                                                    891
+
+   Given the current utterance graph G = (V ,E )              where 0  d  1 is a damping factor and adj(v )
+                                              1      1   1                                                        i
+and the history graph G = (V ,E ), the relevant               denotes v 's neighbors. Finally, the words whose
+                              2       2    2                             i
+graph G = (V ,E ) is a subgraph of G . Here,                  score is larger than a specific threshold  are cho-
+          3         3    3                        2
+V = (V V )adjacency(V ) and adjacency(V )                     sen as keywords. Especially when the current utter-
+  3       1    2                   1                     1
+is a set of vertices from G which are directly con-           ance is the first utterance of a meeting, the history
+                                2
+nected to the words in V . That is, V contains                graph does not exist. In this case, the current utter-
+                                1               3
+the words of G and their direct neighbor words in             ance graph becomes the expanded graph (G = G ),
+                  1                                                                                        4     1
+G . E is a subset of E . Only the edges that ap-              and keywords are extracted from the current utter-
+  2     3                     2
+pear in E are included in E . The weight w of          3      ance graph.
+           2                        3                  ij
+each e  E is also borrowed from G . That is,
+        3
+        ij       3                              2
+                                                                 The proposed method extracts keywords when-
+w = w . Therefore, G is a 1-walk subgraph of
+  3        2                                            1
+  ij      ij                   3
+                                                              ever an utterance is spoken. Thus, it tries to extract
+G in which words in G and their neighbor words
+  2                           1
+                                                              keywords even if the current utterance is not related
+appear.
+                                                              to the topics of a meeting or is too short. However,
+   The keywords of the current utterance should re-
+                                                              if the current utterance is irrelevant to the meeting,
+flect the relevant history as well as the current utter-
+                                                              it has just a few connections with other previous ut-
+ance itself. For this purpose, G is expanded with
+                                      1
+                                                              terances, and thus the potential keywords in this ut-
+respect to G . The expanded graph G = (V ,E )
+               3                              4      4   4
+                                                              terance are apt to have a low score. The proposed
+of G is defined as
+      1
+                                                              method, however, does not select the words whose
+
+                    V = V  V ,                                score is smaller than the threshold  as keywords.
+                     4       1     3
+                                                              As a result, it extracts only the relevant keywords
+                   E = E  E .
+                     4       1     3
+                                                              during the meeting.
+For each edge e  E , its weight w is determined
+                  4                        4
+                  ij       4               ij                    Since the keywords for the current utterance
+to be the larger value between w and w if it ap-
+                                       1         3
+                                       ij        ij           should be the history for the next utterance, they
+pears in both G and G . When it appears in only
+                   1         3
+                                                              have to be reflected into the history graph. There-
+one of the graphs, w is set to be the weight of its
+                          4
+                          ij                                  fore, a keyword graph G = (V ,E ) is constructed
+                                                                                       5       5   5
+corresponding graph. That is,
+                                                              from the keywords. Here, V is a set of keywords
+                                                                                             5
+
+        
+                   1      3                                   extracted from G , and E is a subset of E that
+                                if e  E and e  E ,
+                                    4              4                             4         5                 4
+        max(wij,wij)                ij     1       ij     3
+                                                              corresponds to V . The weights of edges in E are
+  4                                                                             5                             5
+w =          1                      4              4
+          w                     if e  E and e  E ,    /
+  ij         ij                     ij     1       ij     3   same with those in E . That is, w = w . The key-
+                                                                                                 5      4
+                                                                                    4
+                                                                                                 ij     ij
+         3w                    otherwise.
+             ij                                               word graph G is then merged into the history graph
+                                                                             5
+                                                              G in the same way that G and G are merged. As
+                                                                2                         1        3
+   From this expanded graph G , the keywords are
+                                      4
+                                                              stated above, the weights of the edges in the history
+extracted by TextRank (Mihalcea and Tarau, 2004).
+                                                              graph G are updated by Equation (2). Therefore,
+                                                                       2
+TextRank is an unsupervised graph-based method
+                                                              before merging G and G , all weights of G are
+                                                                                 5        2                   2
+for keyword extraction. It singles out the key ver-
+                                                              updated by increasing t as t + 1 to reflect temporal
+tices of a graph by providing a ranking mechanism.
+                                                              importance of preceding utterances.
+In order to rank the vertices, it computes the score
+of each vertex v  V by
+                   4
+                   i      4
+
+                                          w  4
+                            X    4                                        ji
+S(v ) = (1-d)+d·                                         4
+                                                     S(v ),
+    i                                                         5 Experiments
+                                    P              4     j
+                                                 w
+                                      v adj(v )
+                                       4       4   jk
+                         v adj(v )
+                          4      4
+                                       k       j
+                          j      i
+                                                         (3)
+
+   1If a m-walk subgraph (m > 1) is used, more affluent his-  The proposed method is evaluated with two kinds of
+tory is used. However, this graph contains some words irrel-  data sets: the National Assembly transcripts in Ko-
+evant to the current utterance. According to our experiments,
+                                                              rean and the ICSI meeting corpus in English. Both
+1-walk subgraph outperforms other m-walk subgraphs where
+                                                              data sets are the records of meetings that are manu-
+m > 1. In addition, extracting G becomes expensive for large
+                                3
+m.                                                            ally dictated by human transcribers.
+
+
+                                                         892
+
+                              Table 1: Simple statistics of the National Assembly transcripts
+                                                              the first meeting        the second meeting
+                       No. of utterances                            1,280                      573
+               Average No. of words per utterance                    7.22                     10.17
+
+
+5.1 National Assembly Transcripts in Korean                     annotators. Therefore, in this paper the words that
+                                                                are recommended by more than two annotators are
+The first corpus used to evaluate our method is the
+                                                                chosen as keywords.
+National Assembly transcripts . This corpus is ob-
+                                    2
+
+tained from the Knowledge Management System                       The evaluation is done with two metics:           F-
+of the National Assembly of KoreaIt is transcribed              measure and the weighted relative score (WRS).
+from the 305th assembly record of the Knowledge                 Since the previous work by Liu et al. (2009) re-
+Economy Committee in 2012.               Table 1 summa-         ported only F-measure and WRS, F-measure instead
+rizes simple statistics of the National Assembly tran-          of precision/recall are used for the comparison with
+scripts. The 305th assembly record actually consists            their method. The weighted relative score is de-
+of two meetings. The first meeting contains 1,280               rived from Pyramid metric (Nenkova and Passon-
+utterances and the second has 573 utterances. The               neau, 2004). When a keyword extraction system
+average number of words per utterance in the first              generates keywords which many annotators agree,
+meeting is 7.22 while the second meeting contains               a higher score is given to it. On the other hand, a
+10.17 words per utterance on average. The second                lower score is given if fewer annotators agree.
+meeting transcript is used as a development data set
+                                                                  The proposed method is compared with two base-
+to determine window size W of Equation (1), the
+                                                                line models to see its relative performance. One is
+damping factor d of Equation (3), and the threshold
+                                                                the frequency-based keyword extraction with TFIDF
+. For all experiments below, d is set 0.85, W is 10,
+                                                                weighting (Frank et al., 1999) and the other is Tex-
+and  is 0.28. The remaining first meeting transcript
+                                                                tRank in which the weight of edges is mutual in-
+is used as a data set to extract keywords since this
+                                                                formation between vertices (Wan et al., 2007). In
+transcript contains more utterances. Only nouns are
+                                                                TFIDF, each utterance is considered as a document,
+considered as potential keywords. That is, only the
+                                                                and thus all utterances including the current one
+words whose POS tag is NNG (common noun) or
+                                                                are regarded as whole documents. The frequency-
+NNP (proper noun) can be a keyword.
+                                                                based TFIDF chooses top-K words according to
+   Three annotators are engaged to extract keywords
+                                                                their TFIDF value from the set of words appearing in
+manually for each utterance in the first meeting
+                                                                the meeting transcript. Since the human annotators
+transcript, since the Knowledge Management Sys-
+                                                                are restricted to extract up to five keywords, the key-
+tem does not provide the keywords .           3    The aver-
+                                                                word extraction systems including our method are
+age number of keywords per utterance is 2.58. To
+                                                                also requested to select top-5 keywords when more
+see the inter-judge agreement among the annotators,
+                                                                than five keywords are produced.
+the Kappa coefficient (Carletta, 1996) was investi-
+                                                                  In order to see the effect of preceding utterances in
+gated. The kappa agreement of the National Assem-
+                                                                baseline models, the performances are measured ac-
+bly transcript is 0.31 that falls under the category of
+                                                                cording to the number of preceding utterances used.
+`Fair'. Even though all congressmen in the transcript
+                                                                Figure 3 shows the results. The X-axis of this fig-
+belong to the same committee, they discussed vari-
+                                                                ure is the number of preceding utterances and the Y-
+ous topics at the meeting. As a result, the keywords
+                                                                axis represents F-measures. As shown in this figure,
+are difficult to be agreed unanimously by all three
+                                                                the performance of the baseline models improves
+   2
+    The data set is available: http://ml.knu.ac.kr/             monotonically at first as the number of preceding
+dataset/keywordextraction.html
+                                                                utterances increases. However, the performance im-
+   3
+    A guideline was given to the annotators that keywords must
+                                                                provement stops when many preceding utterances
+be a single word and the maximum number of keywords per
+utterance is five.                                              are involved, and the performance begins to drop
+
+
+                                                          893
+
+                                                               Table 3: The importance of temporal history
+                                                                                           F-measure     WRS
+                                                            With Temporal History             0.533      0.421
+                                                           Without Temporal History           0.518      0.413
+
+
+                                                         this is much higher performance than TextRank
+                                                         whose precision is just 0.510. Since the proposed
+                                                         method uses, as history, the preceding utterances
+                                                         relevant to the current utterance, its performance is
+                                                         kept high even if whole utterances are used. There-
+                                                         fore, it could be inferred that it is important to adopt
+                                                         only the relevant history in keyword extraction from
+                                                         meeting transcripts.
+                                                           One of the key factors of our method is the tem-
+Figure 3: The performance of baseline models according
+to the number of preceding utterances                    poral history. Its importance is given in Table 3. As
+                                                         explained above, the temporal history is achieved by
+                                                         Equation (2). Thus, the proposed model does not
+
+Table 2: The experimental results on the National Assem- reflect the temporal importance of preceding utter-
+                                                                    2                                    2
+bly transcripts                                          ances if w = 1 always. That is, under w = 1,
+                                                                    ij                                   ij
+                                                         old utterances are regarded as important as recent ut-
+         Methods            F-measure         WRS
+                                                         terances. Without temporal history, F-measure and
+         TextRank              0.478          0.387
+                                                         weighted relative score are just 0.518 and 0.413 re-
+           TFIDF               0.481          0.394
+                                                         spectively. These poor performances prove the im-
+     Proposed method           0.533          0.421
+                                                         portance of the temporal history in keyword extrac-
+                                                         tion from meeting transcripts.
+
+when too many utterances are considered. The per-        5.2 ICSI Meeting Corpus in English
+formance of TextRank model drops from 20 preced-         The proposed method is also evaluated on the ICSI
+ing utterances, while that of TFIDF model begins to      meeting corpus (Janin et al., 2003) which consists of
+drops at 50 utterances. When too many preceding          naturally occurring meetings recordings. This cor-
+utterances are taken into account, it is highly pos-     pus is widely used for summarizing and extracting
+sible that some of their topics are irrelevant to the    keywords of meetings. We followed all the exper-
+current utterance, which leads to performance drop.      imental settings proposed by Liu et al. (2009) for
+   Table 2 compares our method with the baseline         this corpus. Among 26 meeting transcripts chosen
+models on the National Assembly transcripts. The         by Liu et al. from 161 transcripts of the ICSI meet-
+performances of baseline models are obtained when        ing corpus, 6 transcripts are used as development
+they show the best performance for various number        data and the remaining transcripts are used as data
+of preceding utterances. TextRank model achieves         to extract keywords. The parameters for the ICSI
+F-measure of 0.478 and weighted relative score of        meeting corpus are set to be d = 0.85,W = 10,
+0.387, while TFIDF reports its best F-measure of         and  = 0.20. Each meeting of the corpus consists
+0.481 and weighted relative score of 0.394. Thus,        of several topic segments, and every topic segment
+the difference between TFIDF and TextRank is not         contains three sets of keywords that are annotated by
+significant. However, F-measure and weighted rel-        three annotators. Up to five keywords are annotated
+ative score of the proposed method are 0.533 and         for a topic segment.
+0.421 respectively, and they are much higher than          Table 4 shows simple statistics of the ICSI meet-
+those of baseline models. In addition, our method        ing data. Total number of topic segments in the 26
+achieves precision of 0.543 and recall of 0.523 and      meetings is originally 201, but some of them do not
+
+
+                                                      894
+
+   Table 4: Simple statistics of the ICSI meeting data       Table 6: The effect of considering topic relevance
+                  Information                    Value             Methods              F-measure         WRS
+                 # of meetings                    26        With topic relevance          0.334           0.533
+              # of topic segments                 201
+                                                          Without topic relevance         0.291           0.458
+       # of topic segments used actually          140
+  Average # of utterances per topic segment       260
+       Average # of words per utterance          7.22
+
+
+                                                            Table 5 summarizes the comparison results. As
+  Table 5: The experimental results on the ICSI corpus
+         Methods            F-measure        WRS         shown in this table, the proposed method outper-
+
+        TFIDF-Liu              0.290         0.404       forms all previous methods. Our method achieves
+
+      TextRank-Liu             0.277         0.380       precision of 0.311 and recall of 0.361, and thus
+
+        ME model               0.312         0.401       the F-score is 0.334.       The weight relative score
+
+    Proposed method            0.334         0.533       of the proposed method is 0.533. This is the im-
+                                                         provement of up to 0.044 in F-measure and 0.129
+                                                         in weighted relative score over other unsupervised
+have keywords. Such segments are discarded, and          methods (TFIDF-Liu and TextRank-Liu). It should
+the remaining 140 topic segments are actually used.      be also noted that the proposed method outperforms
+The average number of utterances in a topic segment      even the supervised method (ME model). The differ-
+is 260 and the average number of words per utter-        ence between our method and the maximum entropy
+ance is 7.22.                                            model in weighted relative score is 0.132.
+  Unlike the National Assembly transcripts, the
+keywords of the ICSI meeting corpus are annotated           One possible variant of the proposed method for
+at the topic segment level, not the utterance level.     the ICSI corpus is to simply merge the current utter-
+Therefore, the proposed method which extracts key-       ance graph (G ) with the history graph (G ) rather
+                                                                         1                               2
+words at the utterance level can not be applied di-      than to extract keywords from each utterance. Af-
+rectly to this corpus. In order to obtain keywords       ter the current utterance graph of the last utterance
+for a topic segment with the proposed method, the        in a topic segment is merged into the history graph,
+keywords are first extracted from each utterance in      the keywords for the segment are extracted from the
+the segment by the proposed method and then they         history graph. This variant and the proposed method
+are all accumulated. The proposed method extracts        both rely on the temporal history, but the difference
+keywords for a topic segment from these accumu-          is that the history graph of the variant accumulates
+lated utterance-level keywords as follows. Assume        all information within the topic segment. Thus, the
+that a topic segment consists of l utterances. Since     keywords extracted from the history graph by this
+our method can extract up to 5 keywords for each         variant are those without consideration of topic rel-
+utterance, the number of keywords for the segment        evance.
+can reach to 5 · l. From these keywords, we select
+top-5 keywords ranked by Equation (3).                      Table 6 compares the proposed method with the
+  The proposed method is compared with three pre-        variant. The performance of the variant is higher
+vious studies. The first two are the methods pro-        than those of TFIDF-Liu and TextRank-Liu. This
+posed by Liu et al. (2009) One is the frequency-         proves the importance of the temporal history in
+based method of TFIDF weighting with the fea-            keyword extraction from meeting transcripts. How-
+tures such as POS filtering, word clustering, and sen-   ever, the proposed method still outperforms the vari-
+tence salience score, and the other is the graph-based   ant, and it demonstrates the importance of topic rel-
+method with POS filtering. The last method is a          evance. Therefore, it can be concluded that the con-
+maximum entropy model applied to this task (Liu          sideration of temporal history and topic relevance
+et al., 2008). Note that the maximum entropy is a        is critical in keyword extraction from meeting tran-
+supervised learning model.                               scripts.
+
+
+                                                      895
+
+6 Conclusion                                               Anette Hulth. 2003. Improved automatic keyword ex-
+                                                             traction given more linguistic knowledge. In Proceed-
+In this paper, we have proposed a just-in-time key-
+                                                             ings of International Conference on Empirical Meth-
+word extraction from meeting transcripts. Whenever           ods in Natural Language Processing, pages 216­223.
+an utterance is spoken, the proposed method extracts       Adam Janin, Don Baron, Jane Edwards, Dan Ellis,
+keywords from the utterance that best describe the           David Gelbart, Nelson Morgan, Barbara Peskin, Thilo
+utterance. Based on the graph representation of all          Pfau, Elizabeth Shriberg, Andreas Stolcke, and Chuck
+
+components in a meeting, the proposed method ex-             Wooters. 2003. The icsi meeting corpus. In Proceed-
+                                                             ings of International Conference on Acoustics, Speech,
+tracts keywords by TextRank with some graph oper-
+                                                             and Signal Processing, pages 364­367.
+ations.
+                                                           Fei Liu, Feifan Liu, and Yang Liu. 2008. Automatic key-
+  Temporal history and topic of the current utter-
+                                                             word extraction for the meeting corpus using super-
+ance are two major factors especially in keyword ex-
+                                                             vised approach and bigram expansion. In Proceedings
+traction from meeting transcripts. This is because re-       of IEEE Spoken Language Technology, pages 181­
+cent utterances are more important than old ones and         184.
+only the preceding utterances of which topic is rele-      Feifan Liu, Deana Pennell, Fei Liu, and Yang Liu. 2009.
+
+vant to the current utterance are important. To model        Unsupervised approaches for automatic keyword ex-
+                                                             traction using meeting transcripts. In Proceedings of
+the temporal importance of the preceding utterances,
+                                                             Annual Conference of the North American Chapter of
+the concept of forgetting curve is used in updating
+                                                             the ACL, pages 620­628.
+the history graph of preceding utterances. In addi-
+                                                           Fei Liu, Feifan Liu, and Yang Liu.     2011.    A super-
+tion, the subgraph of the history graph that shares
+                                                             vised framework for keyword extraction from meeting
+words appearing in the current utterance graph is            transcripts. IEEE Transactions on Audio, Speech, and
+used to extract keywords rather than whole history           Language Processing, 19(3):538­548.
+graph. The proposed method was evaluated with the          Rada Mihalcea and Paul Tarau. 2004. Textrank: Bring-
+National Assembly transcripts and the ICSI meeting           ing order into texts. In Proceedings of International
+                                                             Conference on Empirical Methods in Natural Lan-
+corpus. According to our experimental results on
+                                                             guage Processing, pages 404­411.
+these data sets, the performance of keyword extrac-
+                                                           Ani Nenkova and Rebecca Passonneau. 2004. Evaluat-
+tion is improved when we consider temporal history
+                                                             ing content selection in summarization: The pyramid
+and topic relevance.
+                                                             method. In Proceedings of Annual Conference of the
+                                                             North American Chapter of the ACL, pages 145­152.
+Acknowledgments
+                                                           Peter D. Turney.      2000.    Learning algorithms for
+This research was supported by the Converging Re-            keyphrase extraction. Information Retrieval, 2:303­
+                                                             336.
+search Center Program funded by the Ministry of
+                                                           Peter D. Turney.     2003.  Coherent keyphrase extrac-
+Education, Science and Technology (2012K001342)
+                                                             tion via web mining. In Proceedings of the 18th In-
+                                                             ternational Joint Conference on Artificial intelligence,
+References                                                   pages 434­439.
+                                                           Xiaojun Wan and Jianguo Xiao.       2008.    Collabrank:
+Jean Carletta. 1996. Assessing agreement on classifi-
+                                                             Towards a collaborative approach to single-document
+  cation tasks: The kappa statistic. Computational Lin-
+                                                             keyphrase extraction. In Proceedings of International
+  guistics, 22(2):249­254.
+                                                             Conference on Computational Linguistics, pages 969­
+Yun-Nung Chen, Yu Huang, Sheng-Yi Kong, , and Lin-
+                                                             976.
+  Shan Lee. 2010. Automatic key term extraction from
+                                                           Xiaojun Wan, Jianwu Yang, and Jianguo Xiao. 2007. To-
+  spoken course lectures using branching entropy and
+                                                             wards an iterative reinforcement approach for simulta-
+  prosodic/semantic features. In Proceedings of IEEE
+                                                             neous document summarization and keyword extrac-
+  Workshop on Spoken Language Technology, pages
+                                                             tion. In Proceedings of the 45th Annual Meeting of the
+  265­270.
+                                                             Association of Computational Linguistics, pages 552­
+Eibe Frank, Gordon W. Paynter, Ian H. Witten, Carl
+                                                             559.
+  Gutwin, and Craig G. Nevill-Manning.             1999.
+                                                           Robert H. Wozniak.      1999.   Classics in Psychology,
+  Domain-specific keyphrase extraction. In Proceedings
+                                                             1855­1914: Historical Essays. Thoemmes Press.
+  of the 18th International Joint Conference on Artificial
+  intelligence, pages 668­671.
+
+
+                                                      896
+

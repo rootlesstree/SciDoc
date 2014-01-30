@@ -1,0 +1,19 @@
+<algorithm name="SVM HeaderParse" version="0.2">
+<title>CollabRank: Towards a Collaborative Approach to Single-Document Keyphrase Extraction</title>
+<authors>
+<author>
+<name>Xiaojun Wan</name>
+<affiliation>Institute of Computer Science and Technology; Peking University, Beijing 100871</affiliation>
+<address>China</address>
+<email>wanxiaojun@icst.pku.edu.cn</email>
+</author>
+<author>
+<name>Jianguo Xiao</name>
+<affiliation>Institute of Computer Science and Technology; Peking University, Beijing 100871</affiliation>
+<address>China</address>
+<email>xiaojianguo@icst.pku.edu.cn</email>
+</author>
+</authors>
+<abstract>Previous methods usually conduct the keyphrase extraction task for single docu-ments separately without interactions for each document, under the assumption that the documents are considered inde-pendent of each other. This paper pro-poses a novel approach named Col-labRank to collaborative single-document keyphrase extraction by making use of mutual influences of multiple documents within a cluster context. CollabRank is implemented by first employing the clus-tering algorithm to obtain appropriate document clusters, and then using the graph-based ranking algorithm for col-laborative single-document keyphrase ex-traction within each cluster. Experimental results demonstrate the encouraging per-formance of the proposed approach. Dif-ferent clustering algorithms have been investigated and we find that the system performance relies positively on the qual-ity of document clusters. 1</abstract>
+<validHeader>1</validHeader>
+</algorithm>

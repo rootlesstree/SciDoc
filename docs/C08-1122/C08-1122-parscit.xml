@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="110505">
+<algorithm name="ParsCit" version="110505">
+<citationList>
+<citation valid="true">
+<authors>
+<author>A Berger</author>
+<author>V Mittal</author>
+</authors>
+<title>OCELOT: A system for summarizing Web Pages.</title>
+<date>2000</date>
+<booktitle>In Proceedings of SIGIR2000.</booktitle>
+<marker>Berger, Mittal, 2000</marker>
+<rawString>A. Berger and V. Mittal. 2000. OCELOT: A system for summarizing Web Pages. In Proceedings of SIGIR2000.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Barker</author>
+<author>N Cornacchia</author>
+</authors>
+<title>Using nounphrase heads to extract document keyphrases.</title>
+<date>2000</date>
+<booktitle>In Canadian Conference on AI.</booktitle>
+<contexts>
+<context position="6172" citStr="Barker and Cornacchia (2000)" startWordPosition="916" endWordPosition="919">t of this paper is organized as follows: Section 2 introduces the related work. The proposed CollabRank is described in detail in Section 3. Empirical evaluation is demonstrated in Section 4 and lastly we conclude this paper in Section 5. 2 Related Work The methods for keyphrase (or keyword) extraction can be roughly categorized into either unsupervised or supervised. Unsupervised methods usually involve assigning a saliency score to each candidate phrases by considering various features. Krulwich and Burkey (1996) use heuristics based on syntactic clues to extract keyphrases from a document. Barker and Cornacchia (2000) propose a simple system for choosing noun phrases from a document as keyphrases. Muñoz (1996) uses an unsupervised learning algorithm to discover two-word keyphrases. The algorithm is based on Adaptive Resonance Theory (ART) neural networks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence link</context>
+</contexts>
+<marker>Barker, Cornacchia, 2000</marker>
+<rawString>K. Barker and N. Cornacchia. 2000. Using nounphrase heads to extract document keyphrases. In Canadian Conference on AI.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>O Buyukkokten</author>
+<author>H Garcia-Molina</author>
+<author>A Paepcke</author>
+</authors>
+<title>Seeing the whole in parts: text summarization for web browsing on handheld devices.</title>
+<date>2001</date>
+<booktitle>In Proceedings of WWW2001.</booktitle>
+<marker>Buyukkokten, Garcia-Molina, Paepcke, 2001</marker>
+<rawString>O. Buyukkokten, H. Garcia-Molina, and A. Paepcke. 2001. Seeing the whole in parts: text summarization for web browsing on handheld devices. In Proceedings of WWW2001.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Chen</author>
+<author>J-T Sun</author>
+<author>H-J Zeng</author>
+<author>K-Y Lam</author>
+</authors>
+<title>A practical system for keyphrase extraction for web pages.</title>
+<date>2005</date>
+<booktitle>In Proceedings of CIKM2005.</booktitle>
+<contexts>
+<context position="8395" citStr="Chen et al., 2005" startWordPosition="1247" endWordPosition="1250">sing new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page keyword extraction (Kelleher and Luz, 2005; Zhang et al., 2005; Chen et al., 2005), advertising keywords finding (Yih et al., 2006). To the best of our knowledge, all previous work conducts the task of keyphrase extraction for each single document independently, without making use of the collaborative knowledge in multiple documents. We focus on unsupervised methods in this study. 970 3 The Proposed CollabRank Approach 3.1 Framework Description Given a document set for keyphrase extraction of each single document, CollabRank first employs the clustering algorithm to group the documents into a few clusters. The documents within each cluster are expected to be topic-related a</context>
+</contexts>
+<marker>Chen, Sun, Zeng, Lam, 2005</marker>
+<rawString>M. Chen, J.-T. Sun, H.-J. Zeng and K.-Y. Lam. 2005. A practical system for keyphrase extraction for web pages. In Proceedings of CIKM2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>E Frank</author>
+<author>G W Paynter</author>
+<author>I H Witten</author>
+<author>C Gutwin</author>
+<author>C G Nevill-Manning</author>
+</authors>
+<title>Domain-specific keyphrase extraction.</title>
+<date>1999</date>
+<booktitle>Proceedings of IJCAI-99,</booktitle>
+<pages>668--673</pages>
+<contexts>
+<context position="7051" citStr="Frank et al., 1999" startWordPosition="1047" endWordPosition="1050">1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrase</context>
+</contexts>
+<marker>Frank, Paynter, Witten, Gutwin, Nevill-Manning, 1999</marker>
+<rawString>E. Frank, G. W. Paynter, I. H. Witten, C. Gutwin, and C. G. Nevill-Manning. 1999. Domain-specific keyphrase extraction. Proceedings of IJCAI-99, pp. 668-673.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C Gutwin</author>
+<author>G W Paynter</author>
+<author>I H Witten</author>
+<author>C G NevillManning</author>
+<author>E Frank</author>
+</authors>
+<title>Improving browsing in digital libraries with keyphrase indexes.</title>
+<date>1999</date>
+<journal>Journal of Decision Support Systems,</journal>
+<volume>27</volume>
+<pages>81--104</pages>
+<contexts>
+<context position="3614" citStr="Gutwin et al., 1999" startWordPosition="541" endWordPosition="544">rithms have been investigated and we find that the system performance relies positively on the quality of document clusters. 1 Introduction A keyphrase is defined as a meaningful and significant expression consisting of one or more words in a document. Appropriate keyphrases can be considered as a highly condensed summary for a document, and they can be used as a label for the document to supplement or replace the title or summary, thus facilitating users’ fast browsing and reading. Moreover, document keyphrases have been successfully used in the following IR and NLP tasks: document indexing (Gutwin et al., 1999), document classification (Krulwich and Burkey, 1996), document cluster© 2008. Licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported license (http://creativecommons.org/licenses/by-ncsa/3.0/). Some rights reserved. 969 Proceedings of the 22nd International Conference on Computational Linguistics (Coling 2008), pages 969–976 Manchester, August 2008 Based on the above assumption, we propose a novel framework for collaborative singledocument keyphrase extraction by making use of the additional information from multiple documents within an appropriate cluster conte</context>
+</contexts>
+<marker>Gutwin, Paynter, Witten, NevillManning, Frank, 1999</marker>
+<rawString>C. Gutwin, G. W. Paynter, I. H. Witten, C. G. NevillManning and E. Frank. 1999. Improving browsing in digital libraries with keyphrase indexes. Journal of Decision Support Systems, 27, 81-104.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K M Hammouda</author>
+<author>D N Matute</author>
+<author>M S Kamel</author>
+</authors>
+<title>CorePhrase: keyphrase extraction for document clustering.</title>
+<date>2005</date>
+<booktitle>In Proceedings of MLDM2005.</booktitle>
+<marker>Hammouda, Matute, Kamel, 2005</marker>
+<rawString>K. M. Hammouda, D. N. Matute and M. S. Kamel. 2005. CorePhrase: keyphrase extraction for document clustering. In Proceedings of MLDM2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Hulth</author>
+</authors>
+<title>Improved automatic keyword extraction given more linguistic knowledge.</title>
+<date>2003</date>
+<booktitle>In Proceedings of EMNLP2003,</booktitle>
+<location>Japan,</location>
+<contexts>
+<context position="7287" citStr="Hulth (2003)" startWordPosition="1087" endWordPosition="1088">lcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of ke</context>
+</contexts>
+<marker>Hulth, 2003</marker>
+<rawString>A. Hulth. 2003. Improved automatic keyword extraction given more linguistic knowledge. In Proceedings of EMNLP2003, Japan, August.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A K Jain</author>
+<author>M N Murty</author>
+<author>P J Flynn</author>
+</authors>
+<title>Data clustering: a review.</title>
+<date>1999</date>
+<journal>ACM Computing Surveys,</journal>
+<pages>31--3</pages>
+<contexts>
+<context position="10912" citStr="Jain et al., 1999" startWordPosition="1639" endWordPosition="1642">ithms will yield different clusters. The documents in a high-quality cluster are usually deemed to be highly topic-related (i.e. appropriate cluster context), while the documents in a low-quality cluster are usually not topicrelated (i.e. inappropriate cluster context). The quality of a cluster will influence the reliability of the contextual information for evaluating the words in the cluster. A number of clustering algorithms will be investigated in the experiments, including the agglomerative algorithm (both average-link and complete-link), the divisive algorithm, and the kmeans algorithm (Jain et al., 1999), whose details will be described in the evalution section. In the second step of the above framework, substep 1) aims to evaluate all candidate words in the cluster based on the graph-based ranking algorithm. The global affinity graph aims to reflect the cluster-level co-occurrence relationships between all candidate words in the documents of the given cluster. The saliency scores of the words are computed based on the global affinity graph to indicate how much information about the main topic the words reflect. Substep 2) aims to evaluate candidate phrases of each single document based on th</context>
+<context position="22526" citStr="Jain et al., 1999" startWordPosition="3626" endWordPosition="3629"> different randomization processes are performed and we denote them as Random1, Random2 and Random3, respectively. CollabRank relies on the clustering algorithm for document clustering, and the combination of CollabRank and any clustering algorithm will be investigated. 4.3 Evaluation Metric For evaluation of document clustering results, we adopt the widely used F-Measure to measure the m n sim (c1, c2 ) ∑∑ sim(di, dj) (7) i_1 j_1 X c2 _ c1 )} (8) 973 performance of the clustering algorithm (i.e. the quality of the clusters) by comparing the produced clusters with the gold clusters (classes) (Jain et al., 1999). For evaluation of keyphrase extraction results, the automatic extracted keyphrases are compared with the manually labeled keyphrases. The words are converted to their corresponding basic forms using word stemming before comparison. The precision p=countcorrect/countsystem, recall r=countcorrect/counthuman, F-measure (F=2pr/(p+r)) are used as evaluation metrics, where countcorrect is the total number of correct keyphrases extracted by the system, and countsystem is the total number of automatic extracted keyphrases, and counthuman is the total number of human-labeled keyphrases. 4.4 Evaluatio</context>
+</contexts>
+<marker>Jain, Murty, Flynn, 1999</marker>
+<rawString>A. K. Jain, M. N. Murty and P. J. Flynn. 1999. Data clustering: a review. ACM Computing Surveys, 31(3):264-323.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>D Kelleher</author>
+<author>S Luz</author>
+</authors>
+<title>Automatic hypertext keyphrase detection.</title>
+<date>2005</date>
+<booktitle>In Proceedings of IJCAI2005.</booktitle>
+<contexts>
+<context position="8355" citStr="Kelleher and Luz, 2005" startWordPosition="1239" endWordPosition="1242">e extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page keyword extraction (Kelleher and Luz, 2005; Zhang et al., 2005; Chen et al., 2005), advertising keywords finding (Yih et al., 2006). To the best of our knowledge, all previous work conducts the task of keyphrase extraction for each single document independently, without making use of the collaborative knowledge in multiple documents. We focus on unsupervised methods in this study. 970 3 The Proposed CollabRank Approach 3.1 Framework Description Given a document set for keyphrase extraction of each single document, CollabRank first employs the clustering algorithm to group the documents into a few clusters. The documents within each cl</context>
+</contexts>
+<marker>Kelleher, Luz, 2005</marker>
+<rawString>D. Kelleher and S. Luz. 2005. Automatic hypertext keyphrase detection. In Proceedings of IJCAI2005.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B Krulwich</author>
+<author>C Burkey</author>
+</authors>
+<title>Learning user information interests through the extraction of semantically significant phrases.</title>
+<date>1996</date>
+<booktitle>In AAAI 1996 Spring Symposium on Machine Learning in Information Access.</booktitle>
+<contexts>
+<context position="3667" citStr="Krulwich and Burkey, 1996" startWordPosition="547" endWordPosition="550">the system performance relies positively on the quality of document clusters. 1 Introduction A keyphrase is defined as a meaningful and significant expression consisting of one or more words in a document. Appropriate keyphrases can be considered as a highly condensed summary for a document, and they can be used as a label for the document to supplement or replace the title or summary, thus facilitating users’ fast browsing and reading. Moreover, document keyphrases have been successfully used in the following IR and NLP tasks: document indexing (Gutwin et al., 1999), document classification (Krulwich and Burkey, 1996), document cluster© 2008. Licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported license (http://creativecommons.org/licenses/by-ncsa/3.0/). Some rights reserved. 969 Proceedings of the 22nd International Conference on Computational Linguistics (Coling 2008), pages 969–976 Manchester, August 2008 Based on the above assumption, we propose a novel framework for collaborative singledocument keyphrase extraction by making use of the additional information from multiple documents within an appropriate cluster context. The collaborative framework for keyphrase extract</context>
+<context position="6064" citStr="Krulwich and Burkey (1996)" startWordPosition="899" endWordPosition="903">lustering algorithms can yield appropriate cluster context for collaborative keyphrase extraction. The rest of this paper is organized as follows: Section 2 introduces the related work. The proposed CollabRank is described in detail in Section 3. Empirical evaluation is demonstrated in Section 4 and lastly we conclude this paper in Section 5. 2 Related Work The methods for keyphrase (or keyword) extraction can be roughly categorized into either unsupervised or supervised. Unsupervised methods usually involve assigning a saliency score to each candidate phrases by considering various features. Krulwich and Burkey (1996) use heuristics based on syntactic clues to extract keyphrases from a document. Barker and Cornacchia (2000) propose a simple system for choosing noun phrases from a document as keyphrases. Muñoz (1996) uses an unsupervised learning algorithm to discover two-word keyphrases. The algorithm is based on Adaptive Resonance Theory (ART) neural networks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More rec</context>
+</contexts>
+<marker>Krulwich, Burkey, 1996</marker>
+<rawString>B. Krulwich and C. Burkey. 1996. Learning user information interests through the extraction of semantically significant phrases. In AAAI 1996 Spring Symposium on Machine Learning in Information Access.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>O Medelyan</author>
+<author>I H Witten</author>
+</authors>
+<title>Thesaurus based automatic keyphrase indexing.</title>
+<date>2006</date>
+<booktitle>In Proceedings of JCDL2006.</booktitle>
+<contexts>
+<context position="7542" citStr="Medelyan and Witten (2006)" startWordPosition="1121" endWordPosition="1124">rithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relat</context>
+</contexts>
+<marker>Medelyan, Witten, 2006</marker>
+<rawString>O. Medelyan and I. H. Witten. 2006. Thesaurus based automatic keyphrase indexing. In Proceedings of JCDL2006.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>R Mihalcea</author>
+<author>P Tarau</author>
+</authors>
+<title>TextRank: Bringing order into texts.</title>
+<date>2004</date>
+<booktitle>In Proceedings of EMNLP2004.</booktitle>
+<contexts>
+<context position="6696" citStr="Mihalcea and Tarau (2004)" startWordPosition="993" endWordPosition="996">uristics based on syntactic clues to extract keyphrases from a document. Barker and Cornacchia (2000) propose a simple system for choosing noun phrases from a document as keyphrases. Muñoz (1996) uses an unsupervised learning algorithm to discover two-word keyphrases. The algorithm is based on Adaptive Resonance Theory (ART) neural networks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statist</context>
+<context position="12253" citStr="Mihalcea and Tarau, 2004" startWordPosition="1863" endWordPosition="1866">ormed on all documents in the cluster in order to evaluate the words from a global perspective, while substep 2) is performed on each single document in order to extract keyphrases from a local perspective. A keyphrase of a document is expected to include highly salient words. We can see that the keyphrase extraction tasks are conducted in a batch mode for each cluster. The substeps of 1) and 2) will be described in next sections respectively. If substep 1) is performed on each single document without considering the cluster context, the approach is degenerated into the simple TextRank model (Mihalcea and Tarau, 2004), which is denoted as SingleRank in this paper. It is noteworthy that in addition to the graphbased ranking algorithm, other keyphrase extraction methods can also be integrated in the proposed collaborative framework to exploit the collaborative knowledge in the cluster context. 3.2 Cluster-Level Word Evaluation Like the PageRank algorithm (Page et al., 1998), the graph-based ranking algorithm employed in this study is essentially a way of deciding the importance of a vertex within a graph based on global information recursively drawn from the entire graph. The basic idea is that of “voting” o</context>
+<context position="13570" citStr="Mihalcea and Tarau (2004)" startWordPosition="2090" endWordPosition="2093"> cast from one vertex to the other vertex. The score associated with a vertex is determined by the votes that are cast for it, and the score of the vertices casting these votes. Formally, given a specified cluster C, let G=(V, E) be an undirected graph to reflect the relationships between words in the cluster. V is the set of vertices and each vertex is a candidate word2 in the cluster. Because not all words in the documents are good indicators of keyphrases, the words added to the graph are restricted with syntactic filters, i.e., only the words with a certain part of speech are added. As in Mihalcea and Tarau (2004), the documents are tagged by a 2 The original words are used without stemming. 971 POS tagger, and only the nouns and adjectives are added into the vertex set3. E is the set of edges, which is a subset of V×V. Each edge eij in E is associated with an affinity weight aff(vi,vj) between words vi and vj. The weight is computed based on the co-occurrence relation between the two words, controlled by the distance between word occurrences. The co-occurrence relation can express cohesion relationships between words. Two vertices are connected if the corresponding words co-occur at least once within </context>
+</contexts>
+<marker>Mihalcea, Tarau, 2004</marker>
+<rawString>R. Mihalcea and P. Tarau. 2004. TextRank: Bringing order into texts. In Proceedings of EMNLP2004.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A Muñoz</author>
+</authors>
+<title>Compound key word generation from document databases using a hierarchical clustering ART model.</title>
+<date>1996</date>
+<journal>Intelligent Data Analysis,</journal>
+<volume>1</volume>
+<issue>1</issue>
+<contexts>
+<context position="6266" citStr="Muñoz (1996)" startWordPosition="934" endWordPosition="935">cribed in detail in Section 3. Empirical evaluation is demonstrated in Section 4 and lastly we conclude this paper in Section 5. 2 Related Work The methods for keyphrase (or keyword) extraction can be roughly categorized into either unsupervised or supervised. Unsupervised methods usually involve assigning a saliency score to each candidate phrases by considering various features. Krulwich and Burkey (1996) use heuristics based on syntactic clues to extract keyphrases from a document. Barker and Cornacchia (2000) propose a simple system for choosing noun phrases from a document as keyphrases. Muñoz (1996) uses an unsupervised learning algorithm to discover two-word keyphrases. The algorithm is based on Adaptive Resonance Theory (ART) neural networks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to ex</context>
+</contexts>
+<marker>Muñoz, 1996</marker>
+<rawString>A. Muñoz. 1996. Compound key word generation from document databases using a hierarchical clustering ART model. Intelligent Data Analysis, 1(1).</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T D Nguyen</author>
+<author>M-Y Kan</author>
+</authors>
+<title>Keyphrase extraction in scientific publications.</title>
+<date>2007</date>
+<booktitle>In Proceedings of ICADL2007.</booktitle>
+<contexts>
+<context position="7715" citStr="Nguyen and Kan (2007)" startWordPosition="1147" endWordPosition="1150">ems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page ke</context>
+</contexts>
+<marker>Nguyen, Kan, 2007</marker>
+<rawString>T. D. Nguyen and M.-Y. Kan. 2007. Keyphrase extraction in scientific publications. In Proceedings of ICADL2007.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P Over</author>
+</authors>
+<title>Introduction to DUC-2001: an intrinsic evaluation of generic news text summarization systems.</title>
+<date>2001</date>
+<booktitle>In Proceedings of DUC2001.</booktitle>
+<contexts>
+<context position="18143" citStr="Over, 2001" startWordPosition="2933" endWordPosition="2934">6) vj pi ∈ All the candidate phrases in the document are ranked in decreasing order of the phrase scores and the top n phrases are selected as the keyphrases of the document. n ranges from 1 to 20 in this study. Similarly for SingleRank, the phrase score is computed based on the document-level saliency scores of the words. ~WordScorelus (vi) = µ ⋅ ∑ WordScorelus (vj)⋅Mj,i + (1V ) all j≠ I (4) ) (1) 0 , otherwise 972 4 Empirical Evaluation 4.1 Data Set To our knowledge, there is no gold standard news dataset with assigned keyphrases for evaluation. So we manually annotated the DUC2001 dataset (Over, 2001) and used the annotated dataset for evaluation in this study. The dataset was originally used for document summarization. It consisted of 309 news articles collected from TREC-9, in which two articles were duplicate (i.e. d05a\FBIS-41815 and d05a\FBIS-41815~). The average length of the documents was 740 words. Two graduate students were employed to manually label the keyphrases for each document. At most 10 keyphrases could be assigned to each document. The annotation process lasted two weeks. The Kappa statistic for measuring inter-agreement among annotators was 0.70. And the annotation confl</context>
+</contexts>
+<marker>Over, 2001</marker>
+<rawString>P. Over. 2001. Introduction to DUC-2001: an intrinsic evaluation of generic news text summarization systems. In Proceedings of DUC2001.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>L Page</author>
+<author>S Brin</author>
+<author>R Motwani</author>
+<author>T Winograd</author>
+</authors>
+<title>The pagerank citation ranking: Bringing order to the web. Technical report, Stanford Digital Libraries.</title>
+<date>1998</date>
+<contexts>
+<context position="12614" citStr="Page et al., 1998" startWordPosition="1920" endWordPosition="1923">ter. The substeps of 1) and 2) will be described in next sections respectively. If substep 1) is performed on each single document without considering the cluster context, the approach is degenerated into the simple TextRank model (Mihalcea and Tarau, 2004), which is denoted as SingleRank in this paper. It is noteworthy that in addition to the graphbased ranking algorithm, other keyphrase extraction methods can also be integrated in the proposed collaborative framework to exploit the collaborative knowledge in the cluster context. 3.2 Cluster-Level Word Evaluation Like the PageRank algorithm (Page et al., 1998), the graph-based ranking algorithm employed in this study is essentially a way of deciding the importance of a vertex within a graph based on global information recursively drawn from the entire graph. The basic idea is that of “voting” or “recommendation” between the vertices. A link between two vertices is considered as a vote cast from one vertex to the other vertex. The score associated with a vertex is determined by the votes that are cast for it, and the score of the vertices casting these votes. Formally, given a specified cluster C, let G=(V, E) be an undirected graph to reflect the r</context>
+</contexts>
+<marker>Page, Brin, Motwani, Winograd, 1998</marker>
+<rawString>L. Page, S. Brin, R. Motwani, and T. Winograd. 1998. The pagerank citation ranking: Bringing order to the web. Technical report, Stanford Digital Libraries.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>M Song</author>
+<author>I-Y Song</author>
+<author>X Hu</author>
+</authors>
+<title>KPSpotter: a flexible information gain-based keyphrase extraction system.</title>
+<date>2003</date>
+<booktitle>In Proceedings of WIDM2003.</booktitle>
+<contexts>
+<context position="7435" citStr="Song et al. (2003)" startWordPosition="1107" endWordPosition="1110">“voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for</context>
+</contexts>
+<marker>Song, Song, Hu, 2003</marker>
+<rawString>M. Song, I.-Y. Song and X. Hu. 2003. KPSpotter: a flexible information gain-based keyphrase extraction system. In Proceedings of WIDM2003.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>A M Steier</author>
+<author>R K Belew</author>
+</authors>
+<title>Exporting phrases: A statistical analysis of topical language.</title>
+<date>1993</date>
+<booktitle>In Proceedings of Second Symposium on Document Analysis and Information Retrieval,</booktitle>
+<pages>179--190</pages>
+<contexts>
+<context position="6438" citStr="Steier and Belew (1993)" startWordPosition="957" endWordPosition="960">eyphrase (or keyword) extraction can be roughly categorized into either unsupervised or supervised. Unsupervised methods usually involve assigning a saliency score to each candidate phrases by considering various features. Krulwich and Burkey (1996) use heuristics based on syntactic clues to extract keyphrases from a document. Barker and Cornacchia (2000) propose a simple system for choosing noun phrases from a document as keyphrases. Muñoz (1996) uses an unsupervised learning algorithm to discover two-word keyphrases. The algorithm is based on Adaptive Resonance Theory (ART) neural networks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank</context>
+</contexts>
+<marker>Steier, Belew, 1993</marker>
+<rawString>A. M. Steier and R. K. Belew. 1993. Exporting phrases: A statistical analysis of topical language. In Proceedings of Second Symposium on Document Analysis and Information Retrieval, pp. 179-190.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Tomokiyo</author>
+<author>M Hurst</author>
+</authors>
+<title>A language model approach to keyphrase extraction. In:</title>
+<date>2003</date>
+<booktitle>Proceedings of ACL Workshop on Multiword Expressions.</booktitle>
+<contexts>
+<context position="6535" citStr="Tomokiyo and Hurst (2003)" startWordPosition="971" endWordPosition="974">sed. Unsupervised methods usually involve assigning a saliency score to each candidate phrases by considering various features. Krulwich and Burkey (1996) use heuristics based on syntactic clues to extract keyphrases from a document. Barker and Cornacchia (2000) propose a simple system for choosing noun phrases from a document as keyphrases. Muñoz (1996) uses an unsupervised learning algorithm to discover two-word keyphrases. The algorithm is based on Adaptive Resonance Theory (ART) neural networks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for </context>
+</contexts>
+<marker>Tomokiyo, Hurst, 2003</marker>
+<rawString>T. Tomokiyo and M. Hurst. 2003. A language model approach to keyphrase extraction. In: Proceedings of ACL Workshop on Multiword Expressions.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>K Toutanova</author>
+<author>C D Manning</author>
+</authors>
+<title>Enriching the knowledge sources used in a maximum entropy Part-ofSpeech tagger.</title>
+<date>2000</date>
+<booktitle>In Proceedings of EMNLP/VLC-2000.</booktitle>
+<contexts>
+<context position="15592" citStr="Toutanova and Manning, 2000" startWordPosition="2490" endWordPosition="2493">) if links with and ; i j i j v i j ≠ (2) ~ Then M is normalized to M as follows to make the sum of each row equal to 1: |V ||V| ⎧ ~M , M ≠ i,j i,j ⎪⎨ M if 0 i,j ∑ = ∑ = M = (3) i,j j 1 j 1⎪⎩ Based on the global affinity graph G, the cluster-level saliency score WordScoreclus(vi) for word vi can be deduced from those of all other words linked with it and it can be formulated in a recursive form as in the PageRank algorithm: And the matrix form is: e |V |(5) 3 The corresponding POS tags of the candidate words include “JJ”, “NN”, “NNS”, “NNP”, “NNPS”. We used the Stanford log-linear POS tagger (Toutanova and Manning, 2000) in this study. r where λ= [WordScoreclus (vi )]|V|×1 is the vector of word saliency scores. er is a vector with all elements equaling to 1. µ is the damping factor usually set to 0.85, as in the PageRank algorithm. The above process can be considered as a Markov chain by taking the words as the states and the corresponding transition matrix is given byµM T + (1− µ) e e T . The stationary probabil|V| ity distribution of each state is obtained by the principal eigenvector of the transition matrix. For implementation, the initial scores of the words are set to 1 and the iteration algorithm in Eq</context>
+</contexts>
+<marker>Toutanova, Manning, 2000</marker>
+<rawString>K. Toutanova and C. D. Manning. 2000. Enriching the knowledge sources used in a maximum entropy Part-ofSpeech tagger. In Proceedings of EMNLP/VLC-2000.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P D Turney</author>
+</authors>
+<title>Learning algorithms for keyphrase extraction. Information Retrieval,</title>
+<date>2000</date>
+<pages>2--303</pages>
+<contexts>
+<context position="7023" citStr="Turney, 2000" startWordPosition="1043" endWordPosition="1044">rks. Steier and Belew (1993) use the mutual information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic inf</context>
+</contexts>
+<marker>Turney, 2000</marker>
+<rawString>P. D. Turney. 2000. Learning algorithms for keyphrase extraction. Information Retrieval, 2:303-336.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>P D Turney</author>
+</authors>
+<title>Coherent keyphrase extraction via web mining.</title>
+<date>2003</date>
+<booktitle>In Proc. of IJCAI-03,</booktitle>
+<pages>434--439</pages>
+<contexts>
+<context position="7415" citStr="Turney, 2003" startWordPosition="1104" endWordPosition="1106">ms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) p</context>
+</contexts>
+<marker>Turney, 2003</marker>
+<rawString>P. D. Turney. 2003. Coherent keyphrase extraction via web mining. In Proc. of IJCAI-03, pages 434–439.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>X Wan</author>
+<author>J Yang</author>
+<author>J Xiao</author>
+</authors>
+<title>Towards an iterative reinforcement approach for simultaneous document summarization and keyword extraction.</title>
+<date>2007</date>
+<booktitle>In Proceedings of ACL2007.</booktitle>
+<contexts>
+<context position="8168" citStr="Wan et al. (2007" startWordPosition="1213" endWordPosition="1216">EA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page keyword extraction (Kelleher and Luz, 2005; Zhang et al., 2005; Chen et al., 2005), advertising keywords finding (Yih et al., 2006). To the best of our knowledge, all previous work conducts the task of keyphrase extraction for each single document independently, without making use of the collaborative knowledge in multiple documents. We focus on unsupervised methods in this study. 970 3 The Proposed CollabRank Approach 3.1 Framework Description Given </context>
+</contexts>
+<marker>Wan, Yang, Xiao, 2007</marker>
+<rawString>X. Wan, J. Yang and J. Xiao. 2007a. Towards an iterative reinforcement approach for simultaneous document summarization and keyword extraction. In Proceedings of ACL2007.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>I H Witten</author>
+<author>G W Paynter</author>
+<author>E Frank</author>
+<author>C Gutwin</author>
+<author>C G Nevill-Manning</author>
+</authors>
+<title>KEA: Practical automatic keyphrase extraction.</title>
+<date>1999</date>
+<booktitle>Proceedings of Digital Libraries</booktitle>
+<volume>99</volume>
+<pages>254--256</pages>
+<contexts>
+<context position="7073" citStr="Witten et al., 1999" startWordPosition="1051" endWordPosition="1054"> information statistics to discover two-word keyphrases. Tomokiyo and Hurst (2003) use pointwise KLdivergence between multiple language models for scoring both phraseness and informativeness of phrases. More recently, Mihalcea and Tarau (2004) propose the TextRank model to rank keywords based on the co-occurrence links between words. Such algorithms make use of “voting” or “recommendations” between words to extract keyphrases. Supervised machine learning algorithms have been proposed to classify a candidate phrase into either keyphrase or not. GenEx (Turney, 2000) and Kea (Frank et al., 1999; Witten et al., 1999) are two typical systems, and the most important features for classifying a candidate phrase are the frequency and location of the phrase in the document. More linguistic knowledge has been explored by Hulth (2003). Statistical associations between keyphrases have been used to enhance the coherence of the extracted keyphrases (Turney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domai</context>
+</contexts>
+<marker>Witten, Paynter, Frank, Gutwin, Nevill-Manning, 1999</marker>
+<rawString>I. H. Witten, G. W. Paynter, E. Frank, C. Gutwin, and C. G. Nevill-Manning. 1999. KEA: Practical automatic keyphrase extraction. Proceedings of Digital Libraries 99 (DL&apos;99), pp. 254-256.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>W-T Yih</author>
+<author>J Goodman</author>
+<author>V R Carvalho</author>
+</authors>
+<title>Finding advertising keywords on web pages.</title>
+<date>2006</date>
+<booktitle>In Proceedings of WWW2006.</booktitle>
+<contexts>
+<context position="8444" citStr="Yih et al., 2006" startWordPosition="1254" endWordPosition="1257">al phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page keyword extraction (Kelleher and Luz, 2005; Zhang et al., 2005; Chen et al., 2005), advertising keywords finding (Yih et al., 2006). To the best of our knowledge, all previous work conducts the task of keyphrase extraction for each single document independently, without making use of the collaborative knowledge in multiple documents. We focus on unsupervised methods in this study. 970 3 The Proposed CollabRank Approach 3.1 Framework Description Given a document set for keyphrase extraction of each single document, CollabRank first employs the clustering algorithm to group the documents into a few clusters. The documents within each cluster are expected to be topic-related and each cluster can be considered as a context fo</context>
+</contexts>
+<marker>Yih, Goodman, Carvalho, 2006</marker>
+<rawString>W.-T. Yih, J. Goodman and V. R. Carvalho. 2006. Finding advertising keywords on web pages. In Proceedings of WWW2006.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H Y Zha</author>
+</authors>
+<title>Generic summarization and keyphrase extraction using mutual reinforcement principle and sentence clustering.</title>
+<date>2002</date>
+<booktitle>In Proceedings of SIGIR2002,</booktitle>
+<pages>113--120</pages>
+<contexts>
+<context position="8013" citStr="Zha (2002)" startWordPosition="1194" endWordPosition="1195">urney, 2003). Song et al. (2003) present an information gain-based keyphrase extraction system called KPSpotter. Medelyan and Witten (2006) propose KEA++ that enhances automatic keyphrase extraction by using semantic information on terms and phrases gleaned from a domainspecific thesaurus. Nguyen and Kan (2007) focus on keyphrase extraction in scientific publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page keyword extraction (Kelleher and Luz, 2005; Zhang et al., 2005; Chen et al., 2005), advertising keywords finding (Yih et al., 2006). To the best of our knowledge, all previous work conducts the task of keyphrase extraction for each single document independently, without making use of the collaborati</context>
+</contexts>
+<marker>Zha, 2002</marker>
+<rawString>H. Y. Zha. 2002. Generic summarization and keyphrase extraction using mutual reinforcement principle and sentence clustering. In Proceedings of SIGIR2002, pp. 113-120.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Y Zhang</author>
+<author>N Zincir-Heywood</author>
+<author>E Milios</author>
+</authors>
+<title>TermBased Clustering and Summarization of Web Page Collections.</title>
+<date>2004</date>
+<booktitle>In Proceedings of the Seventeenth Conference of the Canadian Society for Computational Studies of Intelligence.</booktitle>
+<marker>Zhang, Zincir-Heywood, Milios, 2004</marker>
+<rawString>Y. Zhang, N. Zincir-Heywood, and E. Milios. 2004. TermBased Clustering and Summarization of Web Page Collections. In Proceedings of the Seventeenth Conference of the Canadian Society for Computational Studies of Intelligence.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>Y Zhang</author>
+<author>N Zincir-Heywood</author>
+<author>E Milios</author>
+</authors>
+<title>Narrative text classification for automatic key phrase extraction in web document corpora.</title>
+<date>2005</date>
+<booktitle>In Proceedings of WIDM2005.</booktitle>
+<contexts>
+<context position="8375" citStr="Zhang et al., 2005" startWordPosition="1243" endWordPosition="1246">ic publications by using new features that capture salient morphological phenomena found in scientific keyphrases. The tasks of keyphrase extraction and document summarization are similar and thus they have been conducted in a uniform framework. Zha (2002) proposes a method for simultaneous keyphrase extraction and text summarization by using the heterogeneous sentence-to-word relationships. Wan et al. (2007a) propose an iterative reinforcement approach to simultaneous keyphrase extraction and text summarization. Other related works include web page keyword extraction (Kelleher and Luz, 2005; Zhang et al., 2005; Chen et al., 2005), advertising keywords finding (Yih et al., 2006). To the best of our knowledge, all previous work conducts the task of keyphrase extraction for each single document independently, without making use of the collaborative knowledge in multiple documents. We focus on unsupervised methods in this study. 970 3 The Proposed CollabRank Approach 3.1 Framework Description Given a document set for keyphrase extraction of each single document, CollabRank first employs the clustering algorithm to group the documents into a few clusters. The documents within each cluster are expected t</context>
+</contexts>
+<marker>Zhang, Zincir-Heywood, Milios, 2005</marker>
+<rawString>Y. Zhang, N. Zincir-Heywood and E. Milios. 2005. Narrative text classification for automatic key phrase extraction in web document corpora. In Proceedings of WIDM2005.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>

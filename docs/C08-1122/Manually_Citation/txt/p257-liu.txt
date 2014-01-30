@@ -1,0 +1,790 @@
+         Clustering to Find Exemplar Terms for Keyphrase Extraction
+
+                          Zhiyuan Liu, Peng Li, Yabin Zheng, Maosong Sun
+                           Department of Computer Science and Technology
+                         State Key Lab on Intelligent Technology and Systems
+                         National Lab for Information Science and Technology
+                               Tsinghua University, Beijing 100084, China
+               flzy.thu, pengli09, yabin.zhengg@gmail.com, sms@tsinghua.edu.cn
+
+
+                      Abstract                              In this approach, a model is trained to determine
+                                                            whether a candidate term of the document is a
+    Keyphrases are widely used as a brief
+                                                            keyphrase, based on statistical and linguistic fea-
+    summary of documents.             Since man-
+                                                            tures.   For the supervised keyphrase extraction
+    ual assignment is time-consuming, vari-
+                                                            approach, a document set with human-assigned
+    ous unsupervised ranking methods based
+                                                            keyphrases is required as training set. However,
+    on importance scores are proposed for
+                                                            human labelling is time-consuming. Therefore, in
+    keyphrase extraction.       In practice, the
+                                                            this study we focus on unsupervised approach.
+    keyphrases of a document should not only
+                                                               As an example of an unsupervised keyphrase
+    be statistically important in the docu-
+                                                            extraction approach, the graph-based ranking (Mi-
+    ment, but also have a good coverage of
+                                                            halcea and Tarau, 2004) regards keyphrase extrac-
+    the document.       Based on this observa-
+                                                            tion as a ranking task, where a document is repre-
+    tion, we propose an unsupervised method
+                                                            sented by a term graph based on term relatedness,
+    for keyphrase extraction.         Firstly, the
+                                                            and then a graph-based ranking algorithm is used
+    method finds exemplar terms by leverag-
+                                                            to assign importance scores to each term. Existing
+    ing clustering techniques, which guaran-
+                                                            methods usually use term cooccurrences within a
+    tees the document to be semantically cov-
+                                                            specified window size in the given document as an
+    ered by these exemplar terms. Then the
+                                                            approximation of term relatedness (Mihalcea and
+    keyphrases are extracted from the doc-
+                                                            Tarau, 2004).
+    ument using the exemplar terms.            Our
+                                                               As we know, none of these existing works
+    method outperforms sate-of-the-art graph-
+                                                            gives an explicit definition on what are appropri-
+    based ranking methods (TextRank) by
+    9.5% in F1-measure.                                     ate keyphrases for a document. In fact, the existing
+                                                            methods only judge the importance of each term,
+1   Introduction
+                                                            and extract the most important ones as keyphrases.
+
+With the development of Internet, information on               From the observation of human-assigned
+
+the web is emerging exponentially. How to effec-            keyphrases, we conclude that good keyphrases
+
+tively seek and manage information becomes an               of a document should satisfy the following
+
+important research issue. Keyphrases, as a brief            properties:
+
+summary of a document, provide a solution to help
+                                                              1. Understandable.        The keyphrases are un-
+organize, manage and retrieve documents, and are
+                                                                  derstandable to people. This indicates the
+widely used in digital libraries and information re-
+                                                                  extracted keyphrases should be grammatical.
+trieval.
+                                                                  For example, "machine learning" is a gram-
+   Keyphrases in articles of journals and books
+                                                                  matical phrase, but "machine learned" is not.
+are usually assigned by authors.             However,
+most articles on the web usually do not have
+                                                              2. Relevant. The keyphrases are semantically
+human-assigned keyphrases. Therefore, automatic
+                                                                  relevant with the document theme. For ex-
+keyphrase extraction is an important research task.
+                                                                  ample, for a document about "machine learn-
+Existing methods can be divided into supervised
+                                                                  ing", we want the keyphrases all about this
+and unsupervised approaches.
+                                                                  theme.
+   The supervised approach (Turney, 1999) re-
+gards keyphrase extraction as a classification task.          3. Good coverage.          The keyphrases should
+
+
+                                                        257
+
+       Proceedings of the 2009 Conference on Empirical Methods in Natural Language Processing, pages 257­266,
+                                Singapore, 6-7 August 2009. 2009 ACL and AFNLPc
+
+     cover the whole document well.           Sup-    which regards keyphrase extraction as a classifi-
+     pose we have a document describing "Bei-         cation task. In this work, parameterized heuristic
+     jing" from various aspects of "location",        rules are combined with a genetic algorithm into a
+     "atmosphere" and "culture", the extracted        system for keyphrase extraction. A different learn-
+     keyphrases should cover all the three aspects,   ing algorithm, Naive Bayes method, is applied in
+     instead of just a partial subset of them.        (Frank et al., 1999) with improved results on the
+                                                      same data used in (Turney, 1999). Hulth (Hulth,
+   The classification-based approach determines       2003; Hulth, 2004) adds more linguistic knowl-
+whether a term is a keyphrase in isolation, which     edge, such as syntactic features, to enrich term
+could not guarantee Property 3. Neither does the      representation, which significantly improves the
+graph-based approach guarantee the top-ranked         performance. Generally, the supervised methods
+keyphrases could cover the whole document. This       need manually annotated training set, which may
+may cause the resulting keyphrases to be inappro-     sometimes not be practical, especially in the web
+priate or badly-grouped.                              scenario.
+   To extract the appropriate keyphrases for a doc-
+                                                        Starting with TextRank (Mihalcea and Tarau,
+ument, we suggest an unsupervised clustering-
+                                                      2004), graph-based ranking methods are becom-
+based method. Firstly the terms in a document are
+                                                      ing the most widely used unsupervised approach
+grouped into clusters based on semantic related-
+                                                      for keyphrase extraction.   The work in (Litvak
+ness. Each cluster is represented by an exemplar
+                                                      and Last, 2008) applies HITS algorithm on the
+term, which is also the centroid of each cluster.
+                                                      word graph of a document under the assumption
+Then the keyphrases are extracted from the docu-
+                                                      that the top-ranked nodes should be the document
+ment using these exemplar terms.
+                                                      keywords. Experiments show that classification-
+   In this method, we group terms based on se-
+                                                      based supervised method provides the highest key-
+mantic relatedness, which guarantees a good cov-
+                                                      word identification accuracy, while the HITS al-
+erage of the document and meets Property 2 and
+                                                      gorithm gets the highest F-measure.      Work in
+3. Moreover, we only extract the keyphrases in ac-
+                                                      (Huang et al., 2006) also considers each document
+cordance with noun group (chunk) patterns, which
+                                                      as a term graph where the structural dynamics of
+guarantees the keyphrases satisfy Property 1.
+                                                      these graphs can be used to identify keyphrases.
+   Experiments show that the clustering-based
+                                                      Wan and Xiao (Wan and Xiao, 2008b) use a
+method outperforms the state-of-the-art graph-
+                                                      small number of nearest neighbor documents to
+based approach on precision, recall and F1-
+                                                      provide more knowledge to improve graph-based
+measure. Moreover, this method is unsupervised
+                                                      keyphrase extraction algorithm for single docu-
+and language-independent, which is applicable in
+                                                      ment. Motivated by similar idea, Wan and Xiao
+the web era with enormous information.
+                                                      (Wan and Xiao, 2008a) propose to adopt cluster-
+   The rest of the paper is organized as follows.
+                                                      ing methods to find a small number of similar doc-
+In Section 2, we introduce and discuss the re-
+                                                      uments to provide more knowledge for building
+lated work in this area. In Section 3, we give an
+                                                      word graphs for keyword extraction. Moreover,
+overview of our method for keyphrase extraction.
+                                                      after our submission of this paper, we find that
+From Section 4 to Section 7, the algorithm is de-
+                                                      a method using community detection on seman-
+scribed in detail. Empirical experiment results are
+                                                      tic term graphs is proposed for keyphrase extrac-
+demonstrated in Section 8, followed by our con-
+                                                      tion from multi-theme documents (Grineva et al.,
+clusions and plans for future work in Section 9.
+                                                      2009). In addition, some practical systems, such
+                                                      as KP-Miner (Elbeltagy and Rafea, 2009), also
+2   Related Work
+                                                      do not need to be trained on a particular human-
+                                                      annotated document set.
+A straightforward method for keyphrase extrac-
+tion is to select keyphrases according to frequency     In recent years, a number of systems are de-
+criteria. However, the poor performance of this       veloped for extracting keyphrases from web docu-
+method drives people to explore other methods. A      ments (Kelleher and Luz, 2005; Chen et al., 2005),
+pioneering achievement is carried out in (Turney,     email (Dredze et al., 2008) and some other spe-
+1999), as mentioned in Section 1, a supervised ma-    cific sources, which indicates the importance of
+chine learning method was suggested in this paper     keyphrase extraction in the web era. However,
+
+
+                                                   258
+
+none of these previous works has overall consid-          In the next four sections we describe the algo-
+eration on the essential properties of appropriate     rithm in detail.
+keyphrases mentioned in Section 1.
+   We should also note that, although the preci-       4   Candidate Term Selection
+
+sion and recall of most current keyphrase extrac-
+                                                       Not all words in a document are possible to be se-
+tors are still much lower compared to other NLP-
+                                                       lected as keyphrases. In order to filter out the noisy
+tasks, it does not indicate the performance is poor
+                                                       words in advance, we select candidate terms using
+because even different annotators may assign dif-
+                                                       some heuristic rules. This step proceeds as fol-
+ferent keyphrases to the same document. As de-
+                                                       lows. Firstly the text is tokenized for English or
+scribed in (Wan and Xiao, 2008b), when two anno-
+                                                       segmented into words for Chinese and other lan-
+tators were asked to label keyphrases on 308 doc-
+                                                       guages without word-separators. Then we remove
+uments, the Kappa statistic for measuring inter-
+                                                       the stop words and consider the remaining single
+agreement among them was only 0.70.
+                                                       terms as candidates for calculating semantic relat-
+                                                       edness and clustering.
+3   Algorithm Overview
+                                                          In methods like (Turney, 1999; Elbeltagy and
+The method proposed in this paper is mainly in-        Rafea, 2009), candidate keyphrases were first
+spired by the nature of appropriate keyphrases         found using n-gram. Instead, in this method, we
+mentioned in Section 1, namely understandable,         just find the single-word terms as the candidate
+semantically relevant with the document and high       terms at the beginning. After identifying the ex-
+coverage of the whole document.                        emplar terms within the candidate terms, we ex-
+   Let's analyze the document describing "Bei-         tract multi-word keyphrases using the exemplars.
+jing" from the aspects of "location", "atmosphere"
+and "culture". Under the bag-of-words assump-          5   Calculating Term Relatedness
+tion, each term in the document, except for func-
+                                                       After selecting candidate terms, it is important to
+tion words, is used to describe an aspect of the
+                                                       measure term relatedness for clustering. In this pa-
+theme. Based on these aspects, terms are grouped
+                                                       per, we propose two approaches to calculate term
+into different clusters. The terms in the same clus-
+                                                       relatedness: one is based on term cooccurrence
+ter are more relevant with each other than with
+                                                       within the document, and the other by leveraging
+the ones in other clusters. Taking the terms "tem-
+                                                       human knowledge bases.
+perature", "cold" and "winter" for example, they
+may serve the aspect "atmosphere" instead of "lo-      5.1   Cooccurrence-based Term Relatedness
+cation" or some other aspects when talking about
+                                                       An intuitive method for measuring term relat-
+"Beijing".
+                                                       edness is based on term cooccurrence relations
+   Based on above description, it is thus reason-
+                                                       within the given document.       The cooccurrence
+able to propose a clustering-based method for
+                                                       relation expresses the cohesion relationships be-
+keyphrase extraction. The overview of the method
+                                                       tween terms.
+is:
+                                                          In this paper, cooccurrence-based relatedness is
+  1. Candidate term selection. We first filter out     simply set to the count of cooccurrences within a
+     the stop words and select candidate terms for     window of maximum w words in the whole doc-
+     keyphrase extraction.                             ument. In the following experiments, the window
+                                                       size w is set from 2 to 10 words.
+  2. Calculating term relatedness. We use some
+                                                          Each document can be regarded as a word se-
+     measures to calculate the semantic related-
+                                                       quence for computing cooccurrence-based relat-
+     ness of candidate terms.
+                                                       edness. There are two types of word sequence
+                                                       for counting term cooccurrences. One is the origi-
+  3. Term clustering. Based on term relatedness,
+                                                       nal word sequence without filtering out any words,
+     we group candidate terms into clusters and
+                                                       and the other is after filtering out the stop words
+     find the exemplar terms of each cluster.
+                                                       or the words with specified part-of-speech (POS)
+  4. From exemplar terms to keyphrases. Fi-            tags. In this paper we select the first type because
+     nally, we use these exemplar terms to extract     each word in the sequence takes important role for
+     keyphrases from the document.                     measuring term cooccurrences, no matter whether
+
+
+                                                    259
+
+it is a stop word or something else. If we filter    where p(i, j) is the number of Wikipedia articles
+out some words, the term relatedness will not be     containing both ti and tj, while p(i) is the number
+as precise as before.                                of articles which contain ti. The second is based
+   In experiments, we will investigate how the       on the term count in Wikipedia articles,
+window size influences the performance of
+keyphrase extraction.                                           pmit(i, j) = log2  T  t(i, j)
+                                                                                                       (4)
+                                                                                   t(i)  t(j)
+5.2   Wikipedia-based Term Relatedness
+
+Many methods have been proposed for measuring        where T is the number of terms in Wikipedia,
+the relatedness between terms using external re-     t(i, j) is the number of ti and tj occurred adja-
+sources. One principled method is leveraging hu-     cently in Wikipedia, and t(i) is the number of ti in
+man knowledge bases. Inspired by (Gabrilovich        Wikipedia. The third one is a combination of the
+
+and Markovitch, 2007), we adopt Wikipedia, the       above two PMI ways,
+
+largest encyclopedia collected and organized by
+                                                                                  N  pt(i, j)
+human on the web, as the knowledge base to mea-                pmic(i, j) = log2                       (5)
+sure term relatedness.                                                             p(i)  p(j)
+
+   The basic idea of computing term related-
+                                                     where pt(i, j) indicates the number of Wikipedia
+ness by leveragting Wikipedia is to consider each
+                                                     articles containing ti and tj as adjacency. It is ob-
+Wikipedia article as a concept.       Then the se-
+                                                     vious that pmic(i, j)  pmip(i, j), and pmic(i, j)
+mantic meaning of a term could be represented
+                                                     is more strict and accurate for measuring related-
+as a weighted vector of Wikipedia concepts, of
+                                                     ness.
+which the values are the term's TFIDF within cor-
+                                                        Normalized Google Similarity Distance (NGD)
+responding Wikipedia articles. We could com-
+                                                     is a new measure for measuring similarity between
+pute the term relatedness by comparing the con-
+                                                     terms proposed by (Cilibrasi and Vitanyi, 2007)
+cept vectors of the terms. Empirical evaluations
+                                                     based on information distance and Kolmogorov
+confirm that the idea is effective and practical
+                                                     complexity. It could be applied to compute term
+for computing term relatedness (Gabrilovich and
+                                                     similarity from the World Wide Web or any large
+Markovitch, 2007).
+                                                     enough corpus using the page counts of terms.
+   In this paper, we select cosine similarity, Eu-
+                                                     NGD used in this paper is based on Wikipedia ar-
+clidean distance, Point-wise Mutual Information
+                                                     ticle count, defined as
+and Normalized Google Similarity Distance (Cili-
+brasi and Vitanyi, 2007) for measuring term relat-                 max(log p(i), log p(j))  logp(i, j)
+edness based on the vector of Wikipedia concepts.    ngd(i, j) =      log N  min(logp(i), logp(j))
+   Denote the Wikipedia-concept vector of the
+                                                                                                       (6)
+term ti as Ci = fci , ci , ..., ciNg, where N in-
+                      1   2                          where N is the number of Wikipedia articles used
+dicates the number of Wikipedia articles, and cik    as normalized factor.
+is the TFIDF value of wi in the kth Wikipedia ar-       Once we get the term relatedness, we could then
+ticle. The cosine similarity is defined as
+                                                     group the terms using clustering techniques and
+
+              cos(i, j) =   Ci  Cj                   find exemplar terms for each cluster.
+                                               (1)
+                           kCikkCjk
+                                                     6    Term Clustering
+The definition of Euclidean distance is
+                      v
+                      u                              Clustering is an important unsupervised learning
+                      uX  N
+          euc(i, j) = t      (cik  cjk)2             problem, which is the assignment of objects into
+                                               (2)
+                                                     groups so that objects from the same cluster are
+                         k=1
+                                                     more similar to each other than objects from dif-
+Point-wise Mutual Information (PMI) is a com-
+                                                     ferent clusters (Han and Kamber, 2005). In this
+mon approach to quantify relatedness. Here we
+                                                     paper, we use three widely used clustering algo-
+take three ways to measure term relatedness using
+                                                     rithms, hierarchical clustering, spectral clustering
+PMI. One is based on Wikipedia page count,
+                                                     and Affinity Propagation, to cluster the candidate
+                                                     terms of a given document based on the semantic
+          pmip(i, j) = log2   N  p(i, j)
+                                               (3)
+                              p(i)  p(j)             relatedness between them.
+
+
+                                                  260
+
+6.1   Hierarchical Clustering                            6.3  Affinity Propagation
+
+Hierarchical clustering groups data over a variety       Another powerful clustering method, Affinity
+of scales by creating a cluster tree. The tree is a      Propagation, is based on message passing tech-
+multilevel hierarchy, where clusters at one level        niques. AP was proposed in (Frey and Dueck,
+are joined as clusters at the next level. The hier-      2007), where AP was reported to find clusters with
+archical clustering follows this procedure:              much lower error than those found by other meth-
+                                                         ods. In this paper, we use the toolbox developed
+  1. Find the distance or similarity between every
+                                                         by Frey, et al. .
+                                                                        2
+     pair of data points in the dataset;
+                                                            Detailed description of the algorithm could be
+  2. Group the data points into a binary and hier-       found in (Frey and Dueck, 2007). Here we intro-
+     archical cluster tree;                              duced three parameters for AP:
+
+  3. Determine where to cut the hierarchical tree            Preference.      Rather than requiring prede-
+     into clusters. In hierarchical clustering, we            fined number of clusters, Affinity Propaga-
+     have to specify the cluster number m in ad-              tion takes as input a real number p for each
+     vance.                                                   term, so that the terms with larger p are more
+                                                              likely to be chosen as exemplars, i.e., cen-
+   In this paper, we use the hierarchical cluster-
+                                                              troids of clusters. These values are referred
+ing implemented in Matlab Statistics Toolbox.
+                                                              to as "preferences". The preferences are usu-
+Note that although we use hierarchical clustering
+                                                              ally be set as the maximum, minimum, mean
+here, the cluster hierarchy is not necessary for the
+                                                              or median of s(i, j), i 6= j.
+clustering-based method.
+
+6.2   Spectral Clustering                                    Convergence criterion. AP terminates if (1)
+                                                              the local decisions stay constant for I1 itera-
+In recent years, spectral clustering has become one
+                                                              tions; or (2) the number of iterations reaches
+of the most popular modern clustering algorithms.
+                                                              I2. In this work, we set I1 to 100 and I2 to
+Spectral clustering makes use of the spectrum of
+                                                              1, 000.
+the similarity matrix of the data to perform dimen-
+sionality reduction for clustering into fewer di-            Damping factor. When updating the mes-
+mensions, which is simple to implement and often
+                                                              sages, it is important to avoid numerical os-
+outperforms traditional clustering methods such as
+                                                              cillations by using damping factor.       Each
+k-means. Detailed introduction to spectral cluster-           message is set to  times its value from the
+ing could be found in (von Luxburg, 2006).                    previous iteration plus 1   times its pre-
+   In this paper, we use the spectral clustering tool-
+                                                              scribed updated value, where the damping
+box developed by Wen-Yen Chen, et al. (Chen et                factor  is between 0 and 1. In this paper we
+al., 2008) . Since the cooccurrence-based term
+            1
+                                                              set  = 0.9.
+relatedness is usually sparse, the traditional eigen-
+value decomposition in spectral clustering will          7   From Exemplar Terms to Keyphrases
+sometimes get run-time error. In this paper, we
+use the singular value decomposition (SVD) tech-         After term clustering, we select the exemplar
+nique for spectral clustering instead.                   terms of each clusters as seed terms. In Affinity
+   For spectral clustering, two parameters are re-       Propagation, the exemplar terms are directly ob-
+quired to be set by the user: the cluster number         tained from the clustering results. In hierarchical
+m, and  which is used in computing similarities          clustering, exemplar terms could also be obtained
+from object distances                                    by the Matlab toolbox. While in spectral cluster-
+                                                         ing, we select the terms that are most close to the
+             s(i, j) = exp(     d(i, j)2)                centroid of a cluster as exemplar terms.
+                                                  (7)
+                                  22                        As reported in (Hulth, 2003), most manually
+where s(i, j) and d(i, j) are the similarity and dis-    assigned keyphrases turn out to be noun groups.
+tance between i and j respectively.                      Therefore, we annotate the document with POS
+
+   1The package could be accessed via http://www.cs.        2The package could be accessed via http://www.
+ucsb.edu/~wychen/sc.html.                                psi.toronto.edu/affinitypropagation/.
+
+
+
+                                                      261
+
+tags using Stanford Log-Linear Tagger , and then
+                                              3                    For computing Wikipedia-based relatedness,
+extract the noun groups whose pattern is zero or                we use a snapshot on November 11, 2005 . The  5
+
+more adjectives followed by one or more nouns.                  frequent word list used in the postprocessing step
+The pattern can be represented using regular ex-                for filtering single-word phrases is also computed
+pressions as follows                                            from Wikipedia. In the experiments of this pa-
+                                                                per, we add the words that occur more than 1, 000
+           (JJ)  (NNjNNSjNNP)+                                  times in Wikipedia into the list.
+                                                                   The clustering-based method is completely un-
+where JJ indicates adjectives and various forms                 supervised. Here, we mainly run our method on
+of nouns are represented using NN, NNS and                      test set and investigate the influence of relatedness
+NNP. From these noun groups, we select the                      measurements and clustering methods with differ-
+
+ones that contain one or more exemplar terms to                 ent parameters. Then we compare our method
+
+be the keyphrases of the document.                              with two baseline methods: Hulth's method and
+
+  In this process, we may find single-word                      TextRank. Finally, we analyze and discuss the per-
+
+keyphrases. In practice, only a small fraction of               formance of the method by taking the abstract of
+
+keyphrases are single-word. Thus, as a part of                  this paper as a demonstration.
+
+postprocessing process, we have to use a frequent
+                                                                8.2   Influence of Relatedness Measurements
+word list to filter out the terms that are too com-
+mon to be keyphrases.                                           We first investigate the influence of semantic re-
+                                                                latedness measurements. By systematic experi-
+
+8   Experiment Results                                          ments, we find that Wikipedia-based relatedness
+                                                                outperforms cooccurrence-based relatedness for
+8.1   Datasets and Evaluation Metric                            keyphrase extraction, though the improvement is
+                                                                not significant. In Table 1, we list the perfor-
+The dataset used in the experiments is a collec-
+                                                                mance of spectral clustering with various related-
+tion of scientific publication abstracts from the In-
+                                                                ness measurements for demonstration. In this ta-
+spec database and the corresponding manually as-
+                                                                ble, the w indicates the window size for counting
+signed keyphrases . The dataset is used in both
+                     4
+                                                                cooccurrences in cooccurrence-based relatedness.
+(Hulth, 2003) and (Mihalcea and Tarau, 2004).
+                                                                cos, euc, etc. are different measures for com-
+Each abstract has two kinds of keyphrases: con-
+                                                                puting Wikipedia-based relatedness which we pre-
+trolled keyphrases, restricted to a given dictionary,
+                                                                sented in Section 5.2.
+and uncontrolled keyphrases, freely assigned by
+the experts. We use the uncontrolled keyphrases
+for evaluation as proposed in (Hulth, 2003) and                 Table 1: Influence of relatedness measurements
+
+followed by (Mihalcea and Tarau, 2004).                         for keyphrase extraction.
+                                                                 Parameters      Precision    Recall   F1-measure
+  As indicated in (Hulth, 2003; Mihalcea and
+Tarau, 2004), in uncontrolled manually assigned                  Cooccurrence-based Relatedness
+
+keyphrases, only the ones that occur in the cor-                    w = 2         0.331       0.626       0.433
+responding abstracts are considered in evaluation.                  w = 4         0.333       0.621       0.434
+The extracted keyphrases of various methods and                     w = 6         0.331       0.630       0.434
+manually assigned keyphrases are compared after                     w = 8         0.330       0.623       0.432
+stemming.                                                          w = 10         0.333       0.632       0.436
+
+  In the experiments of (Hulth, 2003), for her su-               Wikipedia-based Relatedness
+pervised method, Hulth splits a total of 2, 000 ab-                   cos         0.348       0.655       0.455
+stracts into 1, 000 for training, 500 for validation                  euc         0.344       0.634       0.446
+and 500 for test. In (Mihalcea and Tarau, 2004),                     pmip         0.344       0.621       0.443
+due to the unsupervised method, only the test set                    pmit         0.344       0.619       0.442
+was used for comparing the performance of Tex-                       pmic         0.350       0.660       0.457
+tRank and Hulth's method.                                            ngd          0.343       0.620       0.442
+
+   3The package could be accessed via http://http://               5The dataset could be get from http://www.cs.
+nlp.stanford.edu/software/tagger.shtml.                         technion.ac.il/~gabr/resources/code/
+   4Many thanks to Anette Hulth for providing us the dataset.   wikiprep/.
+
+
+
+                                                             262
+
+   We use spectral clustering here because it out-
+                                                       Table 2:    Influence of clustering methods for
+performs other clustering techniques, which will
+                                                       keyphrase extraction.
+be shown in the next subsection. The results in Ta-
+                                                         Parameters      Precision   Recall    F1-measure
+ble 1 are obtained when the cluster number m =
+2                                                       Hierarchical Clustering
+3 n, where n is the number of candidate terms ob-
+                                                                           0.365      0.369       0.367
+tained in Section 5. Besides, for Euclidean dis-          m = n  1
+                                                                 1
+                                                                 4
+tance and Google distance, we set  = 36 of For-           m = n            0.365      0.369       0.367
+                                                                 1
+                                                                 3
+                                                                           0.351      0.562       0.432
+mula 7 to convert them to corresponding similari-         m = n
+                                                                 2
+                                                                 2
+                                                                           0.346      0.629       0.446
+ties, where we get the best result when we conduct        m = n
+                                                                 4
+                                                                 3
+different trails with  = 9, 18, 36, 54, though there      m = n            0.340      0.657       0.448
+                                                                 5
+
+are only a small margin among them.                     Spectral Clustering
+                                                                 1
+   As shown in Table 1, although the method using         m = n            0.385      0.409       0.397
+                                                                 1
+                                                                 4
+Wikipedia-based relatedness outperforms that us-          m = n            0.374      0.497       0.427
+                                                                 1
+                                                                 3
+ing cooccurrence-based relatedness, the improve-          m = n            0.374      0.497       0.427
+                                                                 2
+                                                                 2
+ment is not prominent. Wikipedia-based related-           m = n            0.350      0.660       0.457
+                                                                 4
+                                                                 3
+ness is computed according to global statistical in-      m = n            0.340      0.679       0.453
+                                                                 5
+formation on Wikipedia. Therefore it is more pre-       Affinity Propagation
+cise than cooccurrence-based relatedness, which is        p = max          0.331      0.688       0.447
+reflected in the performance of the keyphrase ex-        p = mean          0.433      0.070       0.121
+traction. However, on the other hand, Wikipedia-        p = median         0.422      0.078       0.132
+based relatedness does not catch the document-            p = min          0.419      0.059       0.103
+specific relatedness, which is represented by the
+cooccurrence-based relatedness. It will be an in-
+                                                       these methods, only Affinity Propagation under
+teresting future work to combine these two types
+                                                       some parameters performs poorly.
+of relatedness measurements.
+   From this subsection, we conclude that, al-
+                                                       8.4   Comparing with Other Algorithms
+though the method using Wikipedia-based related-
+                                                       Table 3 lists the results of the clustering-based
+ness performs better than cooccurrence-based one,
+                                                       method compared with the best results reported
+due to the expensive computation of Wikipedia-
+                                                       in (Hulth, 2003; Mihalcea and Tarau, 2004) on
+based relatedness, the cooccurrence-based one is
+                                                       the same dataset. For each method, the table lists
+good enough for practical applications.
+                                                       the total number of assigned keyphrases, the mean
+                                                       number of keyphrases per abstract, the total num-
+8.3   Influence of Clustering Methods and
+                                                       ber of correct keyphrases, and the mean number of
+      Their Parameters
+                                                       correct keyphrases. The table also lists precision,
+To demonstrate the influence of clustering meth-       recall and F1-measure. In this table, hierarchical
+ods for keyphrase extraction, we fix the relat-        clustering, spectral clustering and Affinity Propa-
+edness measurement as Wikipedia-based pmic,            gation are abbreviated by "HC", "SC" and "AP"
+which has been shown in Section 8.2 to be the best     respectively.
+relatedness measurement.                                 The result of Hulth's method listed in this ta-
+   In Table 2, we show the performance of three        ble is the best one reported in (Hulth, 2003) on the
+clustering techniques for keyphrase extraction.        same dataset. This is a supervised classification-
+For hierarchical clustering and spectral clustering,   based method, which takes more linguistic fea-
+the cluster number m are set explicitly as the pro-    tures in consideration for keyphrase extraction.
+portion of candidate terms n, while for Affinity       The best result is obtained using n-gram as candi-
+Propagation, we set preferences as the minimum,        date keyphrases and adding POS tags as candidate
+mean, median and maximum of s(i, j) to get dif-        features for classification.
+ferent number of clusters, denoted as min, mean,         The result of TextRank listed here is the best
+median and max in the table respectively.              one reported in (Mihalcea and Tarau, 2004) on the
+   As shown in the table, when cluster number m        same dataset. To obtain the best result, the authors
+is large, spectral clustering outperforms hierarchi-   built an undirected graph using window w = 2
+cal clustering and Affinity Propagation. Among         on word sequence of the given document, and ran
+
+
+                                                    263
+
+       Table 3: Comparison results of Hulth's method, TextRank and our clustering-based method.
+                                   Assigned            Correct
+       Method                  Total     Mean      Total    Mean      Precision    Recall   F1-measure
+
+       Hulth's                 7,815     15.6      1,973    3.9       0.252        0.517    0.339
+       TextRank                6,784     13.7      2,116    4.2       0.312        0.431    0.362
+       HC                      7,303     14.6      2,494    5.0       0.342        0.657    0.449
+       SC                      7,158     14.3      2,505    5.0       0.350        0.660    0.457
+       AP                      8,013     16.0      2,648    5.3       0.330        0.697    0.448
+
+
+PageRank on it.                                           exemplar terms under m =         1
+                                                                                           3 n are marked in
+   In this table, the best result of hierarchical clus-   boldface. We find several aspects like "unsuper-
+tering is obtained by setting the cluster number          vised", "exemplar term" and "keyphrase extrac-
+m = n and using Euclidean distance for comput-
+      2                                                   tion" are extracted correctly. In fact, "clustering
+      3
+ing Wikipedia-based relatedness. The parameters           technique" in the abstract should also be extracted
+of spectral clustering are the same as in last sub-       as a keyphrase. However, since "clustering" is
+section. For Affinity Propagation, the best result        tagged as a verb that ends in -ing, which disagrees
+is obtained under p = max and using Wikipedia-            the noun group patterns, thus the phrase is not
+based Euclidean distance as relatedness measure.          among the extracted keyphrases.
+                                                                              2
+   From this table,       we can see clustering-            When m =          3n, the extracted keyphrases
+based method outperforms TextRank and Hulth's             are noisy with many single-word phrases.        As
+method.      For spectral clustering, F1-measure          the cluster number increases, more exemplar
+achieves an approximately 9.5% improvement as             terms are identified from these clusters, and more
+compared to TextRank.                                     keyphrases will be extracted from the document
+
+   Furthermore, since the clustering-based method         based on exemplar terms. If we set the cluster
+
+is unsupervised, we do not need any set for train-        number to m = n, all terms will be selected as
+ing and validation. In this paper, we also carry out      exemplar terms. In this extreme case, all noun
+
+an experiment on the whole Hulth's dataset with           groups will be extracted as keyphrases, which
+2, 000 abstracts. The performance is similar to           is obviously not proper for keyphrase extraction.
+that on 500 abstracts as shown above. The best            Thus, it is important for this method to appropri-
+
+result is obtained when we use spectral clustering        ately specify the cluster number.
+by setting m =      2                                       In the experiments, we also notice that frequent
+                    3n with Wikipedia-based pmic
+relatedness, which is the same in 500 abstracts. In       word list is important for keyphrase extraction.
+this result, we extract 29, 517 keyphrases, among         Without the list for filtering, the best F1-measure
+which 9, 655 are correctly extracted. The preci-          will decrease by about 5 percent to 40%. How-
+sion, recall and F1-measure are 0.327, 0.653 and          ever, the solution of using frequent word list is
+0.436 respectively. The experiment results show           somewhat too simple, and in future work, we plan
+
+that the clustering-based method is stable.               to investigate a better combination of clustering-
+                                                          based method with traditional methods using term
+8.5   Analysis and Discussions                            frequency as the criteria.
+
+From the above experiment results, we can see the
+                                                          9   Conclusion and Future Work
+clustering-based method is both robust and effec-
+tive for keyphrase extraction as an unsupervised          In this paper, we propose an unsupervised
+method.                                                   clustering-based keyphrase extraction algorithm.
+   Here, as an demonstration, we use spectral clus-       This method groups candidate terms into clus-
+tering and Wikipedia-based pmic relatedness to            ters and identify the exemplar terms.         Then
+extract keyphrases from the abstract of this pa-          keyphrases are extracted from the document based
+per. The extracted stemmed keyphrases under var-          on the exemplar terms. The clustering based on
+ious cluster numbers are shown in Figure 1. In            term semantic relatedness guarantees the extracted
+this figure, we find that when m =        1   1    1      keyphrases have a good coverage of the document.
+                                          4n, n, n,
+                                              3    2
+the extracted keyphrases are identical, where the         Experiment results show the method has a good ef-
+
+
+                                                       264
+
+                                                       Wen Y. Chen, Yangqiu Song, Hongjie Bai, Chih J. Lin,
+Figure 1: Keyphrases in stemmed form extracted
+                                                         and Edward Chang. 2008. Psc: Paralel spectral
+from this paper's abstract.                              clustering. Submitted.
+ Keyphrases when m = n, n, n1   1   1
+                            4   3   2
+ unsupervis method; various unsupervis rank            Rudi L. Cilibrasi and Paul M. B. Vitanyi. 2007. The
+                                                         google similarity distance. IEEE Transactions on
+ method;     exemplar term;        state-of-the-art
+                                                         Knowledge and Data Engineering, 19(3):370­383.
+ graph-bas rank method; keyphras; keyphras
+ extract                                               Mark Dredze, Hanna M. Wallach, Danny Puller, and
+ Keyphrases when m = n      2                            Fernando Pereira. 2008. Generating summary key-
+                            3                            words for emails using topics. In Proceedings of the
+ unsupervis method; manual assign; brief sum-
+                                                         13th international conference on Intelligent user in-
+ mari; various unsupervis rank method; exem-             terfaces, pages 199­206.
+ plar term; document; state-of-the-art graph-bas
+ rank method; experi; keyphras; import score;          S. Elbeltagy and A. Rafea.       2009.  Kp-miner: A
+                                                         keyphrase extraction system for english and arabic
+ keyphras extract
+                                                         documents. Information Systems, 34(1):132­144.
+
+                                                       Eibe Frank, Gordon W. Paynter, Ian H. Witten, Carl
+fectiveness and robustness, and outperforms base-
+                                                         Gutwin, and Craig G. Nevill-Manning.           1999.
+lines significantly.                                     Domain-specific keyphrase extraction. In Proceed-
+  Future work may include:                               ings of the 16th International Joint Conference on
+                                                         Artificial Intelligence, pages 668­673.
+
+  1. Investigate the feasibility of clustering di-
+                                                       Brendan J J. Frey and Delbert Dueck. 2007. Clustering
+     rectly on noun groups;
+                                                         by passing messages between data points. Science.
+
+  2. Investigate the feasibility of combining          E. Gabrilovich and S. Markovitch. 2007. Computing
+     cooccurrence-based and Wikipedia-based re-          semantic relatedness using wikipedia-based explicit
+                                                         semantic analysis. In Proceedings of the 20th Inter-
+     latedness for clustering;
+                                                         national Joint Conference on Artificial Intelligence,
+                                                         pages 6­12.
+  3. Investigate the performance of the method on
+     other types of documents, such as long arti-      M. Grineva, M. Grinev, and D. Lizorkin. 2009. Ex-
+     cles, product reviews and news;                     tracting key terms from noisy and multi-theme docu-
+                                                         ments. In Proceedings of the 18th international con-
+                                                         ference on World wide web, pages 661­670. ACM
+  4. The solution of using frequent word list
+                                                         New York, NY, USA.
+     for filtering out too common single-word
+     keyphrases is undoubtedly simple, and we
+                                                       Jiawei Han and Micheline Kamber. 2005. Data Min-
+     plan to make a better combination of                ing: Concepts and Techniques, second edition. Mor-
+     the clustering-based method with traditional        gan Kaufmann.
+
+     frequency-based methods for keyphrase ex-
+                                                       Chong Huang, Yonghong Tian, Zhi Zhou, Charles X.
+     traction.
+                                                         Ling, and Tiejun Huang. 2006. Keyphrase extrac-
+                                                         tion using semantic networks structure analysis. In
+Acknowledgments                                          Proceedings of the 6th International Conference on
+                                                         Data Mining, pages 275­284.
+This work is supported by the National 863 Project
+under Grant No.     2007AA01Z148 and the Na-           Anette Hulth. 2003. Improved automatic keyword ex-
+                                                         traction given more linguistic knowledge. In Pro-
+tional Science Foundation of China under Grant
+                                                         ceedings of the 2003 conference on Empirical meth-
+No. 60621062. The authors would like to thank
+                                                         ods in natural language processing, pages 216­223.
+Anette Hulth for kindly sharing her datasets.
+                                                       A. Hulth. 2004. Reducing false positives by expert
+                                                         combination in automatic keyword indexing. Re-
+References                                               cent Advances in Natural Language Processing III:
+                                                         Selected Papers from RANLP 2003, page 367.
+Mo Chen, Jian-Tao Sun, Hua-Jun Zeng, and Kwok-Yan
+  Lam. 2005. A practical system of keyphrase extrac-   Daniel Kelleher and Saturnino Luz. 2005. Automatic
+  tion for web pages. In Proceedings of the 14th ACM     hypertext keyphrase detection. In Proceedings of the
+  international conference on Information and knowl-     19th International Joint Conference on Artificial In-
+  edge management, pages 277­278.                        telligence.
+
+
+                                                    265
+
+Marina Litvak and Mark Last. 2008. Graph-based
+  keyword extraction for single-document summariza-
+  tion. In Proceedings of the workshop Multi-source
+  Multilingual Information Extraction and Summa-
+  rization, pages 17­24.
+
+Rada Mihalcea and Paul Tarau.      2004.    Textrank:
+  Bringing order into texts.   In Proceedings of the
+  2004 Conference on Empirical Methods in Natural
+  Language Processing.
+
+Peter D. Turney. 1999. Learning to Extract Keyphrases
+  from Text. National Research Council Canada, In-
+  stitute for Information Technology, Technical Report
+  ERB-1057.
+
+U. von Luxburg. 2006. A tutorial on spectral clus-
+  tering. Technical report, Max Planck Institute for
+  Biological Cybernetics.
+
+Xiaojun Wan and Jianguo Xiao.          2008a.    Col-
+  labrank: Towards a collaborative approach to single-
+  document keyphrase extraction. In Proceedings of
+  COLING, pages 969­976.
+
+Xiaojun Wan and Jianguo Xiao.         2008b.    Single
+  document keyphrase extraction using neighborhood
+  knowledge.      In Proceedings of the Twenty-Third
+  AAAI Conference on Artificial Intelligence, pages
+  855­860.
+
+
+
+
+                                                      266
+

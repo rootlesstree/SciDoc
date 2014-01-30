@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<algorithms version="110505">
+<algorithm name="ParsCit" version="110505">
+<citationList>
+<citation valid="true">
+<authors>
+<author>C N Li</author>
+<author>S A Thompson</author>
+</authors>
+<title>Mandarin Chinese: A Functional Reference Grammar, Taipei: Wen-He Pub.,</title>
+<date>1983</date>
+<contexts>
+<context position="1990" citStr="[1]" startWordPosition="326" endWordPosition="326">f tense and aspect, a human being can hardly translate sentences correctly, neither can the machine. The tense can be viewed as determined by the relationship between the time of the action or the state denoted by the verb and the time of speech. Thus, the tense information involves at least three components: The event time, the speech time and the degree of understanding of the subject between the hearer and the speaker. On the other hand, aspect does not refer to the time relation between the event time and speech time, but to how the situation itself being viewed from its internal structure[1]. All the information of tense and aspect reflecting in the verb sequence and tense form will be defined in the following section. In order to transfer tense and aspect information of Chinese sentences into those of English sentences, we have to find the relationships between these two languages, which has been done in [2] and will be summarized in Section 2. In this paper, we will address the problem about the possible tense forms in a sentence. Still, the sentences we will analyze are confined to simple declarative sentences, which contain only one predicate. We will also analyze 214 some mo</context>
+</contexts>
+<marker>1.</marker>
+<rawString>.C. N. Li and S. A. Thompson, Mandarin Chinese: A Functional Reference Grammar, Taipei: Wen-He Pub., 1983.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H J Lee</author>
+<author>R R Hsu</author>
+</authors>
+<title>The analysis of tense and aspect in Chinese sentences for translating mechanically to English,&amp;quot;</title>
+<date>1990</date>
+<booktitle>Proc. 1990 Intern. Conf on Computer Proc. of Chinese and Oriental Languages,</booktitle>
+<pages>21--26</pages>
+<location>Hunan,</location>
+<contexts>
+<context position="2314" citStr="[2]" startWordPosition="381" endWordPosition="381">e, the speech time and the degree of understanding of the subject between the hearer and the speaker. On the other hand, aspect does not refer to the time relation between the event time and speech time, but to how the situation itself being viewed from its internal structure[1]. All the information of tense and aspect reflecting in the verb sequence and tense form will be defined in the following section. In order to transfer tense and aspect information of Chinese sentences into those of English sentences, we have to find the relationships between these two languages, which has been done in [2] and will be summarized in Section 2. In this paper, we will address the problem about the possible tense forms in a sentence. Still, the sentences we will analyze are confined to simple declarative sentences, which contain only one predicate. We will also analyze 214 some more complex sentences joined by linking elements such as &amp;quot;de5 shi2-hou4&amp;quot;(when), &amp;quot;yi3-hou4&amp;quot;(after), &amp;quot;yi3-qian2&amp;quot;(before) and some sentences containing one subclause. We also provide some conventional rules to modify the tense forms before generating English sentences. 2. FORMALISM OF TIME AND ASPECT In an English sentence, th</context>
+<context position="7850" citStr="[2]" startWordPosition="1341" endWordPosition="1341">ble 2. Taken the tense form &amp;quot;past-perfect&amp;quot; in item 7 as an example, its time marker past-past denotes the event specified by the verb sequence occurred in the past, with respect to the past reference time. Consider the following sentence (18) ta1 hui2-jia1 de5 shi2hou4, Zhang1san1 yi3jing1 zuo4-wan2 ta1 de5 gong1zuo4 1e5 ( When he came home, Zhangsan had finished his job. ) 217 The pair of time and aspect markers for the verbs &amp;quot;hui2-jial&amp;quot; (go home) and &amp;quot;zuo4-wan2&amp;quot; (finish) should be {past - } and {past-past perfective } respectively. The method to determine these markers has been discussed in [2]. Table 2 Table of Tense Forms tense form 1. present 2. present-progressive. 3. present-perfect 4. present-perfect-progressive 5. past 6. past-progressive 7. past-perfect 8. past-perfect-progressive 9. past-future 10. past-future-perfect 11. future 12. future-progressive 13. future-perfect time marker present past past past past-past past-past past-future-past future future-past aspect marker present progressive perfective perfective-progressive past progressive perfective perfective-progressive past-future perfective future progressive perfective 14. future- erfect-L. ro ressive future-past -</context>
+<context position="12511" citStr="[2]" startWordPosition="2152" endWordPosition="2152">er restricted. In the following sections, we will discuss the possible tense form in a simple sentence and those in a sentence containing two evens. 220 3.2 Possible Tense Forms in Simple Sentences In Table 2, we have listed fourteen possible tense forms of English sentences. However, some of them can not be used in simple sentences. To discuss the possible tense forms in sentences, we first define some terms used below. The first one is the time category. Since time phrases contain the message of time, we partition the time phrases into four categories: Past, Present, Future, Nondeterministic[2], according to the time these phrases represented. The second term is the time precedence relations &amp;quot;&lt;&amp;quot;,&amp;quot;= &amp;quot;, &amp;quot; &gt; &amp;quot;, where &amp;quot; &lt; &amp;quot; represents &amp;quot;happen before&amp;quot;; &amp;quot; &gt; &amp;quot; represents &amp;quot;happen after&amp;quot; and &amp;quot;= &amp;quot; represents &amp;quot;happen simultaneously&amp;quot;, respectively. In this section, we will discuss and give an example for each of them according to the E, R, S formalism mentioned in the last section. The &amp;quot;present&amp;quot;, &amp;quot;present-progressive&amp;quot; &amp;quot;present-perfect- and &amp;quot;present-perfectprogressive&amp;quot; tense forms are all current relevant (i.e, R = S), thus they do not need time phrases to specify their reference time. Sentences</context>
+<context position="18732" citStr="[2]" startWordPosition="3163" endWordPosition="3163"> Taking sentence (38) as an example, the main clause has &amp;quot;past&amp;quot; as its tense form while its subordinate clause has the &amp;quot;past-future&amp;quot; tense form. (38) tal zuo2-tianl dal-ying4 wo3 lai2 zhe4-1i3. (He promised me yesterday that he would come here.) (He allowed me to come yesterday.) To find out the possible combinations of the tense forms for the two clauses in a sentence, we divide our domain into six parts, i.e., (a) nondeterministic, (b) E2 &gt; El, (c) E2 &lt; El in serial verb construction sentences and (d) El &amp;quot;de5 shi2-hou4&amp;quot; (when) E2&amp;quot;, (e) El &amp;quot;yi3-qian2&amp;quot; (before) E2, and El &amp;quot;yi3-hou4&amp;quot; (after) E2[2]. (a). nondeterministic for verbs in serial verb constructions The possible tense forms of the events in sentences of serial verb constructions will be the same to those in Table 5. The reason is that the two events in the sentence have no predetermined relation. Thus, any possible relation is permitted to exist between them. For example, the combinations {present, present-perfect}. {future. present) are all legal as sentences (39)-(40) show. 224 (39) wo3 zhi1-dao4 ta1 y13-ying1 qu4 r14-ben3 1e5. (I know that he has gone to Japan.) (40) ming3-tian1 ta1 jiang1 zhi1-dao4 Zhang1san1 xi3-huan1 Al-</context>
+</contexts>
+<marker>2.</marker>
+<rawString>.H. J. Lee and R. R. Hsu, &amp;quot;The analysis of tense and aspect in Chinese sentences for translating mechanically to English,&amp;quot; Proc. 1990 Intern. Conf on Computer Proc. of Chinese and Oriental Languages, Hunan, 1990, pp.21-26.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>T Winograd</author>
+</authors>
+<title>Language as a Cognitive Process, Addison-Wesley Pub.,</title>
+<date>1983</date>
+<contexts>
+<context position="3039" citStr="[3]" startWordPosition="494" endWordPosition="494">nce. Still, the sentences we will analyze are confined to simple declarative sentences, which contain only one predicate. We will also analyze 214 some more complex sentences joined by linking elements such as &amp;quot;de5 shi2-hou4&amp;quot;(when), &amp;quot;yi3-hou4&amp;quot;(after), &amp;quot;yi3-qian2&amp;quot;(before) and some sentences containing one subclause. We also provide some conventional rules to modify the tense forms before generating English sentences. 2. FORMALISM OF TIME AND ASPECT In an English sentence, the verb sequence is one of the most important constituents, which are generally affected by the tense and aspect. Winograd [3] defined the verb sequence as a sequence of verbs and auxiliaries following a fixed order, as ifiustrated below: (Modal) (Have) (Bel) (Be2) Main Verb where Modal has either the tense meaning or modal meaning; Have represents the auxiliary has (or have or had); Bel represents the verb be; Be2 denotes the clause being passive if present and Main verb is self-explained. Each combination of Modal, Have, Bel, Be2 and Main verb is also called a tense form. For example, the sentence (2) He has finished his job. Model Have Bel Be2 Main verb has the option Have, but has no other options (Modal, Bel, Be</context>
+</contexts>
+<marker>3.</marker>
+<rawString>.T. Winograd, Language as a Cognitive Process, Addison-Wesley Pub., 1983.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>H Reichenbach</author>
+</authors>
+<title>The Elements of Symbolic Logic,</title>
+<date>1966</date>
+<publisher>The Free Press,</publisher>
+<location>New York:</location>
+<contexts>
+<context position="8975" citStr="[4]" startWordPosition="1502" endWordPosition="1502">e future progressive perfective 14. future- erfect-L. ro ressive future-past -essive 3. POSSIBLE TENSE FORMS IN SENTENCES We have provided a formalism of time and aspect to determine the tense form of the sentence. That is, if we can find the time and aspect markers of a verb, we can find the tense form through Table 2[2]. However, there is another approach to determine the tense form of an English sentence which will be translated from the Chinese sentence. This approach is based on the relations among speech time (S), reference time (R) and event time (E) proposed by Han Reichenbach in 1947 [4]. In this section, we will discuss the possible tense form in simple sentences and those in sentences containing two events. 218 3.1 Formalism of E, R, S and Aspect To analyze the tense system of English, Han Reichenbach found that the analysis based on the absolute event time or the relative time relation between event and speech is not enough. Thus, he proposed the speech time, reference time and event time to account for the underlying structure of the English tense system. The speech time and event time are selfevident, while the reference time is the &amp;quot;temporal perspective- from which the </context>
+</contexts>
+<marker>4.</marker>
+<rawString>.H. Reichenbach, The Elements of Symbolic Logic, New York: The Free Press, 1966.</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>B L Webber</author>
+</authors>
+<title>Forward,&amp;quot;</title>
+<date>1988</date>
+<journal>Computational Linguistics,</journal>
+<volume>14</volume>
+<contexts>
+<context position="9603" citStr="[5]" startWordPosition="1608" endWordPosition="1608">l discuss the possible tense form in simple sentences and those in sentences containing two events. 218 3.1 Formalism of E, R, S and Aspect To analyze the tense system of English, Han Reichenbach found that the analysis based on the absolute event time or the relative time relation between event and speech is not enough. Thus, he proposed the speech time, reference time and event time to account for the underlying structure of the English tense system. The speech time and event time are selfevident, while the reference time is the &amp;quot;temporal perspective- from which the described event is viewed[5]. There are six relations among E, R and S in simple sentences, which correspond to different tense forms, as Table 3 shows. Table 3 The Mapping Between (E, R, S) and The Tense Form FRI relation of E,R,S tense form E = R = S present E &lt; R = S present-perfect E R &lt; S past E &lt; R &lt; S past-perfect S&lt; E = R future S&lt; E &lt; R future-perfect From this table, we find that the relationships among E, R, S are not enough to represent all various tense forms in English. Take the following sentences (19)-(20) as examples. The relations among E, R, S are all E = R = S. (19) He usually plays the basketball. (2</context>
+</contexts>
+<marker>5.</marker>
+<rawString>.B. L. Webber, &amp;quot;Forward,&amp;quot; Computational Linguistics, Vol. 14. No. 2, June 1988.</rawString>
+</citation>
+<citation valid="false">
+<authors>
+<author>X E Huang</author>
+</authors>
+<title>Mastering Modern English Grammar,</title>
+<publisher>Wen-He Pub.,</publisher>
+<location>(in Chinese), Taipei:</location>
+<contexts>
+<context position="16830" citStr="[6]" startWordPosition="2864" endWordPosition="2864">define the tense agreement as that the tense forms in a sentence should be the same, as the sentence (34) shows. The sentence (34) is correct because the tense form of the verbs &amp;quot;knew&amp;quot; and &amp;quot;read&amp;quot; are the same while (35) is illegal because the tense forms of the verbs &amp;quot;knew&amp;quot; and &amp;quot;reads&amp;quot; are different. Some might think that the tense form of the subordinate clause should follows that of the main clause (such as the sentence (34) shows), or that the tense form of the main clause should follows that of the subordinate clause (such as the sentence (36) shows). However, these still have deficiencies[6]. They can not explain the correct sentence shown as sentence (37). (34) I knew that he read a book. (35) *I knew that he reads a book. (36) The boy I talked to had blue eyes. (37) The boy I grew up with is the president of America. Lin &amp; Chen[7] made some notes about the tense agreement in English. They claimed that in a complex sentence, if the main clause has the tense form of&amp;quot; present&amp;quot;, &amp;quot;future&amp;quot;, or &amp;quot;present—perfect&amp;quot;, the tense form for the subordinate clause can be any of the twelve tense forms mentioned above. When the tense form of the main clause is &amp;quot;past&amp;quot;, change the tense forms of th</context>
+<context position="28778" citStr="[6,7]" startWordPosition="4869" endWordPosition="4869">per, we assume a verb in Chinese sentence is translated into a verb in English. In most sentences, this assumption is correct. &amp;yule tense forms in English need be modified according to other world knowledge. For example, the sentence * (51a) Einstein has visited Princeton. is incorrect because Einstein is dead, but sentence (51b) is correct. (51b) Einstein visited Princeton. In this paper, we propose a rule-checking method to solve this problem. After we generate the tense form, we test the tense forms to see whether they satisfy the following rules to avoid errors. We list some of them below[6,7]. (a). If the tense form we get is &amp;quot;present-perfect&amp;quot; and the person referred by the subject is dead, then change the tense form to &amp;quot;past&amp;quot;. Sentence(51b) is an example. (b). If the tense form is &amp;quot;present-perfect&amp;quot; and the time phrase is given specially, use &amp;quot;past&amp;quot; tense form instead. Take sentence(52) as an example. (52) tal zou2-tianl yi3-jingl qu4 1e5 Tai2-bei3 1e5. * ( He has gone to Taipei yesterday. ) ( He went to Taipei yesterday. ) (c). If two clauses are linked by the conjunction &amp;quot;before&amp;quot; r &amp;quot;after&amp;quot;, the tense form &amp;quot;pastpast&amp;quot; can be changed to &amp;quot;past&amp;quot; and &amp;quot;past-future-past&amp;quot; to &amp;quot;past-future</context>
+</contexts>
+<marker>6.</marker>
+<rawString>.X. E Huang, Mastering Modern English Grammar, (in Chinese), Taipei: Wen-He Pub.,</rawString>
+</citation>
+<citation valid="true">
+<authors>
+<author>C S Lin</author>
+<author>Y Z Chen</author>
+</authors>
+<title>A New Standard English Grammar,</title>
+<date>1987</date>
+<location>(in Chinese), Tainan: DaiShan Pub.,</location>
+<contexts>
+<context position="17076" citStr="[7]" startWordPosition="2915" endWordPosition="2915">se forms of the verbs &amp;quot;knew&amp;quot; and &amp;quot;reads&amp;quot; are different. Some might think that the tense form of the subordinate clause should follows that of the main clause (such as the sentence (34) shows), or that the tense form of the main clause should follows that of the subordinate clause (such as the sentence (36) shows). However, these still have deficiencies[6]. They can not explain the correct sentence shown as sentence (37). (34) I knew that he read a book. (35) *I knew that he reads a book. (36) The boy I talked to had blue eyes. (37) The boy I grew up with is the president of America. Lin &amp; Chen[7] made some notes about the tense agreement in English. They claimed that in a complex sentence, if the main clause has the tense form of&amp;quot; present&amp;quot;, &amp;quot;future&amp;quot;, or &amp;quot;present—perfect&amp;quot;, the tense form for the subordinate clause can be any of the twelve tense forms mentioned above. When the tense form of the main clause is &amp;quot;past&amp;quot;, change the tense forms of the subordinate clause to the past form. Thus, the tense forms of the two clauses in a sentence may be any one in Table 5, ignoring the progressive aspect in the main clause. Table 5 Possible Tense Forms for Sentences Containing tense form of main </context>
+<context position="28778" citStr="[6,7]" startWordPosition="4869" endWordPosition="4869">per, we assume a verb in Chinese sentence is translated into a verb in English. In most sentences, this assumption is correct. &amp;yule tense forms in English need be modified according to other world knowledge. For example, the sentence * (51a) Einstein has visited Princeton. is incorrect because Einstein is dead, but sentence (51b) is correct. (51b) Einstein visited Princeton. In this paper, we propose a rule-checking method to solve this problem. After we generate the tense form, we test the tense forms to see whether they satisfy the following rules to avoid errors. We list some of them below[6,7]. (a). If the tense form we get is &amp;quot;present-perfect&amp;quot; and the person referred by the subject is dead, then change the tense form to &amp;quot;past&amp;quot;. Sentence(51b) is an example. (b). If the tense form is &amp;quot;present-perfect&amp;quot; and the time phrase is given specially, use &amp;quot;past&amp;quot; tense form instead. Take sentence(52) as an example. (52) tal zou2-tianl yi3-jingl qu4 1e5 Tai2-bei3 1e5. * ( He has gone to Taipei yesterday. ) ( He went to Taipei yesterday. ) (c). If two clauses are linked by the conjunction &amp;quot;before&amp;quot; r &amp;quot;after&amp;quot;, the tense form &amp;quot;pastpast&amp;quot; can be changed to &amp;quot;past&amp;quot; and &amp;quot;past-future-past&amp;quot; to &amp;quot;past-future</context>
+</contexts>
+<marker>7.</marker>
+<rawString>.C. S. Lin and Y. Z. Chen, A New Standard English Grammar, (in Chinese), Tainan: DaiShan Pub., 1987.</rawString>
+</citation>
+</citationList>
+</algorithm>
+</algorithms>
