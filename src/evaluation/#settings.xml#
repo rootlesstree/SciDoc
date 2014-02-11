@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ROUGE-EVAL version="1.55">
-<EVAL ID="TASK_1">
 
+
+<EVAL ID="TASK_1">
 
 <MODEL-ROOT> /home/pitodogo/SciDoc/src/evaluation/models </MODEL-ROOT>
 <PEER-ROOT>  /home/pitodogo/SciDoc/src/evaluation/systems </PEER-ROOT>
