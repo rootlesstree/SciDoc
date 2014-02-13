@@ -36,7 +36,7 @@ $research_motivation = "((The |Our |Their )underlying research (question |object
 $research_found = "(found|claimed|detected|argued|established|identified|showed|concluded|contended|reported|confirmed|asserted|demonstrated|revealed|observed|pointed out|opined|inferred|stated|perceived|evidenced|yielded|illustrated|highlighted) that";
 
 ## system performance
-$system_performance = "performance|improvement";
+$system_performance = "( reported | report| showed | show| exhibited | exhibit).*(performance|improvement)";
 
 ## general conclusion
 $conclusion = "(results of|findings of|picture presented by|consensus)";
@@ -49,8 +49,9 @@ $conclusion = "(results of|findings of|picture presented by|consensus)";
 
 $hypothesis = "(argue|argues|argued|hold|holds|holded|debate|debates|debated|believe|believes|believed) that";
 
-$objectives = " conducted | conduct| explored | explore| proposed | propose| pursued | pursue| described | describe| attempted to| attempt(s)? to| reprsented | represent| analyzed | analyze| examined | examine| investigated | investigate| deal(s)? with | dealed with | seek(s)? to discover | seeked to discover";
+$objectives = " conducted | conduct| explored | explore| proposed | propose| pursued | pursue| described | describe| attempted to| attempt(s)? to| reprsented | represent| analyzed | analyze| examined | examine| investigated | investigate| deal(s)? with | dealed with | seek(s)? to discover | seeked to discover | developed | develope";
 ##specific system or model
+
 $aim_of_system_or_model = "(system |model )(of|to|for|in)";
 $details_of_system_or_model = "(system |model )?(using |uses\b )";
 
@@ -66,25 +67,25 @@ $experiment = "(survey |experiment |approach |methods |method |techniques |metho
 $evaluation = " (evaluate |evaluated |test |tested |measure |measures|measured |assess |assessed |ranked |judge |judged |judgement )";
 
 
-#topic, 
+#topic, method, result, evaluation
 
 my %origSents = ();
 $id = 0;
 sub category {
 
-    if ($_[0] =~ /$topic_research_aspects/gmi) {$categories{"topic_research_aspects"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$topic_literature_review/gmi){$categories{"topic_literature_review"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$topic_areas_research/gmi){$categories{"topic_areas_research"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$whom_did_study/gmi){$categories{"whom_did_study"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$research_motivation/gmi){$categories{"research_motivation"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$hypothesis/gmi){$categories{"hypothesis"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$objectives/gmi){$categories{"objectives"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$research_found/gmi){$categories{"research_found"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$system_performance/gmi){$categories{"system_performance"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$aim_of_system_or_model/gmi){$categories{"$aim_of_system_or_model"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$details_of_system_or_model/gmi){$categories{"details_of_system_or_model"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$experiment/gmi) {$categories{"experiment"}{++$id} = $_[0]; }
-    elsif ($_[0] =~ /$conclusion/gmi) {$categories{"conclusion"}{++$id} = $_[0]; }
+    if ($_[0] =~ /$topic_research_aspects/gmi) {$categories{"topic"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$topic_literature_review/gmi){$categories{"topic"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$topic_areas_research/gmi){$categories{"topic"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$whom_did_study/gmi){$categories{"topic"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$research_motivation/gmi){$categories{"topic"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$hypothesis/gmi){$categories{"method"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$objectives/gmi){$categories{"method"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$research_found/gmi){$categories{"result"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$system_performance/gmi){$categories{"result"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$aim_of_system_or_model/gmi){$categories{"$method"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$details_of_system_or_model/gmi){$categories{"method"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$experiment/gmi) {$categories{"method"}{++$id} = $_[0]; }
+    elsif ($_[0] =~ /$conclusion/gmi) {$categories{"result"}{++$id} = $_[0]; }
     elsif ($_[0] =~ /$evaluation/gmi) {$categories{"evaluation"}{++$id} = $_[0]; }
     else {$categories{"No Category"}{++$id} = $_[0]; }
     
@@ -106,7 +107,7 @@ my %commLexRank = ();
 
 for my $com (keys %categories) {
 
-    if ($com eq "No Category"){next;}
+#    if ($com eq "No Category"){next;}
     
     my $comcluster = Clair::Cluster->new();
     my $backup_id;
