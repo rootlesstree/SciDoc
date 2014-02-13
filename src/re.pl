@@ -78,7 +78,7 @@ sub category {
 
 
 
-open(OUT,"../docs/citing_sentences_list/P10-1024.list") || die $!;
+open(OUT,"../docs/citing_sentences_list/C08-1122.list") || die $!;
 
 
 
