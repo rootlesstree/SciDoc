@@ -15,7 +15,6 @@ One dataset was built by Wan and Xiao 2 which was used in (Wan and Xiao, 2008b).
 During the last decade, many previous works have dealt with the various methods for automatically extracting key phrases (e.g., Frank et al., 1999; Barker and Corrnacchia, 2000; Turney, 2003; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008).
 This observation is consistent with the findings reported in (Wan and Xiao, 2008b).
 Recently, a resurgence of interest in keyphrase extraction has led to the development of several new systems and techniques for the task (Frank et al., 1999; Witten et al., 1999; Turney, 1999; Hulth, 2003; Turney, 2003; Park et al., 2004; Barker and Corrnacchia, 2000; Hulth, 2004; Matsuo and Ishizuka, 2004; Mihalcea and Tarau, 2004; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008; Liu et al., 2009; Medelyan, 2009; Nguyen and Phan, 2009).
-(Wan and Xiao 2008) propose CollabRank, a similar graph-based ranking model, using the collaborative knowledge given in multiple documents.
 We have based our work on CollabRank keyword extraction approach by Wan and Xiao (2008), and feature weighting in short documents by Timonen et al.
 (Wan and Xiao 2008) propose CollabRank, a similar graph-based ranking model, using the collaborative knowledge given in multiple documents.
 Some methods have been proposed to improve TextRank, of which ExpandRank (Wan and Xiao, 2008b; Wan and Xiao, 2008a) uses a small number, namely k, of neighbor documents to 136 provide more information of word relatedness for the construction of word graphs.
