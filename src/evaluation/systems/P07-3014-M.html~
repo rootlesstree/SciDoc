@@ -1,0 +1,18 @@
+<html> 
+<head><title>P07-3014-M.html</title> </head> 
+<body bgcolor="white">     
+<a name="1">[1]</a> <a href="#1" id=1>Recently, a resurgence of interest in keyphrase extraction has led to the development of several new systems and techniques for the task (Frank et al., 1999; Witten et al., 1999; Turney, 1999; Hulth, 2003; Turney, 2003; Park et al., 2004; Barker and Corrnacchia, 2000; Hulth, 2004; Matsuo and Ishizuka, 2004; Mihalcea and Tarau, 2004; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008; Liu et al., 2009; Medelyan, 2009; Nguyen and Phan, 2009).</a>
+<a name="2">[2]</a> <a href="#2" id=2> Wan and Xiao (2008) developed a set of 308 documents with up to 10 manually-assigned keywords using newswire documents from DUC 2001.</a>
+<a name="3">[3]</a> <a href="#3" id=3>(Wan and Xiao 2008) propose CollabRank, a similar graph-based ranking model, using the collaborative knowledge given in multiple documents.</a>
+<a name="4">[4]</a> <a href="#4" id=4>During the last decade, many previous works have dealt with the various methods for automatically extracting key phrases (e.g., Frank et al., 1999; Barker and Corrnacchia, 2000; Turney, 2003; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008).</a>
+</body>
+</html>
+
+Nulty (Nulty, 2007) investigated the effectiveness of three different learning algorithms for NC interpretation at the token level.
+
+There has been work on detecting relations within noun phrases (Moldovan et al., 2004; Nulty, 2007), clauses (Szpakowicz et al., 1995) and syntax-based comma resolution (Srikumar et al., 2008).
+
+Nulty (2007) uses a vector-space model representation where the vector coordinates are a fixed set of 28 joining terms like of, for, from, without, across, etc. The values of the coordinates are filled using Web n-gram frequencies.
+
+Nulty (2007) compares these nearest neighbor models with other machine learning techniques and finds that using a support vector machine leads to improved classification.
+

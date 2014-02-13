@@ -1,0 +1,14 @@
+Nulty (Nulty, 2007) investigated the effectiveness of three different learning algorithms for NC interpretation at the token level.
+
+Work has been done on detecting relations within noun phrases (Nulty, 2007), named entities (Hirano et al., 2007), clauses (Szpakowicz et al., 1995) and synax-based comma resolution (Srikumar et al., 1995).
+
+There has been work on detecting relations within noun phrases (Moldovan et al., 2004; Nulty, 2007), clauses (Szpakowicz et al., 1995) and syntax-based comma resolution (Srikumar et al., 2008).
+
+
+Nulty (2007) compares these nearest neighbor models with other machine learning techniques and finds that using a support vector machine leads to improved classification.
+
+Researches have targeted particular relations (e.g., CAUSE (Chang and Choi, 2006; Bethard and Martin, 2008)), relations within noun phrases (Nulty, 2007), named entities (Hirano et al., 2007) or clauses (Szpakowicz et al., 1995).
+
+Nulty (2007) uses a vector-space model representation where the vector coordinates are a fixed set of 28 joining terms like of, for, from, without, across, etc. The values of the coordinates are filled using Web n-gram frequencies.
+
+Using an SVM, he achieves 50.1% accuracy on a 20-fold cross-validation for the 5-class Barker & Szpakowicz dataset.
