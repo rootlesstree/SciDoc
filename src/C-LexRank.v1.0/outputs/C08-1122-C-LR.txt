@@ -1,4 +1,4 @@
-Wan and Xiao (2008) developed a set of 308 documents with up to 10 manually-assigned keywords using newswire documents from DUC 2001.
 During the last decade, many previous works have dealt with the various methods for automatically extracting key phrases (e.g., Frank et al., 1999; Barker and Corrnacchia, 2000; Turney, 2003; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008).
-The study that considers this relevance explicitly is CollabRank proposed by Wan and Xiao (2008).
+Wan and Xiao (2008) developed a set of 308 documents with up to 10 manually-assigned keywords using newswire documents from DUC 2001.
 In PageRank for keyphrase extraction, the ranking score of a candidate keyphrase p is computed by summing up the ranking scores of all words within the phrase: R(p)=EwiEp R(wi) (Mihalcea and Tarau, 2004; Wan and Xiao, 2008a; Wan and Xiao, 2008b).
+The study that considers this relevance explicitly is CollabRank proposed by Wan and Xiao (2008).

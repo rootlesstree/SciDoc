@@ -22,7 +22,6 @@ $topic_literature_review = "(literature |literature review |work )(covered |deal
 
 $topic_areas_research = "((research |studies |findings )in the (field |area |domain |context )of)|(The emergence of)";
 
-## this is my own version 
 $whom_did_study = "(recent)? (work |study |research )?.*(was (introduced |described |devised |developed |proposed |explored ))?by";
 
 $research_motivation = "((The |Our |Their )underlying research (question |objective |intention )(was |is ))|((solution |in order )to)";
@@ -49,11 +48,11 @@ $conclusion = "(results of|findings of|picture presented by|consensus)";
 
 $hypothesis = "(argue|argues|argued|hold|holds|holded|debate|debates|debated|believe|believes|believed) that";
 
-$objectives = " conducted | conduct| explored | explore| proposed | propose| pursued | pursue| described | describe| attempted to| attempt(s)? to| reprsented | represent| analyzed | analyze| examined | examine| investigated | investigate| deal(s)? with | dealed with | seek(s)? to discover | seeked to discover | developed | develope";
+$objectives = " conducted | conduct| explored | explore| proposed | propose| pursued | pursue| described | describe| attempted to| attempt(s)? to| reprsented | represent| analyzed | analyze| examined | examine| investigated | investigate| deal(s)? with | dealed with | seek(s)? to discover | seeked to discover | developed | develope |Using |Used";
 ##specific system or model
 
 $aim_of_system_or_model = "(system |model )(of|to|for|in)";
-$details_of_system_or_model = "(system |model )?(using |uses\b )";
+$details_of_system_or_model = "(system |model )(using |uses\b )";
 
 ## describe research method
 $experiment = "(survey |experiment |approach |methods |method |techniques |methodologies )(conducted )?(of|to|for|in)";
@@ -87,14 +86,15 @@ sub category {
     elsif ($_[0] =~ /$experiment/gmi) {$categories{"method"}{++$id} = $_[0]; }
     elsif ($_[0] =~ /$conclusion/gmi) {$categories{"result"}{++$id} = $_[0]; }
     elsif ($_[0] =~ /$evaluation/gmi) {$categories{"evaluation"}{++$id} = $_[0]; }
-    else {$categories{"No Category"}{++$id} = $_[0]; }
+    else {
+        $categories{"No Category"}{++$id} = $_[0]; }
     
     $origSents{$id} = $_[0];
 }
 
 
 
-open(OUT,"../docs/citing_sentences_list/C08-1122.list") || die $!;
+open(OUT,"../docs/citing_sentences_list/P07-3014.list") || die $!;
 
 
 
@@ -107,7 +107,7 @@ my %commLexRank = ();
 
 for my $com (keys %categories) {
 
-#    if ($com eq "No Category"){next;}
+    if ($com eq "No Category" || $com eq "result" || $com eq "topic"){next;}
     
     my $comcluster = Clair::Cluster->new();
     my $backup_id;
