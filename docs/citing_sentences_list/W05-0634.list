@@ -1,0 +1,21 @@
+The top four systems, which produced signiﬁcantly better results than the rest, all used some schemes to combine the output of several SRL systems, ranging from using a machine-learned combination strategy (Pradhan, Hacioglu, Ward et al. 2005).
+A related comparison can be found also in the work by Pradhan, Hacioglu, Krugler et al. (2005), which reported the performance on several systems using different information sources and system architectures.
+For example, the SRL system described in (Pradhan et al.,2005a) achieves an F-score of 81% when tested on the same genre as it is trained on
+(WSJ).
+One may combine the output of several independent SRL basic systems [5].
+probabilistic models have also been applied to produce the structured output, for example, sequence tagging with classiﬁers (Pradhan et al.2005b).
+Parent and sibling constituents in the tree may also be codiﬁed with all the previous structural and lexical features (Pradhan et al.2005a).
+Research in SRL is largely statistically-based, with state-of-the-art systems reporting F -scores in the 70’s and 80’s depending on the corpus [6], for the global task.
+Additionally, the most accurate systems of the CoNLL 2005 shared task (Pradhan et al. 2005b) use different syntactic views of the same input sentence.
+The predominant approach to the semantic role labeling task is to formulate it as a classiﬁcation problem (Pradhan, Ward et al. 2004; Xue and Palmer 2004) that can be solved with machine-learning techniques.
+Finally, (Pradhan, Hacioglu, Ward, Martin, and Jurafsky (2005b)) followed a stacking approach by learning two individual systems based on full syntax, whose outputs are used to generate features to feed the training stage of a ﬁnal chunk-by-chunk SRL system.
+Many researchers have investigated applying machine learning to corpus speciﬁcally annotated with this task in mind, PropBank, since 2000.
+Pradhan et al. (2005) obtain 77.30% F1 with a system based on SVM classiﬁers and simultaneously using the two parse trees provided for the SRL
+task.
+In CONLL’2005, the systems that obtained the best results were [27] and [25] with f-scores of 77.92 and 77.30 respectively for test set combining the Penn Treebank and the Brown corpus.
+The Pradhan et al. system [25] uses TinySVM to train one-vs-all classiﬁers with Support Vector Machines developing a binary classiﬁer to each semantic class plus a ”NULL” class.
+It uses two systems: one chunk based that are very eﬃcient and robust and other based on full syntactic parses that normally are more accurate; the goal was to preserve the robustness and ﬂexibility of the segmentation of the phrase-based chunker, and take advantage of features from full syntactic parses.
+These IOB representations are used as additional features, along with ﬂat syntactic chunks, by a chunking SVM classiﬁer that produces the ﬁnal SRL output [25].
+Like the best systems from the CoNLL 2005 shared task (Punyakanok2008; Pradhan et al., 2005), they also use features from multiple parses to remain robust in the face of parser error.
+Pradhan et al. (2005) introduced a new procedure to incorporate SRL results predicted respectively on full and shallow syntactic parses.
+In the community of SRL researchers (Pradhan et al, 2005), the focus has been on two different aspects of the SRL task: (a) ﬁnding appropriate features, and (b) resolving the parsing accuracy problem by combining multiple parsers/predictions. 

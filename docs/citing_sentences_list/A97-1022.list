@@ -1,0 +1,13 @@
+The 90's have in fact seen a renewed interest in grammar checking, and proposals have been made for systems covering English (Bernth, 1997) and
+other languages such as Italian (Bolioli et al.,1992), Spanish and Greek (Bustamante and Ldon, 1996), Czech (Holan et al., 1997) and Swedish (Hein, 1998).
+Among the types of reductions, we consider the reduction by deleting as methodically significant (and related to contextual grammars [16, 4]). 
+It allows, in a transparent way, to express some techniques which are (often implicitly) used in development of a grammar-checker for the Czech language [14, 5].
+Holan et al. (1997) present a prototype of a grammar checker for the integrated Microsoft Word Czech. The corrector highlights errors spelling and syntax. 
+It can also provide a complete list of errors and display the analysis of a sentence as a tree. 
+Analyzer morphological discusses the formation of words. Then, the analyzer syntactic trying to create a comprehensive analysis of the sentence with a grammar dependence robust free order (Robust Free Order Dependency Grammar, RFODG, Holan et al., 1997). 
+If a problem is detected, the analysis is passed to an evaluation process. Finally, if no analysis can not be obtained, the system does not attempt operation because the results a combination of partial analyzes does not, according to the authors of convincing results.
+The advantage of the first approach is the separation of a standard parser and its robust component. That allows to use a standard formalism for the description and implementation of theparser and to develop only a certain kind of mechanism for handling partial parses.
+Another possible approach is to try to use similar methods as in grammar-based (not pattern based) grammar-checking. 
+In this case we will first try to localize and identify a syntactic error (or,more exactly, the syntactic inconsistency) of the input and then to make some "correction" which will allow to create the required syntactic representation of a particular input sentence. 
+In this case the quality of the result to a large extent depends on the accuracy of the error identification, which substantially influences the quality of error-correcting mechanism.
+was proposed even for one version of a grammar checker in the early stage of the project LATESLAV [Oliva 93], but it was abandoned later, while the second approach provided a base for a successful implementation of a prototype of a grammar-based grammar checker for Czech (cf. [Holan et al. 97]).

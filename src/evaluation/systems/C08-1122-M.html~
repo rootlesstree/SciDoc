@@ -1,0 +1,11 @@
+<html> 
+<head><title>C08-1122-M.html</title> </head> 
+<body bgcolor="white">     
+<a name="1">[1]</a> <a href="#1" id=1>Wan and Xiao (2008) developed a set of 308 documents with up to 10 manually-assigned keywords using newswire documents from DUC 2001.</a>
+<a name="2">[2]</a> <a href="#2" id=2>(Wan and Xiao 2008) propose CollabRank, a similar graph-based ranking model, using the collaborative knowledge given in multiple documents.</a>
+<a name="3">[3]</a> <a href="#3" id=3> We use four representative unsupervised methods as baselines for comparison: TFIDF, TextRank (Mihalcea and Tarau, 2004), ExpandRank (Wan and Xiao, 2008b) and LDA (Blei et al., 2003).
+</a>
+<a name="4">[4]</a> <a href="#4" id=4>In the general newswire domain, Wan and Xiao (2008) developed a dataset of 308 documents taken from DUC 2001 which contain up to 10 manually-assigned keyphrases per document.
+</a>
+</body>
+</html>

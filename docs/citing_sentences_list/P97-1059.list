@@ -1,0 +1,9 @@
+Hidden Markov Models can also be viewed as stochastic finite-state transducers and it is possible to closely approximate them by composing FST in a deterministic way [Kem97], without a signi cant loss in accuracy.
+(Kempe, 1997) approximates HMMs with finite state transducers.
+This was the motivation of Kempe to investigate the approximation of Markov Models with (unweighted) finite state transducers.
+In Natural Language Processing, FSTs are used for many basic steps such as part-of speech disambiguation (Kempe,1997).
+(Kempe 1997), for example, develop methods for modeling the tag disambiguation task by means of a ﬁnite-state device.
+Towards the goal of tagging parts of speech, the work of Kempe [29] has combined HMMs and transducers in a diﬀerent way: the HMM is converted into a transducer that heuristically approximates the behavior of the HMM within the task of tagging.
+In principle, such a conversion could be used as an alternative approach to querying HMMs, with the advantage that query answering could be done by means of composition of transducers.
+Kempe (11) provides the ability to compose the output of the tagger with transducers encoding rules correction of the most common errors.
+FST have been used for various tasks including recognising part-of-speech tags (Kempe, 1997).

@@ -1,0 +1,17 @@
+Non-concatenative grammatical formalisms may also be attractive from a computational point of view. 
+It is easier to define generation algorithms if the semantics is built in a systematically constrained way (van Noord, 1990b).
+As far as I know, only van Noord (1990) addresses the issue of alternative adequacy conditions.
+van Noord (1990) discusses allowing a limited form of extension, essentially to fill in atomic-valued features. 
+This avoids a problem with the unconstrained approach, namely that it has the potential to overgenerate seriously. 
+As mentioned above, the need to consider more carefully the nature of the adequacy conditions for the generation relation has arisen from developments in theory-based translation(van Noord 1990). 
+If a transfer component is included in the approaches I'm concerned with, as in van Noord (1990), its rules function to elaborate the product of analysis, not replace it, and they could without loss of generality be incorporated into the source and/or target grammars. 
+Although in general unification grammars are not computable in this sense it is possible to constrain grammars to guarantee computability.
+The reversibility property which has always been one of the tenets of the Rosetta system (Landsbergen (1982)) has recently received the appreciation of other researchers in the field of M.T. as well (van Noord (1990)). 
+But it is important to note that the use of reversible linguistic descriptions alone is inadequate for MT since both understanding and generation rely on a set of preference rules in addition to the rules that define the set of legal mappings, and preferences are not in general symmetric [van Noord, 90].
+That is, if a sentence s is parsed with the NL grammar and mapped to an NL object o, then there is a generation procedure that maps o into s.
+The given termination condition fulfils the three constraints for termination (the input representation must be built in a well-behaved compositional way, recursive input representations have to be considered and the input should not be extended) discussed in [van Noord 90]. 
+In this paper we are primarily interested in the computational aspects I of reversibility that include bi-directional evaluation and dual compilation of computer grammars, inversion of parsers into efficient generators, and derivation of "generating-versions" of existing parsing algorithms. 
+Currently developed approaches that consider parsing as well as generation (van Noord 1990) assume that both tasks take place independently from each other, i.e. an utterance is either generated or parsed and that grammatical processing can be performed without considerations of discourse. 
+Van Noord (1990) describes the use of a standard unification grammar to successively instantiate a single feature structure embodying meaning representations for both source and target language expressions in a machine translation application.
+Termination for reversible transfer grammars is discussed in [van Noord 90].
+Reversible transfer systems (e.g., [van Noord, 90]) exploit three reversible subsystems: one to analyze the source text, xone to to perform the transfe, and a third to generate the target text.
