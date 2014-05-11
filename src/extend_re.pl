@@ -13,6 +13,7 @@ my %in_community = ();
 
 $id = 0;
 
+
 $enlarge = shift;
 $shrink = shift;
 $multiply = shift;
