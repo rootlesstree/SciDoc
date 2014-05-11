@@ -1,0 +1,20 @@
+It has been shown in (Wan and Xiao, 2008a; Wan and Xiao, 2008b) that incorporating these information significantly improves the performance.
+Recently, Wan and Xiao (2008) extracts automatic keyphrases from single documents, utilizing document clustering information.
+In the past, various attempts have been made to boost automatic keyphrase extraction performance based primarily on statistics(Frank et al., 1999; Turney, 2003; Park et al., 2004; Wan and Xiao, 2008) and a rich set of heuristic features(Barker and Corrnacchia, 2000; Medelyan and Witten, Min-Yen Kan Department of Computer Science National University of Singapore kanmy@comp.nus.edu.sg 2006; Nguyen and Kan, 2007).
+The study that considers this relevance explicitly is CollabRank proposed by Wan and Xiao (2008).
+We use four representative unsupervised methods as baselines for comparison: TFIDF, TextRank (Mihalcea and Tarau, 2004), ExpandRank (Wan and Xiao, 2008b) and LDA (Blei et al., 2003).
+Wan and Xiao (2008) describe an unsupervised approach called CollabRank that clusters the documents and extracts the keywords within each cluster.
+We use Agglomerative (CompleteLink) clustering, which produced the best results for Wan and Xiao (2008).
+In the general newswire domain, Wan and Xiao (2008) developed a dataset of 308 documents taken from DUC 2001 which contain up to 10 manually-assigned keyphrases per document.
+cohesion between documents and keyphrases (Frank et al., 1999; Witten et al., 1999; Matsuo and Ishizuka, 2004; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008); (2) keyphrase cohesion, i.e.
+We have based our approach on the previous works done by Wan and Xiao (2008), and Timonen et al.
+Wan and Xiao (2008) developed a set of 308 documents with up to 10 manually-assigned keywords using newswire documents from DUC 2001.
+Following (Mihalcea and Tarau, 2004; Wan and Xiao, 2008b), we simply select noun phrases from the given document as candidate keyphrases with the help of POS tags.
+In PageRank for keyphrase extraction, the ranking score of a candidate keyphrase p is computed by summing up the ranking scores of all words within the phrase: R(p)=EwiEp R(wi) (Mihalcea and Tarau, 2004; Wan and Xiao, 2008a; Wan and Xiao, 2008b).
+One dataset was built by Wan and Xiao 2 which was used in (Wan and Xiao, 2008b).
+During the last decade, many previous works have dealt with the various methods for automatically extracting key phrases (e.g., Frank et al., 1999; Barker and Corrnacchia, 2000; Turney, 2003; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008).
+This observation is consistent with the findings reported in (Wan and Xiao, 2008b).
+Recently, a resurgence of interest in keyphrase extraction has led to the development of several new systems and techniques for the task (Frank et al., 1999; Witten et al., 1999; Turney, 1999; Hulth, 2003; Turney, 2003; Park et al., 2004; Barker and Corrnacchia, 2000; Hulth, 2004; Matsuo and Ishizuka, 2004; Mihalcea and Tarau, 2004; Medelyan and Witten, 2006; Nguyen and Kan, 2007; Wan and Xiao, 2008; Liu et al., 2009; Medelyan, 2009; Nguyen and Phan, 2009).
+We have based our work on CollabRank keyword extraction approach by Wan and Xiao (2008), and feature weighting in short documents by Timonen et al.
+(Wan and Xiao 2008) propose CollabRank, a similar graph-based ranking model, using the collaborative knowledge given in multiple documents.
+Some methods have been proposed to improve TextRank, of which ExpandRank (Wan and Xiao, 2008b; Wan and Xiao, 2008a) uses a small number, namely k, of neighbor documents to 136 provide more information of word relatedness for the construction of word graphs.

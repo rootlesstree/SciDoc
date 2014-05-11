@@ -1,0 +1,27 @@
+The GIVE Challenge took place for the second time in 2009–10 (Koller et al., 2010b).
+GIVE-2.5 reuses the software infrastructure from GIVE-2 described in (Koller et al., 2010b).
+One innovative use of GWAPs is the GIVE challenge, which uses a treasure hunt 3D game to test and compare the output of Natural Language Generation (NLG) systems [24]. 
+The Challenge on Generating Instructions in Virtual Environments (GIVE; Koller et al. (2010)) is a shared task in which Natural Language Generation systems must generate real-time instructions that guide a user in a virtual world.
+In this paper, we use the GIVE-2 Corpus (Gargett et al., 2010), a freely available corpus of human instruction giving in virtual environments.
+Their results correspond to those published in (Koller et al., 2010) which were collected not in a laboratory but connecting the systems to users over the Internet.
+Virtual environments enjoy considerable interest (Koller et. al., 2010), and this added to our motivation for using them.
+GIVE was originally intended as a framework for the evaluation of NLG systems, and has been the subject of three recent NLG Challenges (Koller et. at. 2010) in which competing instruction generating systems were evaluated by a large number of on-line gamers and tested in terms of objective metrics such as task completion rates and task completion times.
+GIVE consists of a 3D interactive virtual environment in the form of a treasure hunt game.
+When starting the game, the player sees a 3D game window, which displays instructions and allows the players to move around and manipulate objects.
+The players can succeed, lose, or cancel the game and this outcome is used to compute the task success metric, one of the metrics used to evaluate the systems participating in the challenge.
+GIVE-2 was extremely successful as a way to collect data, collecting over 1825 game sessions in three months, which played a key role in determining the results of the challenge.
+According to the GIVE 2 report (Koller et al., 2010), the systems with the highest task success rate were those that produced the shortest in structions.
+The GIVE challenge (Koller et al., 2010) is a framework that enables to evaluate instruction giving systems in a 3D setting.
+From this framework we can draw two kinds of results, the objective results (task success rate, duration, number of words, etc.) and the subjective results (overall evaluation by the player, friendliness.
+The systems must also make sure to monitor the player behaviour and provide him the necessary feedback to put him back on track if he performs wrong actions.
+The preliminary results of the GIVE 2.5 challenge are consistent with the results of the GIVE 2 challenge (Koller et al., 2010).
+For example, one could measure how often automatically generated referring expressions can successfully be resolved, how quickly they can be resolved, and whether they cause the hearer to present evidence of confusion (Koller et al., 2010).
+In some computational research on referring expression production in dialog, e.g. in the GIVE challenge (Koller et al., 2010), computational linguists have access to similar kinds of low-level timing and processing information.
+The results (Koller et al., 2010) show that the system embedding Reference Domain Theory proves to rely on less instructions than other systems (224) and proves to be the most successful (47% of task success) while being the fastest (344 seconds). 
+GIVE-2 challenge [12], where the system’s task is to give commands and generate referring expressions.
+The organizers of GIVE-2 compiled a number of evaluation results including objective and subjective measures (cf. Koller et al. (2010) for an exten sive overview).
+Our environment consists of six virtual worlds designed for the natural language generation shared task known as the GIVE Challenge (Koller et al.,
+2010), where a pair of partners must collaborate to solve a task in a 3D space.
+The “instruction follower” (IF) can move around in the virtual world, but has no knowledge of the task.
+The “instruction giver” (IG) types instructions to the IF in order to guide him to accomplish the task.
+Each corpus contains the IF’s actions and position recorded every 200 milliseconds, as well as the IG’s instructions with their time stamps.
