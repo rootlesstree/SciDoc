@@ -2,6 +2,11 @@
 #use warnings;
 #use strict;
 
+#execute the program as perl extend_re.pl 1 3 2 4 DOC_NAME, the first
+#three numbers indicate the enlarge, shrink of the graph weight and
+#the last one is the change of lexrank score
+# Fourth number indicates the length of the summary 
+# And the last one is the sentence list 
 use Clair::Cluster;
 use Clair::Document;
 use Clair::Network::CFNetwork;
@@ -33,6 +38,7 @@ sub getFileName{
 }
 
 
+# Check which pattern the target belongs to
 sub category {
 
     if ($_[0] =~ /$topic_research_aspects/gmi) { return "topic"; }
@@ -172,7 +178,7 @@ for my $file (@files){
 my $totalsents = keys %sents;
 
 foreach my $key (keys %sents) {
-#    print "$sents{$key}\n";
+
 }
 
 my $test = <STDIN>;
@@ -269,12 +275,6 @@ if(-e "temp/".$name.".bestComm")
 
 
 
-
-
-
-
-
-
 my %commLexRank = ();
 
 for my $com (keys %communities){
@@ -296,11 +296,11 @@ for my $com (keys %communities){
 
     for my $t (sort {$scores{$b}<=> $scores{$a}} keys %scores){
         $commLexRank{$com}{$t} = $scores{$t};
-#        print "$t\n";
+
     }
 }
 
-#print "GG\n";
+
 
 for my $com (keys %communities) {
 
@@ -308,8 +308,8 @@ for my $com (keys %communities) {
 
         my $sent = $sents{$id}."  ".$commLexRank{$com}{$id};
         print "$sent\n"
-#        print "$id\n";
-#        print                       $commLexRank{$com}{$id};
+
+
     }
 
     print "\n\n\n\n\n"
