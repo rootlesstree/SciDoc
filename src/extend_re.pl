@@ -144,6 +144,12 @@ $evaluation = " (evaluate |evaluated |test |tested |measure |measures|measured |
 
 
 
+### Here is the starting of the original C-lexrank code
+
+
+
+## Process the input params limit: length of summary, file: file
+## containing all the citations
 my $limit = shift;
 my $file = shift;
 my $cutoff = 0.0;
@@ -155,6 +161,11 @@ my %origSents =();
 my $id = 0;
 my @files = ();
 push(@files, $file);
+
+# Preprocessing the input data
+# $id will be the id of the sentence, with ordinal sequence
+# #$orig will be the original sentence from the file (without the
+# preprocessing )
 
 for my $file (@files){    
     open IN, "$file";    
@@ -175,13 +186,19 @@ for my $file (@files){
 
 
 
+
+
 my $totalsents = keys %sents;
 
-foreach my $key (keys %sents) {
 
-}
+
+
 
 my $test = <STDIN>;
+
+# if the number of input sentence is under 3, then all the sentences
+# are inside summary
+
 if($totalsents <= 3)
 {
     my $summary = "";
@@ -196,12 +213,23 @@ if($totalsents <= 3)
 }
 
 
+
+## Clair is a graph processing  Library developed by UMich team, see CLAIR website for
+## more information http://www.clairlib.org/index.php/Documentation
+
+
+
+# Create a cluster, and insert each sentence into it.
+
 my $cluster = Clair::Cluster->new();
 for my $id (keys %sents){
     my $sent = $sents{$id};
     my $doc = new Clair::Document(type => 'text', string => $sent, id => $id);
     $cluster->insert($id, $doc);
 }
+
+
+# Compute the consine similarity score between each pair of edge
 
 $cluster->stem_all_documents();
 my %sims = $cluster->compute_cosine_matrix();
@@ -213,9 +241,17 @@ my $cfnw = Clair::Network::CFNetwork->new(name => $name);
 for my $s1 (keys %sents){
     for my $s2 (keys %sents){
         my $sim = $sims{$s1}{$s2};
+
         ##
         ## process regular expression here
         ##
+        ## check_community will decide if two sentences are belonging
+        ## to the same Regular Expression Category(community)
+        ## If yes, the similarity scoare will be boosted.
+        ##
+        ## And if the final similarity is higher than the cutoff ( 0
+        ## here), it will be added into cfnw network.
+
         $sim = check_community($sents{$s1},$sents{$s2})*$sim;
         
         if($sim >= $cutoff){
@@ -224,8 +260,15 @@ for my $s1 (keys %sents){
     }
 }
 
+## Do the greedy clustering
 my $subcfnw = $cfnw->getConnectedComponent(1);
 $subcfnw->communityFind(dirname => "temp", skip_connection_test => 1);
+
+
+
+## Use the computed result above to form the community in code 
+## In the end communities will contain the whole result to be used in
+## the next step
 
 my %communities = ();
 my %comsize = ();
@@ -273,6 +316,11 @@ if(-e "temp/".$name.".bestComm")
 
 
 
+###
+###
+### Compute the lexrank score
+###for each commynity inside the computed communities, get a new
+###cluster and then compute the lexrank socre
 
 
 my %commLexRank = ();
@@ -294,6 +342,10 @@ for my $com (keys %communities){
         }
     }
 
+
+# Last, save it into $commLexRank with sorted score for each
+# communicty
+     
     for my $t (sort {$scores{$b}<=> $scores{$a}} keys %scores){
         $commLexRank{$com}{$t} = $scores{$t};
 
@@ -301,6 +353,10 @@ for my $com (keys %communities){
 }
 
 
+
+##   Printing out all the matched regular expression in the same category
+##   It does nothing but for user to collect matching result easier
+##   Can be omitted if you don't need it
 
 for my $com (keys %communities) {
 
@@ -323,21 +379,32 @@ for my $com (keys %communities) {
 
 
 
-
+### Computing the final used data
 
 
 my %rankedSents = ();
 my $i = 0;
+
+
+       # Sort by community size
 for my $comm (sort {$comsize{$b} <=> $comsize{$a}} keys %comsize){
     ++$i;
+
+    ## Within each communicty, sort by the lexrank score then we can
+    ## get the sentences by lexrank socre order
     my $j = 0;
     for my $id (sort {$commLexRank{$comm}{$b} <=> $commLexRank{$comm}{$a}} keys %{$commLexRank{$comm}}){
         ++$j;
+             # Get the target sentence from un-processed sentence and
+             # then record it into rankedSents
         my $sent = $origSents{$id};
         $rankedSents{$j}{$i} = $sent; 
     }
 }
 
+
+#if the number of input sentences is not enough to match the desired
+#length of summary, do the following processing to ensure no error
 my $numorigSents = keys %sents;
 if($numorigSents < $limit)
 {
@@ -346,6 +413,8 @@ if($numorigSents < $limit)
 
 my $summary = "";
 my $count = 0;
+
+
 
 
 print "\n\n\n\n\n";
@@ -357,6 +426,13 @@ print "\n\n\n\n\n";
 
 
 
+
+
+
+## Basically we know have the ranked Sents and we also know that it's
+## stored by the size of the clustering, and it puts the elements in
+## the clustering by lexrank scoare. So simply use this order
+## information to select the desired summary till the limit
 
 for my $jj (sort {$a<=>$b} keys %rankedSents)
 {
